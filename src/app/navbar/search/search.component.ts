@@ -1,16 +1,23 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 @Component({
     selector: 'app-search',
     template: `
         <input type="text" [(ngModel)]="username">
-        <button (click)="search()">Rechercher</button>
+        <button (click)="search()" *ngIf="username">Rechercher</button>
+        <ul>
+            <li *ngFor="let name of firstnames ; let i = index ; let isFirst = first">
+               {{ isFirst }} -{{ name }}
+            </li>
+        </ul>
     `
 })
 export class SearchComponent {
-    username: string = 'ana'
+    @Input() username: string = ''
+    @Output() onSearch: EventEmitter<string> = new EventEmitter()
+    firstnames: string[] = ['ana', 'ben', 'jim']
 
     search() {
-        console.log(this.username)
+        this.onSearch.emit(this.username)
     }
 }
