@@ -1,5 +1,0 @@
-<app-root>
-    <app-navbar></app-navbar>
-    <app-sidebar></app-sidebar>
-    <app-content></app-content>
-</app-root>
