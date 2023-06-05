@@ -7,7 +7,9 @@ import { User } from "src/app/core/interfaces/user";
         <article>
             <header>{{ user.name }}</header>
             {{ user.email }}
-            <footer></footer>
+            <footer>
+                <button>{{ 'REMOVE' | lang:'en' }}</button>
+            </footer>
         </article>
     `
 })
