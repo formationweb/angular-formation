@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
         <input type="text" [(ngModel)]="username">
         <button (click)="search()" *ngIf="username">Rechercher</button>
         <ul>
-            <li *ngFor="let name of firstnames ; let i = index ; let isFirst = first">
+            <li *ngFor="let name of firstnames | autocomplete:username ; let i = index ; let isFirst = first">
                {{ isFirst }} -{{ name }}
             </li>
         </ul>
