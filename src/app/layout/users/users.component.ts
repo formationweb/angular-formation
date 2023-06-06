@@ -37,4 +37,8 @@ export class UsersComponent implements OnInit {
        users.push(user)
     })
   }
+
+  deleteUser(id: number) {
+    console.log(id)
+  }
 }
