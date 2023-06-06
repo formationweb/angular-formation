@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from "@angular/core";
 import { User } from "src/app/core/interfaces/user";
 
 @Pipe({
-    name: 'extFilter'
+    name: 'extFilter',
+    //pure: false
 })
 export class ExtensionPipe implements PipeTransform {
     transform(users: User[], ext: string): User[] {

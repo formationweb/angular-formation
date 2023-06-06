@@ -33,12 +33,15 @@ export class UsersComponent implements OnInit {
       email: 'ana@gmail.com',
       name: 'ana'
     }).subscribe((user: User) => {
-       const users = this.users()
-       users.push(user)
+      const users = this.users()
+      users.push(user)
     })
   }
 
   deleteUser(id: number) {
-    console.log(id)
+    this.userService.delete(id).subscribe(() => {
+      const index = this.users().findIndex(user => user.id == id)
+      this.users().splice(index, 1)
+    })
   }
 }
