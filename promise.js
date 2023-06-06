@@ -47,3 +47,4 @@ foo().then(() => {
 }).catch(err => {
     console.log('B', err)
 })
+

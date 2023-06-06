@@ -11,4 +11,10 @@
     <option *ngFor="let ext of extensions">{{ ext }}</option>
 </select>
 
-<app-user-card *ngFor="let u of users | extFilter:extSelected" [user]="u" />
+<div>
+    Nombre de personnes où l'email termine .biz : {{ usersExtensionBiz() }}
+</div>
+
+<button (click)="createUser()">Créer un utilisateur</button>
+
+<app-user-card *ngFor="let u of users() | extFilter:extSelected" [user]="u" />
