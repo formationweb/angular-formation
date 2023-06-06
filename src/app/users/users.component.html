@@ -6,4 +6,9 @@
     <option>2</option>
 </select>
 
-<app-user-card *ngFor="let u of users" [user]="u" />
+<select [(ngModel)]="extSelected">
+    <option value="">Tous</option>
+    <option *ngFor="let ext of extensions">{{ ext }}</option>
+</select>
+
+<app-user-card *ngFor="let u of users | extFilter:extSelected" [user]="u" />

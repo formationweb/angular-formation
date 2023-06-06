@@ -7,6 +7,8 @@ import { User } from "src/app/core/interfaces/user";
 })
 export class UsersComponent {
     nbSelected: number = 0
+    extSelected: string = ''
+    extensions: string[] = ['tv', 'biz', 'io', 'me']
     users: User[] = [
         {
           "id": 1,
