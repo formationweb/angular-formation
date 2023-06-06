@@ -1,22 +1,9 @@
-/api/me -> { "email": ...., "nom": "...." }
+[A,   B,   C,                                            D]
 
-```ts
-class Me {
-    getName() {
-        return ...
-    }
-}
+bufferTime(500)
 
-```
+[[A,B,C],                        [],                     [D]]
 
-Composant Navbar:
+map(el => el.length)
 
-```ts
-me.getName()
-```
-
-Composant liste des participants:
-
-```ts
-me.getName()
-```
+[3,                              0,                       1]
