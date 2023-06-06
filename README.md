@@ -1,3 +1,22 @@
-/login -> Serveur -> Routeur -> Controller -> Model -> Vue
+/api/me -> { "email": ...., "nom": "...." }
 
-/login -> Routeur -> Component
+```ts
+class Me {
+    getName() {
+        return ...
+    }
+}
+
+```
+
+Composant Navbar:
+
+```ts
+me.getName()
+```
+
+Composant liste des participants:
+
+```ts
+me.getName()
+```
