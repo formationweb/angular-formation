@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './layout.component';
 import { UsersModule } from './users/users.module';
 import { NavbarModule } from './navbar/navbar.module';
+import { UserEditModule } from './user-edit/user-edit.module';
+import { layoutRouter } from './layout.router';
 
 
 
@@ -13,7 +15,9 @@ import { NavbarModule } from './navbar/navbar.module';
   imports: [
     CommonModule,
     UsersModule,
-    NavbarModule
+    NavbarModule,
+    UserEditModule,
+    layoutRouter
   ]
 })
 export class LayoutModule { }
