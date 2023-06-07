@@ -8,7 +8,12 @@ import { User } from "src/app/core/interfaces/user";
             <header>{{ user.name }}</header>
             {{ user.email }}
             <footer>
-                <button (click)="removeUser()">{{ 'REMOVE' | lang:'en' }}</button>
+                <button 
+                    (click)="removeUser()" 
+                    confirm="Etes vous sûr ..."
+                    [confirmUsername]="user.name">
+                    {{ 'REMOVE' | lang:'en' }}
+                </button>
                 <button [routerLink]="['user', user.id]">Modifier</button>
             </footer>
         </article>
