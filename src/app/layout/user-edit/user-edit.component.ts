@@ -48,7 +48,11 @@ export class UserEditComponent implements OnInit, OnDestroy {
   }
 
   edit() {
-
+     this.userService
+      .update(this.user.id, this.form.value)
+      .subscribe((userModified: User) => {
+         this.user = userModified
+      })
   }
 
   ngOnDestroy(): void {
