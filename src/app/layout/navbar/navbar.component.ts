@@ -19,6 +19,9 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit() {
         this.title = this.appService.getTitle()
+        setInterval(() => {
+            this.name = ''+Math.random()
+        }, 1000)
     }
 
     listenSearch(username: string) {

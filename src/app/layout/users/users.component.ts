@@ -30,18 +30,18 @@ export class UsersComponent implements OnInit {
 
   createUser() {
     this.userService.create({
-      email: 'ana@gmail.com',
+      email: 'ana@gmail.biz',
       name: 'ana'
     }).subscribe((user: User) => {
       const users = this.users()
-      users.push(user)
+      this.users.set([ ...users, user ])
     })
   }
 
   deleteUser(id: number) {
     this.userService.delete(id).subscribe(() => {
-      const index = this.users().findIndex(user => user.id == id)
-      this.users().splice(index, 1)
+      const users = this.users().filter(user => user.id != id)
+      this.users.set(users)
     })
   }
 }
