@@ -15,7 +15,27 @@
     Nombre de personnes où l'email termine .biz : {{ usersExtensionBiz() }}
 </div>
 
-<button (click)="createUser()">Créer un utilisateur</button>
+<form (ngSubmit)="createUser(myform)" #myform="ngForm">
+
+    <div *ngIf="myform.invalid && myform.submitted">
+        <div *ngIf="name.hasError('required')">
+            Nom requis
+        </div>
+        <div *ngIf="email.hasError('required')">
+            Email requis
+        </div>
+    </div>
+
+    <label>Nom</label>
+    <input type="text" name="name" ngModel #name="ngModel" required>
+
+    <label>Email</label>
+    <input type="text" name="email" ngModel #email="ngModel" required>
+
+    <button [ariaBusy]="loading" [disabled]="loading">
+        {{ loading ? '' : 'Créer un utilisateur' }}
+    </button>
+</form>
 
 <app-user-card 
     *ngFor="let u of users() | extFilter:extSelected" 

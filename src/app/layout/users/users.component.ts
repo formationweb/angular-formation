@@ -1,4 +1,5 @@
 import { Component, OnInit, computed, effect, signal } from "@angular/core";
+import { NgForm } from "@angular/forms";
 import { User } from "src/app/core/interfaces/user";
 import { UserService } from "src/app/core/services/user.service";
 
@@ -11,6 +12,7 @@ export class UsersComponent implements OnInit {
   extSelected: string = ''
   extensions: string[] = ['tv', 'biz', 'io', 'me']
   users = signal<User[]>([])
+  loading: boolean = false
 
   usersExtensionBiz = computed(() => {
     return this.users().filter(user => user.email.endsWith('biz')).length
@@ -28,13 +30,16 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  createUser() {
-    this.userService.create({
-      email: 'ana@gmail.biz',
-      name: 'ana'
-    }).subscribe((user: User) => {
+  createUser(form: NgForm) {
+    if (form.invalid) {
+      return
+    }
+    this.loading = true
+    this.userService.create(form.value).subscribe((user: User) => {
       const users = this.users()
-      this.users.set([ ...users, user ])
+      this.users.set([...users, user])
+      form.resetForm()
+      this.loading = false
     })
   }
 
