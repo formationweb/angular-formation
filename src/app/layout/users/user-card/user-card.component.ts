@@ -9,7 +9,7 @@ import { User } from "src/app/core/interfaces/user";
             {{ user.email }}
             <footer>
                 <button 
-                    (click)="removeUser()" 
+                    (onConfirm)="removeUser()" 
                     confirm="Etes vous sûr ..."
                     [confirmUsername]="user.name">
                     {{ 'REMOVE' | lang:'en' }}
