@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { User } from '../../core/interfaces/user.interface';
+import { PluralPipe } from '../../shared/pipes/plurial.pipe';
 import { UserCardComponent } from './user-card/user-card.component';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   standalone: true,
-  imports: [UserCardComponent]
+  imports: [UserCardComponent, PluralPipe, FormsModule]
 })
 export class UsersComponent {
+  nbSelected: number = 0
   users: User[] = [
     {
       id: 1,
