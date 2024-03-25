@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
+import { User } from '../../core/interfaces/user.interface';
+import { UserCardComponent } from './user-card/user-card.component';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   standalone: true,
+  imports: [UserCardComponent]
 })
 export class UsersComponent {
-  users: any[] = [
+  users: User[] = [
     {
       id: 1,
       name: 'Leanne Graham',
