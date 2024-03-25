@@ -21,7 +21,7 @@ import { FormsModule } from "@angular/forms";
         </ul>
     `,
     standalone: true,
-    imports: [FormsModule, NgIf, NgFor]
+    imports: [FormsModule, NgIf, NgFor] // ou CommonModule
 })
 export class SearchComponent {
     @Input() userName = ''
