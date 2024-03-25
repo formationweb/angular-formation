@@ -5,7 +5,7 @@ import { SearchComponent } from "./search/search.component";
     selector: 'app-navbar',
     template: `
         <h1>{{ title }}</h1>
-        <app-search [userName]="name" />
+        <app-search [userName]="name" (eventSearch)="listenSearch($event)" />
     `,
     standalone: true,
     imports: [SearchComponent]
@@ -13,4 +13,8 @@ import { SearchComponent } from "./search/search.component";
 export class NavbarComponent {
     title = 'Mon App'
     name = 'ana'
+
+    listenSearch(userName: string) {
+        console.log(userName)
+    }
 }
