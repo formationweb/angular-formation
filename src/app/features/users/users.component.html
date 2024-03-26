@@ -6,6 +6,13 @@
     <option>2</option>
 </select>
 
-@for (u of users ; track u.id) {
-    <app-user-card [user]="u" />
+<select [(ngModel)]="extSelected">
+    <option value="">Tous</option>
+    @for (ext of extensions ; track ext) {
+    <option>{{ ext }}</option>
+    }
+</select>
+
+@for (u of users | extFilter:extSelected ; track u.id) {
+<app-user-card [user]="u" />
 }

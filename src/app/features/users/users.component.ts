@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../core/interfaces/user.interface';
+import { ExtensionPipe } from '../../shared/pipes/extension.pipe';
 import { PluralPipe } from '../../shared/pipes/plurial.pipe';
 import { UserCardComponent } from './user-card/user-card.component';
 
@@ -8,10 +9,12 @@ import { UserCardComponent } from './user-card/user-card.component';
   selector: 'app-users',
   templateUrl: './users.component.html',
   standalone: true,
-  imports: [UserCardComponent, PluralPipe, FormsModule]
+  imports: [UserCardComponent, PluralPipe, FormsModule, ExtensionPipe]
 })
 export class UsersComponent {
-  nbSelected: number = 0
+  nbSelected = 0
+  extSelected = ''
+  extensions: string[] = ['tv', 'biz', 'io', 'me']
   users: User[] = [
     {
       id: 1,

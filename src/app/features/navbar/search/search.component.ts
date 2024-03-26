@@ -1,4 +1,3 @@
-import { NgFor, NgIf } from "@angular/common";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { AutoCompletePipe } from "../../../shared/pipes/autocomplete.pipe";
@@ -22,7 +21,7 @@ import { AutoCompletePipe } from "../../../shared/pipes/autocomplete.pipe";
         </ul>
     `,
     standalone: true,
-    imports: [FormsModule, NgIf, NgFor, AutoCompletePipe] // ou CommonModule
+    imports: [FormsModule, /*NgIf, NgFor, */ AutoCompletePipe] // ou CommonModule
 })
 export class SearchComponent {
     @Input() userName = ''
