@@ -13,7 +13,7 @@ import { LangPipe } from '../../../shared/pipes/lang.pipe';
       <ng-content select="[footer1]" />
       <footer>
         <button 
-          (click)="removeUser()" 
+          (eventConfirm)="removeUser()" 
           confirm="Etes vous sûr ..."
           [confirmUsername]="user.name"
           >
