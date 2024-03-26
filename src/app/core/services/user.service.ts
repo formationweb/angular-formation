@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable, catchError, tap } from 'rxjs';
 import { User } from '../interfaces/user.interface';
 
-type UserPayload = Omit<User, 'id'>
+type UserPayload = Omit<User, 'id'>;
 
 @Injectable({
   providedIn: 'root',
@@ -30,12 +30,21 @@ export class UserService {
   create(payload: UserPayload): Observable<User> {
     return this.http.post<User>(this.url, payload).pipe(
       tap((user: User) => {
-        this.users.set([ ...this.users(), user ])
+        this.users.set([...this.users(), user]);
       })
-    )
+    );
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(this.url + '/' + id)
+    return this.http.delete<void>(this.url + '/' + id).pipe(
+      tap(() => {
+        const users = this.users().filter((user) => user.id != id);
+        this.users.set(users);
+      }),
+      catchError((err) => {
+        console.log(err)
+        throw err
+      })
+    );
   }
 }
