@@ -1,14 +1,19 @@
-import { Injectable, computed, signal } from "@angular/core";
+import { Injectable, computed, signal } from '@angular/core';
+import { User } from '../interfaces/user.interface';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-  userNameSearched = signal('')
-  userNameUppercase = computed(() => this.userNameSearched().toUpperCase())
+  userNameSearched = signal('');
+  userNameUppercase = computed(() => this.userNameSearched().toUpperCase());
+  users = signal<User[]>([]);
+  usersFiltered = computed(() =>
+    this.users().filter((user) => user.name.includes(this.userNameSearched()))
+  );
 
   getAll() {
-    return [
+    this.users.set([
       {
         id: 1,
         name: 'Leanne Graham',
@@ -239,6 +244,6 @@ export class UserService {
           bs: 'target end-to-end models',
         },
       },
-    ];
+    ]);
   }
 }

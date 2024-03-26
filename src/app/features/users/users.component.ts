@@ -16,10 +16,11 @@ export class UsersComponent implements OnInit {
   nbSelected = 0;
   extSelected = '';
   extensions: string[] = ['tv', 'biz', 'io', 'me'];
-  users: User[] = [];
+  //users: User[] = [];
   private userService = inject(UserService) // Angular 14+
   //constructor(private userService: UserService) { }
   nameSearch: Signal<string> = this.userService.userNameUppercase
+  users: Signal<User[]> = this.userService.usersFiltered
 
   constructor() {
     effect(() => {
@@ -28,6 +29,6 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
-     this.users = this.userService.getAll()
+     this.userService.getAll()
   }
 }

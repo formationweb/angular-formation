@@ -15,6 +15,6 @@
     }
 </select>
 
-@for (u of users | extFilter:extSelected ; track u.id) {
+@for (u of users() | extFilter:extSelected ; track u.id) {
 <app-user-card [user]="u" />
 }
