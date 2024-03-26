@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output, inject } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { UserService } from "../../../core/services/user.service";
 import { AutoCompletePipe } from "../../../shared/pipes/autocomplete.pipe";
 
 @Component({
@@ -27,6 +28,7 @@ export class SearchComponent implements OnInit {
     @Input() userName = ''
     @Output() eventSearch: EventEmitter<string> = new EventEmitter()
     firstNames: string[] = ['ben', 'ana', 'jim']
+    private userService = inject(UserService)
 
     ngOnInit() {
         console.log(this.userName)
@@ -34,5 +36,6 @@ export class SearchComponent implements OnInit {
 
     search() {
         this.eventSearch.emit(this.userName)
+        this.userService.userNameSearched.set(this.userName)
     }
 }

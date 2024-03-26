@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, Signal, effect, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../core/interfaces/user.interface';
 import { UserService } from '../../core/services/user.service';
@@ -19,6 +19,13 @@ export class UsersComponent implements OnInit {
   users: User[] = [];
   private userService = inject(UserService) // Angular 14+
   //constructor(private userService: UserService) { }
+  nameSearch: Signal<string> = this.userService.userNameUppercase
+
+  constructor() {
+    effect(() => {
+      console.log(this.nameSearch())
+    })
+  }
 
   ngOnInit() {
      this.users = this.userService.getAll()

@@ -1,9 +1,12 @@
-import { Injectable } from "@angular/core";
+import { Injectable, computed, signal } from "@angular/core";
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
+  userNameSearched = signal('')
+  userNameUppercase = computed(() => this.userNameSearched().toUpperCase())
+
   getAll() {
     return [
       {

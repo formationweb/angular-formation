@@ -1,5 +1,7 @@
 <h1>{{ 'Utilisateur' | plural:nbSelected }}</h1>
 
+<p>Utilisateur recherché : {{ nameSearch() }}</p>
+
 <select [(ngModel)]="nbSelected">
     <option>0</option>
     <option>1</option>
