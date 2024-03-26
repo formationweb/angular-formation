@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { User } from '../../../core/interfaces/user.interface';
-import { ConfirmDirective } from '../../../shared/directives/confirm.directive';
-import { LangPipe } from '../../../shared/pipes/lang.pipe';
+import { SharedModule } from '../../../shared/shared.module';
 
 @Component({
   selector: 'app-user-card',
@@ -23,7 +22,7 @@ import { LangPipe } from '../../../shared/pipes/lang.pipe';
     </article>
   `,
   standalone: true,
-  imports: [LangPipe, ConfirmDirective]
+  imports: [SharedModule]
 })
 export class UserCardComponent {
   @Input() user: User = {} as User;
