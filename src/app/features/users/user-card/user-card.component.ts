@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { User } from '../../../core/interfaces/user.interface';
 import { LangPipe } from '../../../shared/pipes/lang.pipe';
 
@@ -9,7 +9,7 @@ import { LangPipe } from '../../../shared/pipes/lang.pipe';
       <header>{{ user.name }}</header>
       {{ user.email }}
       <footer>
-        <button>{{ 'REMOVE' | lang:'en' }}</button>
+        <button (click)="removeUser()">{{ 'REMOVE' | lang:'en' }}</button>
       </footer>
     </article>
   `,
@@ -18,4 +18,9 @@ import { LangPipe } from '../../../shared/pipes/lang.pipe';
 })
 export class UserCardComponent {
   @Input() user: User = {} as User;
+  @Output() eventDelete: EventEmitter<number> = new EventEmitter()
+
+  removeUser() {
+    this.eventDelete.emit(this.user.id)
+  }
 }
