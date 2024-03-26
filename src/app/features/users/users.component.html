@@ -8,6 +8,8 @@
     <option>2</option>
 </select>
 
+<button (click)="createUser()">Créer utilisateur</button>
+
 <select [(ngModel)]="extSelected">
     <option value="">Tous</option>
     @for (ext of extensions ; track ext) {

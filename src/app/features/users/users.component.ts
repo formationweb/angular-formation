@@ -29,6 +29,14 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
-     this.userService.getAll()
+     this.userService.getAll().subscribe()
+  }
+
+  createUser() {
+    this.userService.create({
+      name: 'dzdfz',
+      email: 'fzffz@gmail.com',
+      username: 'aaa'
+    }).subscribe()
   }
 }
