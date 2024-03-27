@@ -18,6 +18,7 @@ export class UserService {
   usersFiltered = computed(() =>
     this.users().filter((user) => user.name.includes(this.userNameSearched()))
   );
+  usersName = computed(() => this.users().map(user => user.name))
 
   getAll(): Observable<User[]> {
     return this.http.get<User[]>(this.url).pipe(

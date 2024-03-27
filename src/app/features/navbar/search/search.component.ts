@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output, Signal, inject } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { UserService } from "../../../core/services/user.service";
 import { AutoCompletePipe } from "../../../shared/pipes/autocomplete.pipe";
@@ -13,7 +13,7 @@ import { AutoCompletePipe } from "../../../shared/pipes/autocomplete.pipe";
         <!-- <button (click)="search()" *ngIf="userName != ''">Rechercher</button> -->
 
         <ul>
-            @for (firstName of firstNames | autocomplete:userName ; track $index) {
+            @for (firstName of firstNames() | autocomplete:userName ; track $index) {
                 <li>{{ $first }} - {{ firstName }}</li>
             }
             <!-- <li *ngFor="let firstName of firstNames | autocomplete:userName ; let i = index ; let isFirst = first">
@@ -25,10 +25,11 @@ import { AutoCompletePipe } from "../../../shared/pipes/autocomplete.pipe";
     imports: [FormsModule, /*NgIf, NgFor, */ AutoCompletePipe] // ou CommonModule
 })
 export class SearchComponent implements OnInit {
+    private userService = inject(UserService)
+
     @Input() userName = ''
     @Output() eventSearch: EventEmitter<string> = new EventEmitter()
-    firstNames: string[] = ['ben', 'ana', 'jim']
-    private userService = inject(UserService)
+    firstNames: Signal<string[]> = this.userService.usersName
 
     ngOnInit() {
         console.log(this.userName)
