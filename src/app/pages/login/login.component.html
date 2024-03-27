@@ -1,10 +1,22 @@
-<form (ngSubmit)="login()">
+<form (ngSubmit)="login()" [formGroup]="myForm">
+
+    @if (myForm.invalid && submitted) {
+        @if (propEmail.hasError('required')) {
+            <div>Email obligatoire</div>
+        }
+        @if (propEmail.hasError('minlength')) {
+            <div>Caractères min.</div>
+        }
+        @if (propEmail.hasError('domain')) {
+            <div>{{ propEmail.getError('domain') }} est interdit !</div>
+        }
+    }
 
     <label>Email</label>
-    <input type="text" >
+    <input type="text" [formControl]="propEmail">
 
     <label>Mot de passe</label>
-    <input type="password">
+    <input type="password" [formControl]="propPass">
 
     <button>Connexion</button>
 </form>
