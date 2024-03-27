@@ -8,7 +8,28 @@
     <option>2</option>
 </select>
 
-<button (click)="createUser()">Créer utilisateur</button>
+<form (ngSubmit)="createUser(myForm)" #myForm="ngForm">
+    @if (myForm.invalid && myForm.submitted) {
+        @if (emailEl.hasError('required')) {
+            <div>Email obligatoire</div>
+        }
+        @if (nameEl.hasError('required')) {
+            <div>Nom obligatoire</div>
+        }
+    }
+
+    <label>Email</label>
+    <input type="text" name="email" ngModel #emailEl="ngModel" required>
+
+    <label>Nom</label>
+    <input type="text" name="name" ngModel #nameEl="ngModel" required>
+
+    <button [ariaBusy]="loading" [disabled]="loading">
+        {{ loading ? '' : 'Créer utilisateur' }}
+    </button>
+</form>
+
+
 
 <select [(ngModel)]="extSelected">
     <option value="">Tous</option>

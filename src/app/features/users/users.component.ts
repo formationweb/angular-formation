@@ -1,5 +1,5 @@
 import { Component, OnInit, Signal, effect, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { User } from '../../core/interfaces/user.interface';
 import { UserService } from '../../core/services/user.service';
 import { ExtensionPipe } from '../../shared/pipes/extension.pipe';
@@ -21,6 +21,7 @@ export class UsersComponent implements OnInit {
   //constructor(private userService: UserService) { }
   nameSearch: Signal<string> = this.userService.userNameUppercase
   users: Signal<User[]> = this.userService.usersFiltered
+  loading = false
 
   constructor() {
     effect(() => {
@@ -32,12 +33,13 @@ export class UsersComponent implements OnInit {
      this.userService.getAll().subscribe()
   }
 
-  createUser() {
-    this.userService.create({
-      name: 'dzdfz',
-      email: 'fzffz@gmail.com',
-      username: 'aaa'
-    }).subscribe()
+  createUser(myForm: NgForm) {
+    if (myForm.invalid) return
+    this.loading = true
+    this.userService.create(myForm.value).subscribe(() => {
+      myForm.resetForm()
+      this.loading = false
+    })
   }
 
   deleteUser(id: number) {
