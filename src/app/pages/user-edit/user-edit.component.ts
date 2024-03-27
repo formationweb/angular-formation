@@ -35,7 +35,22 @@ export class UserEditComponent implements OnInit {
     this.userService.get(userId).subscribe((user: User) => {
       this.user = user;
       //this.propEmail.setValue(this.user.email)
+      // patchValue fait une modification partielle des valeurs, contrairement à setValue qui fait une modification totale. Dans ce cas, on utilise patchValue pour ne modifier que la valeur de l'email, name et username, et on laisse les autres valeurs inchangées.
       this.form.patchValue(this.user);
     });
+  }
+
+  edit() {
+    // userClose est une copie de l'objet user, avec les valeurs de l'objet form
+    // on utilise l'opérateur spread ("..."") pour copier les valeurs de l'objet user dans un nouvel objet, puis on copie les valeurs de l'objet form dans le nouvel objet
+    const userClone = {
+      ...this.user,
+      ...this.form.value
+    }
+    this.userService
+      .update(this.user.id, this.form.value)
+      .subscribe((userModified: User) => {
+        this.user = userModified
+      })
   }
 }

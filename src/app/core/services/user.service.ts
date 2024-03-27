@@ -40,6 +40,21 @@ export class UserService {
     );
   }
 
+  update(id: number, payload: UserPayload): Observable<User> {
+    return this.http.put<User>(this.url + '/' + id, payload)
+      .pipe(
+        tap((userModified: User) => {
+          const users = this.users().map(user => {
+            if (user.id != id) {
+              return user
+            }
+            return userModified
+          })
+          this.users.set(users)
+        })
+      )
+  }
+
   delete(id: number): Observable<void> {
     return this.http.delete<void>(this.url + '/' + id).pipe(
       tap(() => {
