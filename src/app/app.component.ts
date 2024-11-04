@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { NavbarComponent } from './features/navbar.component';
 import { UsersComponent } from './features/users/users.component';
+import { DrawComponent } from './features/draw/draw.component';
 
 @Component({
     selector: 'app-root',
@@ -9,6 +10,6 @@ import { UsersComponent } from './features/users/users.component';
         <app-users />
     `,
     standalone: true,
-    imports: [NavbarComponent, UsersComponent]
+    imports: [NavbarComponent, UsersComponent, DrawComponent]
 })
 export class AppComponent {}
