@@ -1,1 +1,5 @@
 <h1>Users</h1>
+
+@for (u of users ; track u.id) {
+    <app-user-card [user]="u" />
+}
