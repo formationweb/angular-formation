@@ -1,9 +1,11 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+  private _nameSearched = signal('')
+  nameSearched = this._nameSearched.asReadonly()
   users = signal([
     {
       id: 1,
@@ -236,8 +238,16 @@ export class UserService {
       },
     },
   ])
+  usersFiltered = computed(() => {
+    return this.users().filter(user => user.name.includes(this.nameSearched()))
+  })
+
+  setNameSearched(str: string) {
+    this._nameSearched.set(str)
+  }
 
   getAll() {
     return this.users;
   }
+  
 }

@@ -3,6 +3,7 @@ import { SearchComponent } from "./search.component";
 import { DatePipe, UpperCasePipe } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { AppService } from "../core/services/app.service";
+import { UserService } from "../core/services/user.service";
 
 @Component({
     selector: 'app-navbar',
@@ -18,6 +19,7 @@ import { AppService } from "../core/services/app.service";
 })
 export class NavbarComponent {
     private appService = inject(AppService)
+    private userService = inject(UserService)
     title = this.appService.title
 
     myName = 'sam'
@@ -28,6 +30,6 @@ export class NavbarComponent {
     }
 
     listenSearch(userName: string) {
-        console.log(userName)
+        this.userService.setNameSearched(userName)
     }
 }
