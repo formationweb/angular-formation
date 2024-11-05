@@ -20,7 +20,7 @@
 }
 
 <app-loader [loading]="isLoading">
-    @for (u of users | extFilter:extSelected ; track u.id) {
+    @for (u of users() | extFilter:extSelected ; track u.id) {
         <div #refUserCard>
             <app-user-card [user]="u">
                 <h1 class="title" #refTitle>Titre</h1>

@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  users = [
+  users = signal([
     {
       id: 1,
       name: 'Leanne Graham',
@@ -235,7 +235,7 @@ export class UserService {
         bs: 'target end-to-end models',
       },
     },
-  ];
+  ])
 
   getAll() {
     return this.users;

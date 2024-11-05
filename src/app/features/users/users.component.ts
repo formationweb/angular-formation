@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, QueryList, ViewChildren, WritableSignal } from '@angular/core';
 import { UserCardComponent } from './user-card.component';
 import { User } from '../../core/interfaces/user';
 import { LoaderComponent } from '../../atomics/loader/loader.component';
@@ -30,13 +30,12 @@ export class UsersComponent implements OnInit {
   extSelected = ''
   extensions: string[] = ['tv', 'biz', 'io', 'me'];
   userIndex = 0
-  users: User[] = []
+  users = this.userService.getAll()
 
   //constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.users = this.userService.getAll()
       this.isLoading = false;
     }, 1000);
   }
