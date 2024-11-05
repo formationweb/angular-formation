@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { UserCardComponent } from './user-card.component';
 import { User } from '../../core/interfaces/user';
 import { LoaderComponent } from '../../atomics/loader/loader.component';
@@ -19,10 +19,14 @@ import { ExtensionPipe } from '../../shared/pipes/extension.pipe';
   ],
 })
 export class UsersComponent implements OnInit {
+  @ViewChildren('refUserCard') propUserCard!: QueryList<ElementRef<HTMLDivElement>>
+  
   isLoading = true;
+  error = ''
   nbSelected = 0;
   extSelected = ''
   extensions: string[] = ['tv', 'biz', 'io', 'me'];
+  userIndex = 0
   users: User[] = [
     {
       id: 1,
@@ -260,5 +264,15 @@ export class UsersComponent implements OnInit {
     setTimeout(() => {
       this.isLoading = false;
     }, 1000);
+  }
+
+  scrollToUser() {
+    const array = this.propUserCard.toArray()
+    const elUserCard = array[this.userIndex]
+    if (!elUserCard) {
+      this.error = 'Index invalide'
+      return
+    }
+    elUserCard.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 }

@@ -13,11 +13,19 @@
     }
 </select>
 
+<input type="text" [(ngModel)]="userIndex">
+<button (click)="scrollToUser()">Scroll To User</button>
+@if (error) {
+    <p>{{ error }}</p>
+}
+
 <app-loader [loading]="isLoading">
     @for (u of users | extFilter:extSelected ; track u.id) {
-        <app-user-card [user]="u">
-            <h1 class="title" #refTitle>Titre</h1>
-            <h2 class="footer">Footer</h2>
-        </app-user-card>
+        <div #refUserCard>
+            <app-user-card [user]="u">
+                <h1 class="title" #refTitle>Titre</h1>
+                <h2 class="footer">Footer</h2>
+            </app-user-card>
+        </div>
     }
 </app-loader>
