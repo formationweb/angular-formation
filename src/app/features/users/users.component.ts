@@ -35,9 +35,16 @@ export class UsersComponent implements OnInit {
   //constructor(private userService: UserService) { }
   
   ngOnInit(): void {
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 1000);
+    this.userService.getAll().subscribe(() => {
+      this.isLoading = false
+    })
+  }
+
+  createUser() {
+    this.userService.create({
+      name: 'ana',
+      email: 'ana@gmail.com'
+    }).subscribe()
   }
 
   scrollToUser() {

@@ -13,6 +13,8 @@
     }
 </select>
 
+<button (click)="createUser()">Créer utilisateur</button>
+
 <input type="text" [(ngModel)]="userIndex">
 <button (click)="scrollToUser()">Scroll To User</button>
 @if (error) {
