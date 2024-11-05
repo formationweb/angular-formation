@@ -23,6 +23,6 @@ export class UserCardComponent implements AfterContentInit {
     @ContentChild('refTitle') myTitle!: ElementRef<HTMLHeadingElement>
 
     ngAfterContentInit() {
-        console.log(this.myTitle.nativeElement)
+        //console.log(this.myTitle.nativeElement)
     }
 }
