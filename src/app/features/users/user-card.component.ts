@@ -1,5 +1,6 @@
 import { AfterContentInit, Component, ContentChild, ElementRef, Input, OnInit } from "@angular/core";
 import { User } from "../../core/interfaces/user";
+import { LangPipe } from "../../shared/pipes/lang.pipe";
 
 @Component({
     selector: 'app-user-card',
@@ -9,9 +10,13 @@ import { User } from "../../core/interfaces/user";
             <header>{{ user.name }}</header>
             <p>{{ user.email }}</p>
             <ng-content />
+            <footer>
+                <button>{{ 'REMOVE' | lang:'fr' }}</button>
+            </footer>
         </article>
     `,
-    standalone: true
+    standalone: true,
+    imports: [LangPipe]
 })
 export class UserCardComponent implements AfterContentInit {
     @Input() user: User = {} as User
