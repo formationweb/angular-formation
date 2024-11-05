@@ -4,16 +4,25 @@ import { User } from '../../core/interfaces/user';
 import { LoaderComponent } from '../../atomics/loader/loader.component';
 import { PluralPipe } from '../../shared/pipes/plural.pipe';
 import { FormsModule } from '@angular/forms';
+import { ExtensionPipe } from '../../shared/pipes/extension.pipe';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   standalone: true,
-  imports: [UserCardComponent, LoaderComponent, PluralPipe, FormsModule]
+  imports: [
+    UserCardComponent,
+    LoaderComponent,
+    PluralPipe,
+    FormsModule,
+    ExtensionPipe,
+  ],
 })
 export class UsersComponent implements OnInit {
-  isLoading = true
-  nbSelected = 0
+  isLoading = true;
+  nbSelected = 0;
+  extSelected = ''
+  extensions: string[] = ['tv', 'biz', 'io', 'me'];
   users: User[] = [
     {
       id: 1,
@@ -249,7 +258,7 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-     this.isLoading = false
-    }, 1000)
+      this.isLoading = false;
+    }, 1000);
   }
 }
