@@ -13,7 +13,7 @@ import { ConfirmDirective } from "../../shared/directives/confirm.directive";
             <p>{{ user.email }}</p>
             <ng-content />
             <footer>
-                <button (click)="removeUser()" 
+                <button (onConfirm)="removeUser()" 
                     confirm="Etes vous de ..."
                     [confirmUserName]="user.name"
                 >{{ 'REMOVE' | lang:'fr' }}</button>
