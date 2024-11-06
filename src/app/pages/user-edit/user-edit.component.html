@@ -1,6 +1,6 @@
 <h1>{{ user.name }}</h1>
 
-<form [formGroup]="myForm">
+<form [formGroup]="myForm" (ngSubmit)="edit()">
     <label>Nom</label>
     <input type="text" [formControl]="propName">
 

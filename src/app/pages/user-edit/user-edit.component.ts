@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../../core/services/user.service';
+import { UserPayload, UserService } from '../../core/services/user.service';
 import { User } from '../../core/interfaces/user';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -17,7 +17,7 @@ export class UserEditComponent implements OnInit {
   private builder = inject(FormBuilder)
 
   user: User = {} as User
-  propName = new FormControl()
+  propName = new FormControl<string>('')
   myForm = this.builder.group({
     name: this.propName,
     username: '',
@@ -34,4 +34,13 @@ export class UserEditComponent implements OnInit {
     // const data = this.route.snapshot.data['usersList']
     // console.log(data)
   }
+
+  edit() {
+    this.userService
+      .update(this.user.id, this.myForm.value as UserPayload)
+      .subscribe((userModified) => {
+        this.user = userModified
+        // this.user = { ...this.user, ...userModified }
+      })
+  } 
 }

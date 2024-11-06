@@ -3,9 +3,10 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { User } from '../interfaces/user';
 import { Observable, tap } from 'rxjs';
 
-type UserPayload = {
+export type UserPayload = {
   email: string
   name: string
+  username?: string
 }
 
 @Injectable({
@@ -36,6 +37,10 @@ export class UserService {
 
   get(id: number): Observable<User> {
     return this.http.get<User>(this.url + '/' + id)
+  }
+
+  update(id: number, payload: UserPayload): Observable<User> {
+    return this.http.put<User>(this.url + '/' + id, payload)
   }
 
   create(payload: UserPayload): Observable<User> {
