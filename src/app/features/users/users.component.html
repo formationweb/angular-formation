@@ -9,25 +9,48 @@
 <select [(ngModel)]="extSelected">
     <option value="">Tous</option>
     @for (ext of extensions ; track ext) {
-        <option>{{ ext }}</option>
+    <option>{{ ext }}</option>
     }
 </select>
 
-<button (click)="createUser()">Créer utilisateur</button>
+<form (ngSubmit)="createUser(myForm)" #myForm="ngForm">
+
+    @if (myForm.invalid && myForm.submitted) {
+        <p>Formulaire invalide</p>
+        @if (email.hasError('required')) {
+        <p>Email obligatoire</p>
+        }
+        @if (name.hasError('required')) {
+        <p>Nom obligatoire</p>
+        }
+    }
+
+    <label>Email</label>
+    <input type="text" name="email" #email="ngModel" ngModel>
+
+    <label>Nom</label>
+    <input type="text" name="name" #name="ngModel" ngModel>
+
+    <button 
+        [ariaBusy]="isCreateLoading" 
+        [disabled]="isCreateLoading">
+        {{ isCreateLoading ? '' : 'Créer utilisateur' }}
+    </button>
+</form>
 
 <input type="text" [(ngModel)]="userIndex">
 <button (click)="scrollToUser()">Scroll To User</button>
 @if (error) {
-    <p>{{ error }}</p>
+<p>{{ error }}</p>
 }
 
 <app-loader [loading]="isLoading">
     @for (u of users() | extFilter:extSelected ; track u.id) {
-        <div #refUserCard>
-            <app-user-card [user]="u" (onDelete)="deleteUser($event)">
-                <h1 class="title" #refTitle>Titre</h1>
-                <h2 class="footer">Footer</h2>
-            </app-user-card>
-        </div>
+    <div #refUserCard>
+        <app-user-card [user]="u" (onDelete)="deleteUser($event)">
+            <h1 class="title" #refTitle>Titre</h1>
+            <h2 class="footer">Footer</h2>
+        </app-user-card>
+    </div>
     }
 </app-loader>

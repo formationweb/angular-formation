@@ -3,7 +3,7 @@ import { UserCardComponent } from './user-card.component';
 import { User } from '../../core/interfaces/user';
 import { LoaderComponent } from '../../atomics/loader/loader.component';
 import { PluralPipe } from '../../shared/pipes/plural.pipe';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ExtensionPipe } from '../../shared/pipes/extension.pipe';
 import { UserService } from '../../core/services/user.service';
 
@@ -25,6 +25,7 @@ export class UsersComponent implements OnInit {
   @ViewChildren('refUserCard') propUserCard!: QueryList<ElementRef<HTMLDivElement>>
   
   isLoading = true;
+  isCreateLoading = false
   error = ''
   nbSelected = 0;
   extSelected = ''
@@ -40,11 +41,12 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  createUser() {
-    this.userService.create({
-      name: 'ana',
-      email: 'ana@gmail.com'
-    }).subscribe()
+  createUser(form: NgForm) {
+    this.isCreateLoading = true
+    this.userService.create(form.value).subscribe(() => {
+      this.isCreateLoading = false
+      form.resetForm()
+    })
   }
 
   deleteUser(id: number) {
