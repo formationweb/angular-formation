@@ -35,9 +35,7 @@ export class UsersComponent implements OnInit {
   //constructor(private userService: UserService) { }
   
   ngOnInit(): void {
-    this.userService.getAll().subscribe(() => {
-      this.isLoading = false
-    })
+    this.userService.getAll()
   }
 
   createUser() {
