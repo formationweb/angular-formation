@@ -40,7 +40,13 @@ export class UserService {
   }
 
   update(id: number, payload: UserPayload): Observable<User> {
-    return this.http.put<User>(this.url + '/' + id, payload)
+    return this.http.put<User>(this.url + '/' + id, payload).pipe(
+      tap((userModified) => {
+        this.users.set(
+          this.users().map(user => user.id == id ? userModified : user)
+        )
+      })
+    )
   }
 
   create(payload: UserPayload): Observable<User> {
