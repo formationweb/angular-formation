@@ -24,7 +24,7 @@ export class UsersComponent implements OnInit {
 
   @ViewChildren('refUserCard') propUserCard!: QueryList<ElementRef<HTMLDivElement>>
   
-  isLoading = true;
+  isLoading = false;
   isCreateLoading = false
   error = ''
   nbSelected = 0;
@@ -36,9 +36,9 @@ export class UsersComponent implements OnInit {
   //constructor(private userService: UserService) { }
   
   ngOnInit(): void {
-    this.userService.getAll().subscribe(() => {
-      this.isLoading = false
-    })
+    // this.userService.getAll().subscribe(() => {
+    //   this.isLoading = false
+    // })
   }
 
   createUser(form: NgForm) {
