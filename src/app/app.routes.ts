@@ -19,7 +19,8 @@ export const routes: Routes = [
             },
             {
                 path: 'user/:id',
-                component: UserEditComponent
+                component: UserEditComponent,
+                
             }
         ]
     },

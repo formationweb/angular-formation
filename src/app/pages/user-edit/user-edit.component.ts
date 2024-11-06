@@ -1,5 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../../core/services/user.service';
+import { User } from '../../core/interfaces/user';
 
 @Component({
   selector: 'app-user-edit',
@@ -10,10 +12,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserEditComponent implements OnInit {
   private route = inject(ActivatedRoute)
+  private userService = inject(UserService)
+  user: User = {} as User
 
   ngOnInit(): void {
     const id = +this.route.snapshot.params['id']
-    const data = this.route.snapshot.data['usersList']
-    console.log(data)
+    this.userService.get(id).subscribe((user) => {
+      this.user = user
+    })
+    // const data = this.route.snapshot.data['usersList']
+    // console.log(data)
   }
 }
