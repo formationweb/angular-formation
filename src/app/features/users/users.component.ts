@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserCardComponent } from './user-card.component';
 import { User } from '../../core/interfaces/user';
+import { LoaderComponent } from '../../atomics/loader/loader.component';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  imports: [UserCardComponent]
+  imports: [UserCardComponent, LoaderComponent]
 })
-export class UsersComponent {
+export class UsersComponent implements OnInit {
   users: User[] = [
     {
       id: 1,
@@ -240,4 +241,11 @@ export class UsersComponent {
       },
     },
   ];
+  loading = true
+
+  ngOnInit(): void {
+      setTimeout(() => {
+        this.loading = false
+      }, 1000)
+  }
 }

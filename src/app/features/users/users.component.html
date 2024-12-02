@@ -1,9 +1,11 @@
 <h1>Users</h1>
 
-@for (userData of users ; track userData.id) {
-    <app-user-card [user]="userData">
-        <h1 class="title" #refTitle>Titre</h1>
-        <h1 class="footer">Footer</h1>
-        <p>Un texte par défaut</p>
-    </app-user-card>
-}
+<app-loader [loading]="loading">
+    @for (userData of users ; track userData.id) {
+        <app-user-card [user]="userData">
+            <h1 class="title" #refTitle>Titre</h1>
+            <h1 class="footer">Footer</h1>
+            <p>Un texte par défaut</p>
+        </app-user-card>
+    }
+</app-loader>
