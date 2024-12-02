@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from "@angular/common";
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 
 @Component({
@@ -26,10 +26,14 @@ import { FormsModule } from "@angular/forms";
     `,
     imports: [FormsModule, /*NgFor , NgIf*/]
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit {
     @Input() userName = ''
     @Output() eventSearch: EventEmitter<string> = new EventEmitter()
     firstNames = ['ana', 'ben', 'jim']
+
+    ngOnInit(): void {
+        
+    }
 
     search() {
         this.eventSearch.emit(this.userName)
