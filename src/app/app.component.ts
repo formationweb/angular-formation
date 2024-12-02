@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core'
+import { NavbarComponent } from './features/navbar/navbar.component';
 
 @Component({
-  selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+    selector: 'app-root',
+    template: `
+        <h1>My App</h1>
+        <app-navbar />
+    `,
+    imports: [NavbarComponent]
+    //standalone: true // obligatoire avant Angular 19
 })
-export class AppComponent {
-  title = 'myapp';
-}
+export class AppComponent {}
