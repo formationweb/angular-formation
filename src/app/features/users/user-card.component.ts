@@ -22,6 +22,6 @@ export class UserCardComponent implements OnInit, AfterContentInit {
    }
 
    ngAfterContentInit(): void {
-     console.log(this.propTitle.nativeElement)
+     //console.log(this.propTitle.nativeElement)
    }
 }
