@@ -1,13 +1,14 @@
 import { Component } from '@angular/core'
 import { NavbarComponent } from './features/navbar/navbar.component';
+import { UsersComponent } from './features/users/users.component';
 
 @Component({
     selector: 'app-root',
     template: `
-        <h1>My App</h1>
         <app-navbar />
+        <app-users />
     `,
-    imports: [NavbarComponent]
+    imports: [NavbarComponent, UsersComponent]
     //standalone: true // obligatoire avant Angular 19
 })
 export class AppComponent {}
