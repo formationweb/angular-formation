@@ -1,1 +1,5 @@
 <h1>Users</h1>
+
+@for (userData of users ; track userData.id) {
+    <app-user-card [user]="userData" />
+}
