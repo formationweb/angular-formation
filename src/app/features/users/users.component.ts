@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { UserCardComponent } from './user-card.component';
 import { User } from '../../core/interfaces/user';
 import { LoaderComponent } from '../../atomics/loader/loader.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  imports: [UserCardComponent, LoaderComponent]
+  imports: [UserCardComponent, LoaderComponent, FormsModule]
 })
 export class UsersComponent implements OnInit {
+  @ViewChildren('refUserCard') propUserCard!: QueryList<ElementRef<HTMLElement>>
   users: User[] = [
     {
       id: 1,
@@ -242,10 +244,24 @@ export class UsersComponent implements OnInit {
     },
   ];
   loading = true
+  userIndex = 0
+  errorMessage = ''
 
   ngOnInit(): void {
       setTimeout(() => {
         this.loading = false
       }, 1000)
+  }
+
+  scrollToUser() {
+    const elCard = this.propUserCard.toArray()[this.userIndex]
+    if (!elCard) {
+      this.errorMessage = 'index invalide'
+      return
+    }
+    elCard.nativeElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    })
   }
 }
