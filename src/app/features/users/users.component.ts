@@ -49,4 +49,8 @@ export class UsersComponent implements OnInit {
       name: 'ana'
     }).subscribe()
   }
+
+  deleteUser(id: number) {
+    console.log(id)
+  }
 }

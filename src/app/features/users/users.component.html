@@ -24,7 +24,7 @@
 <app-loader [loading]="loading">
     @for (userData of users() | extFilter:extSelected ; track userData.id) {
         <div #refUserCard>
-            <app-user-card [user]="userData">
+            <app-user-card [user]="userData" (eventDelete)="deleteUser($event)">
                 <h1 class="title" #refTitle>Titre</h1>
                 <h1 class="footer">Footer</h1>
                 <p>Un texte par défaut</p>

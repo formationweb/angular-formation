@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChild, ElementRef, input, Input, OnInit } from "@angular/core";
+import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, input, Input, OnInit, Output } from "@angular/core";
 import { User } from "../../core/interfaces/user";
 import { LangPipe } from "../../pipes/lang.pipe";
 
@@ -11,18 +11,15 @@ import { LangPipe } from "../../pipes/lang.pipe";
             <p>{{ user.email }}</p>
             <!-- <ng-content select=".footer" />
             <ng-content /> -->
-            <button>{{ 'REMOVE' | lang:'fr' }}</button>
+            <button (click)="eventDelete.emit(user.id)">{{ 'REMOVE' | lang:'fr' }}</button>
         </article>
     `,
     imports: [LangPipe]
 })
-export class UserCardComponent implements OnInit, AfterContentInit {
+export class UserCardComponent implements  AfterContentInit {
    @Input() user: User = {} as User
+   @Output() eventDelete: EventEmitter<number> = new EventEmitter()
    @ContentChild('refTitle') propTitle!: ElementRef<HTMLElement>
-
-   ngOnInit(): void {
-       
-   }
 
    ngAfterContentInit(): void {
      //console.log(this.propTitle.nativeElement)
