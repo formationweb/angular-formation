@@ -3,11 +3,12 @@ import { UserCardComponent } from './user-card.component';
 import { User } from '../../core/interfaces/user';
 import { LoaderComponent } from '../../atomics/loader/loader.component';
 import { FormsModule } from '@angular/forms';
+import { PluralPipe } from '../../pipes/plural.pipe';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  imports: [UserCardComponent, LoaderComponent, FormsModule]
+  imports: [UserCardComponent, LoaderComponent, FormsModule, PluralPipe]
 })
 export class UsersComponent implements OnInit {
   @ViewChildren('refUserCard') propUserCard!: QueryList<ElementRef<HTMLElement>>
@@ -245,6 +246,7 @@ export class UsersComponent implements OnInit {
   ];
   loading = true
   userIndex = 0
+  nbSelected = 0
   errorMessage = ''
 
   ngOnInit(): void {

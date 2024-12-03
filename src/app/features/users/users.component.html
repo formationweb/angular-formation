@@ -1,4 +1,10 @@
-<h1>Users</h1>
+<h1>{{ 'Utilisateur' | plural:nbSelected }}</h1>
+
+<select [(ngModel)]="nbSelected">
+    <option>0</option>
+    <option>1</option>
+    <option>2</option>
+</select>
 
 <input type="text" [(ngModel)]="userIndex">
 @if (errorMessage) {
