@@ -20,7 +20,7 @@
 <button (click)="scrollToUser()">Scroll To User</button>
 
 <app-loader [loading]="loading">
-    @for (userData of users | extFilter:extSelected ; track userData.id) {
+    @for (userData of users() | extFilter:extSelected ; track userData.id) {
         <div #refUserCard>
             <app-user-card [user]="userData">
                 <h1 class="title" #refTitle>Titre</h1>

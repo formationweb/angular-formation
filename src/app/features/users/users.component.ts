@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, QueryList, Signal, ViewChildren } from '@angular/core';
 import { UserCardComponent } from './user-card.component';
 import { User } from '../../core/interfaces/user';
 import { LoaderComponent } from '../../atomics/loader/loader.component';
@@ -14,9 +14,8 @@ import { UsersService } from '../../core/services/users.service';
 })
 export class UsersComponent implements OnInit {
   private usersService = inject(UsersService)
-  
   @ViewChildren('refUserCard') propUserCard!: QueryList<ElementRef<HTMLElement>>
-  users: User[] = []
+  readonly users = this.usersService.usersFiltered
   loading = true
   userIndex = 0
   nbSelected = 0
@@ -30,7 +29,6 @@ export class UsersComponent implements OnInit {
       setTimeout(() => {
         this.loading = false
       }, 1000)
-      this.users = this.usersService.getAll()
   }
 
   scrollToUser() {
