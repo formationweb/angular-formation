@@ -19,6 +19,8 @@
 }
 <button (click)="scrollToUser()">Scroll To User</button>
 
+<button (click)="createUser()">Créer utilisateur</button>
+
 <app-loader [loading]="loading">
     @for (userData of users() | extFilter:extSelected ; track userData.id) {
         <div #refUserCard>
