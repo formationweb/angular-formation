@@ -4,11 +4,12 @@ import { User } from '../../core/interfaces/user';
 import { LoaderComponent } from '../../atomics/loader/loader.component';
 import { FormsModule } from '@angular/forms';
 import { PluralPipe } from '../../pipes/plural.pipe';
+import { ExtensionPipe } from '../../pipes/extension.pipe';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  imports: [UserCardComponent, LoaderComponent, FormsModule, PluralPipe]
+  imports: [UserCardComponent, LoaderComponent, FormsModule, PluralPipe, ExtensionPipe]
 })
 export class UsersComponent implements OnInit {
   @ViewChildren('refUserCard') propUserCard!: QueryList<ElementRef<HTMLElement>>
@@ -248,6 +249,8 @@ export class UsersComponent implements OnInit {
   userIndex = 0
   nbSelected = 0
   errorMessage = ''
+  extensions: string[] = ['tv', 'biz', 'io', 'me']
+  extSelected = ''
 
   ngOnInit(): void {
       setTimeout(() => {

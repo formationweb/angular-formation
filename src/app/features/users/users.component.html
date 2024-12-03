@@ -6,6 +6,13 @@
     <option>2</option>
 </select>
 
+<select [(ngModel)]="extSelected">
+    <option value="">Tous</option>
+    @for (ext of extensions ; track ext) {
+        <option>{{ ext }}</option>
+    }
+</select>
+
 <input type="text" [(ngModel)]="userIndex">
 @if (errorMessage) {
     <p>{{ errorMessage }}</p>
@@ -13,7 +20,7 @@
 <button (click)="scrollToUser()">Scroll To User</button>
 
 <app-loader [loading]="loading">
-    @for (userData of users ; track userData.id) {
+    @for (userData of users | extFilter:extSelected ; track userData.id) {
         <div #refUserCard>
             <app-user-card [user]="userData">
                 <h1 class="title" #refTitle>Titre</h1>
