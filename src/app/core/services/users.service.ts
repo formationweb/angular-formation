@@ -6,6 +6,7 @@ import { Observable, tap } from "rxjs";
 export interface UserPayload {
   email: string
   name: string
+  username: string
 }
 
 @Injectable({
@@ -34,7 +35,18 @@ export class UsersService {
       return this.http.get<User>(this.url + '/' + id)
     }
 
-    create(payload: UserPayload): Observable<User> {
+    update(id: number, payload: UserPayload): Observable<User> {
+      return this.http.put<User>(this.url + '/' + id, payload)
+        .pipe(
+          tap((userModified) => {
+             this._users.set(
+               this.users().map(user => user.id == userModified.id ? userModified : user)
+             )
+          })
+        )
+    }
+
+    create(payload: Omit<UserPayload, 'username'>): Observable<User> {
       return this.http.post<User>(this.url, payload)
         .pipe(
           tap((userCreated) => {

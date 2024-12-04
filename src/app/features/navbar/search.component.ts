@@ -1,8 +1,9 @@
 import { NgFor, NgIf } from "@angular/common";
-import { Component, computed, EventEmitter, Input, model, OnInit, Output } from "@angular/core";
+import { Component, computed, EventEmitter, inject, Input, model, OnInit, Output, Signal } from "@angular/core";
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AutocompletePipe } from "../../pipes/autocomplete.pipe";
 import { debounceTime, distinctUntilChanged } from "rxjs";
+import { UsersService } from "../../core/services/users.service";
 
 @Component({
     selector: 'app-search',
@@ -13,7 +14,7 @@ import { debounceTime, distinctUntilChanged } from "rxjs";
         }
 
         <ul>
-            @for (name of firstNames | autocomplete:userName() ; track $index) {
+            @for (name of firstNames() | autocomplete:userName() ; track $index) {
                 <li>{{ name }}</li>
             }
             @empty {
@@ -29,12 +30,16 @@ import { debounceTime, distinctUntilChanged } from "rxjs";
     imports: [ReactiveFormsModule, AutocompletePipe /*NgFor , NgIf*/]
 })
 export class SearchComponent implements OnInit {
+    private usersService = inject(UsersService)
+
    // @Input() userName = ''
     userName = model('')
    // uppercaseUserName = computed(() => this.userName().toUpperCase())
 
     @Output() eventSearch: EventEmitter<string> = new EventEmitter()
-    firstNames = ['ana', 'ben', 'jim']
+    firstNames: Signal<string[]> = computed(() => {
+        return this.usersService.users().map(user => user.name)
+    })
 
     propUserName = new FormControl()
 

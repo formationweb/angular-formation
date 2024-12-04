@@ -7,7 +7,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { User } from '../../core/interfaces/user';
-import { UsersService } from '../../core/services/users.service';
+import { UserPayload, UsersService } from '../../core/services/users.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -39,5 +39,17 @@ export class UserEditComponent implements OnInit {
       //this.form.get('email')?.setValue(user.email)
       this.form.patchValue(this.user)
     });
+  }
+
+  edit() {
+    this.usersService
+      .update(this.user.id, this.form.value as UserPayload)
+      .subscribe((userModified) => {
+         //this.user = userModified
+         this.user = {
+           ...this.user,
+           ...userModified
+         }
+      })
   }
 }
