@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, input, Input, OnInit, Output } from "@angular/core";
+import { AfterContentInit, Component, computed, contentChild, ContentChild, effect, ElementRef, EventEmitter, input, Input, OnInit, output, Output } from "@angular/core";
 import { User } from "../../core/interfaces/user";
 import { LangPipe } from "../../pipes/lang.pipe";
 
@@ -7,21 +7,25 @@ import { LangPipe } from "../../pipes/lang.pipe";
     template: `
         <article>
             <!-- <ng-content select=".title" /> -->
-            <header>{{ user.name }}</header>
-            <p>{{ user.email }}</p>
+            <header>{{ name() }}</header>
+            <p>{{ user().email }}</p>
             <!-- <ng-content select=".footer" />
             <ng-content /> -->
-            <button (click)="eventDelete.emit(user.id)">{{ 'REMOVE' | lang:'fr' }}</button>
+            <button (click)="eventDelete.emit(user().id)">{{ 'REMOVE' | lang:'fr' }}</button>
         </article>
     `,
     imports: [LangPipe]
 })
 export class UserCardComponent implements  AfterContentInit {
-   @Input() user: User = {} as User
-   @Output() eventDelete: EventEmitter<number> = new EventEmitter()
-   @ContentChild('refTitle') propTitle!: ElementRef<HTMLElement>
+   //@Input() user: User = {} as User
+   user = input<User>({} as User)
+   name = computed(() => this.user().name)
+   //@Output() eventDelete: EventEmitter<number> = new EventEmitter()
+   eventDelete = output<number>()
+   //@ContentChild('refTitle') propTitle!: ElementRef<HTMLElement>
+   propTitle = contentChild<ElementRef<HTMLElement>>('refTitle')
 
    ngAfterContentInit(): void {
-     //console.log(this.propTitle.nativeElement)
+     console.log(this.propTitle()?.nativeElement)
    }
 }

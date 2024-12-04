@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from "@angular/common";
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, computed, EventEmitter, Input, model, OnInit, Output } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { AutocompletePipe } from "../../pipes/autocomplete.pipe";
 
@@ -7,12 +7,12 @@ import { AutocompletePipe } from "../../pipes/autocomplete.pipe";
     selector: 'app-search',
     template: `
         <input type="text" [(ngModel)]="userName">
-        @if (userName != '') {
+        @if (userName() != '') {
             <button (click)="search()">Rechercher</button>
         }
 
         <ul>
-            @for (name of firstNames | autocomplete:userName ; track $index) {
+            @for (name of firstNames | autocomplete:userName() ; track $index) {
                 <li>{{ name }}</li>
             }
             @empty {
@@ -28,7 +28,10 @@ import { AutocompletePipe } from "../../pipes/autocomplete.pipe";
     imports: [FormsModule, AutocompletePipe /*NgFor , NgIf*/]
 })
 export class SearchComponent implements OnInit {
-    @Input() userName = ''
+   // @Input() userName = ''
+    userName = model('')
+   // uppercaseUserName = computed(() => this.userName().toUpperCase())
+
     @Output() eventSearch: EventEmitter<string> = new EventEmitter()
     firstNames = ['ana', 'ben', 'jim']
 
@@ -37,6 +40,6 @@ export class SearchComponent implements OnInit {
     }
 
     search() {
-        this.eventSearch.emit(this.userName)
+        this.eventSearch.emit(this.userName())
     }
 }

@@ -44,6 +44,13 @@ export class UsersService {
 
     delete(id: number): Observable<void> {
       return this.http.delete<void>(this.url + '/' + id)
+        .pipe(
+          tap(() => {
+            this._users.set(
+              this.users().filter(user => user.id != id)
+            )
+          })
+        )
     }
 
     setStrSearch(name: string) {
