@@ -2,6 +2,7 @@ import { AfterContentInit, Component, computed, contentChild, ContentChild, effe
 import { User } from "../../core/interfaces/user";
 import { LangPipe } from "../../pipes/lang.pipe";
 import { RouterLink } from "@angular/router";
+import { ConfirmDirective } from "../../directives/confirm.directive";
 
 @Component({
     selector: 'app-user-card',
@@ -12,11 +13,17 @@ import { RouterLink } from "@angular/router";
             <p>{{ user().email }}</p>
             <!-- <ng-content select=".footer" />
             <ng-content /> -->
-            <button (click)="eventDelete.emit(user().id)">{{ 'REMOVE' | lang:'fr' }}</button>
+            <button 
+                (eventDelete)="eventDelete.emit(user().id)" 
+                confirm="Etes vous sûr ... "
+                [confirmUserName]="user().name"
+                >
+                {{ 'REMOVE' | lang:'fr' }}
+            </button>
             <button [routerLink]="['user', user().id]">Modifier</button>
         </article>
     `,
-    imports: [LangPipe, RouterLink]
+    imports: [LangPipe, RouterLink, ConfirmDirective]
 })
 export class UserCardComponent implements  AfterContentInit {
    //@Input() user: User = {} as User
