@@ -2,7 +2,7 @@ import { Component, ElementRef, inject, OnInit, QueryList, Signal, ViewChildren 
 import { UserCardComponent } from './user-card.component';
 import { User } from '../../core/interfaces/user';
 import { LoaderComponent } from '../../atomics/loader/loader.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { PluralPipe } from '../../pipes/plural.pipe';
 import { ExtensionPipe } from '../../pipes/extension.pipe';
 import { UsersService } from '../../core/services/users.service';
@@ -17,6 +17,7 @@ export class UsersComponent implements OnInit {
   @ViewChildren('refUserCard') propUserCard!: QueryList<ElementRef<HTMLElement>>
   readonly users = this.usersService.usersFiltered
   loading = true
+  loadingCreate = false
   userIndex = 0
   nbSelected = 0
   errorMessage = ''
@@ -43,11 +44,13 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  createUser() {
-    this.usersService.create({
-      email: 'ana@gmail.com',
-      name: 'ana'
-    }).subscribe()
+  createUser(form: NgForm) {
+    if (form.invalid) return
+    this.loadingCreate = true
+    this.usersService.create(form.value).subscribe(() => {
+      this.loadingCreate = false
+      form.resetForm()
+    })
   }
 
   deleteUser(id: number) {

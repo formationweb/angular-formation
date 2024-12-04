@@ -19,7 +19,30 @@
 }
 <button (click)="scrollToUser()">Scroll To User</button>
 
-<button (click)="createUser()">Créer utilisateur</button>
+<form (ngSubmit)="createUser(myForm)" #myForm="ngForm">
+
+    @if (myForm.invalid && myForm.submitted) {
+        <p>Formulaire invalide</p>
+        @if (email.hasError('required')) {
+            <p>Email obligatoire</p>
+        }
+        @if (name.hasError('required')) {
+            <p>Nom obligatoire</p>
+        }
+    }
+
+    <label>Email</label>
+    <input type="text" name="email" #email="ngModel" ngModel required>
+
+    <label>Nom</label>
+    <input type="text" name="name" #name="ngModel" ngModel required>
+
+    <button 
+        [ariaBusy]="loadingCreate" 
+        [disabled]="loadingCreate">
+        {{ loadingCreate ? '' : 'Créer utilisateur' }}
+    </button>
+</form>
 
 <app-loader [loading]="loading">
     @for (userData of users() | extFilter:extSelected ; track userData.id) {
