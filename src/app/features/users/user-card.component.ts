@@ -26,6 +26,6 @@ export class UserCardComponent implements  AfterContentInit {
    propTitle = contentChild<ElementRef<HTMLElement>>('refTitle')
 
    ngAfterContentInit(): void {
-     console.log(this.propTitle()?.nativeElement)
+     //console.log(this.propTitle()?.nativeElement)
    }
 }
