@@ -16,7 +16,7 @@ export class UsersComponent implements OnInit {
   private usersService = inject(UsersService)
   @ViewChildren('refUserCard') propUserCard!: QueryList<ElementRef<HTMLElement>>
   readonly users = this.usersService.usersFiltered
-  loading = true
+  loading = false
   loadingCreate = false
   userIndex = 0
   nbSelected = 0
@@ -27,9 +27,7 @@ export class UsersComponent implements OnInit {
   //constructor(private usersService: UsersService) { }
 
   ngOnInit(): void {
-     this.usersService.getAll().subscribe(() => {
-        this.loading = false
-     })
+    
   }
 
   scrollToUser() {
