@@ -1,19 +1,33 @@
-import { Component, input, Input, numberAttribute, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  Input,
+  numberAttribute,
+  OnInit,
+} from '@angular/core';
 import { User } from '../../core/interfaces/user';
+import { UsersService } from '../../core/services/users.service';
 
 @Component({
   selector: 'app-user-edit',
   imports: [],
   templateUrl: './user-edit.component.html',
-  styleUrl: './user-edit.component.css'
+  styleUrl: './user-edit.component.css',
 })
 export class UserEditComponent implements OnInit {
- // @Input() id = ''
- id = input(0, {
-  transform: numberAttribute
- })
+  private usersService = inject(UsersService);
+
+  // @Input() id = ''
+  id = input(0, {
+    transform: numberAttribute,
+  });
+
+  user = {} as User;
 
   ngOnInit(): void {
-    console.log(this.id())
+    this.usersService.get(this.id()).subscribe((user) => {
+      this.user = user
+    });
   }
 }

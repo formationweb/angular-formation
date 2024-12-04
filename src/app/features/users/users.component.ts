@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, OnInit, QueryList, Signal, ViewChildren } from '@angular/core';
+import { Component, ElementRef, inject, OnDestroy, OnInit, QueryList, Signal, ViewChildren } from '@angular/core';
 import { UserCardComponent } from './user-card.component';
 import { User } from '../../core/interfaces/user';
 import { LoaderComponent } from '../../atomics/loader/loader.component';
@@ -6,13 +6,14 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { PluralPipe } from '../../pipes/plural.pipe';
 import { ExtensionPipe } from '../../pipes/extension.pipe';
 import { UsersService } from '../../core/services/users.service';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   imports: [UserCardComponent, LoaderComponent, FormsModule, PluralPipe, ExtensionPipe]
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
   private usersService = inject(UsersService)
   @ViewChildren('refUserCard') propUserCard!: QueryList<ElementRef<HTMLElement>>
   readonly users = this.usersService.usersFiltered
@@ -23,11 +24,18 @@ export class UsersComponent implements OnInit {
   errorMessage = ''
   extensions: string[] = ['tv', 'biz', 'io', 'me']
   extSelected = ''
+  subscription!: Subscription
 
   //constructor(private usersService: UsersService) { }
 
   ngOnInit(): void {
-    
+    // this.subscription = interval(1000).subscribe((nb) => {
+    //   console.log(nb)
+    // })
+  }
+
+  ngOnDestroy(): void {
+    // this.subscription.unsubscribe()
   }
 
   scrollToUser() {

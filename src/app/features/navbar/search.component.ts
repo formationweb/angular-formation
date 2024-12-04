@@ -1,12 +1,13 @@
 import { NgFor, NgIf } from "@angular/common";
 import { Component, computed, EventEmitter, Input, model, OnInit, Output } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AutocompletePipe } from "../../pipes/autocomplete.pipe";
+import { debounceTime, distinctUntilChanged } from "rxjs";
 
 @Component({
     selector: 'app-search',
     template: `
-        <input type="text" [(ngModel)]="userName">
+        <input type="text" [formControl]="propUserName">
         @if (userName() != '') {
             <button (click)="search()">Rechercher</button>
         }
@@ -25,7 +26,7 @@ import { AutocompletePipe } from "../../pipes/autocomplete.pipe";
 
         <!-- <button (click)="search()" *ngIf="userName != ''">Rechercher</button> -->
     `,
-    imports: [FormsModule, AutocompletePipe /*NgFor , NgIf*/]
+    imports: [ReactiveFormsModule, AutocompletePipe /*NgFor , NgIf*/]
 })
 export class SearchComponent implements OnInit {
    // @Input() userName = ''
@@ -35,8 +36,19 @@ export class SearchComponent implements OnInit {
     @Output() eventSearch: EventEmitter<string> = new EventEmitter()
     firstNames = ['ana', 'ben', 'jim']
 
+    propUserName = new FormControl()
+
     ngOnInit(): void {
-        
+        this.propUserName.setValue(this.userName())
+        this.propUserName.valueChanges
+            .pipe(
+                debounceTime(500),
+                distinctUntilChanged()
+            )
+            .subscribe((str) => {
+                this.userName.set(str)
+                this.search()
+            })
     }
 
     search() {
