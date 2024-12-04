@@ -1,0 +1,39 @@
+<form (ngSubmit)="login(myForm)" #myForm="ngForm">
+
+    @if (myForm.invalid && myForm.submitted) {
+        <p>Formulaire invalide</p>
+        @if (email.hasError('required')) {
+            <p>Email obligatoire</p>
+        }
+        @if (email.hasError('minlength')) {
+            @let emailErrors = email.getError('minlength'); <!-- depuis Angular 18.1 -->
+            <p>Vous avez mis 
+                {{ emailErrors.actualLength }} caractères, 
+                {{ emailErrors.requiredLength }} caractères obligatoires !</p>
+        }
+    }
+
+    <div 
+        class="other-class"
+        [class.red]="myForm.invalid" 
+        [class.green]="myForm.valid">
+        Un texte
+    </div>
+
+    <div [style.color]="'red'">
+        Un texte 2
+    </div>
+
+    <!-- <div 
+        [class]="{ red: myForm.invalid, green: myForm.valid }">
+        Un texte
+    </div> -->
+
+    <label>Email</label>
+    <input type="text" name="email" #email="ngModel" ngModel required minlength="3">
+
+    <label>Mot de passe</label>
+    <input type="password" name="password" ngModel>
+
+    <button>Se connecter</button>
+</form>
