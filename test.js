@@ -1,4 +1,3 @@
-const array = [1, 2, 3]
-array.push(4)
+const user = {}
 
-console.log(array)
+console.log(user.address?.street)
