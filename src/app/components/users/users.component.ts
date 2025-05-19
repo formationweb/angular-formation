@@ -1,11 +1,12 @@
 import { Component, signal } from "@angular/core";
 import { UserCardComponent } from "./user-card.component";
 import { User } from "../../core/interfaces/user";
+import { LoaderComponent } from "../../atomics/loader/loader.component";
 
 @Component({
     selector: 'app-users',
     templateUrl: './users.component.html',
-    imports: [UserCardComponent]
+    imports: [UserCardComponent, LoaderComponent]
 })
 export class UsersComponent {
     users = signal<User[]>([
@@ -240,4 +241,11 @@ export class UsersComponent {
         }
       }
     ])
+    loading = signal(true)
+    
+    constructor() {
+      setTimeout(() => {
+        this.loading.set(false)
+      }, 2000)
+    }
 }
