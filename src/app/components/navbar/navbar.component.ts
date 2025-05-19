@@ -4,16 +4,27 @@ import { SearchComponent } from "./search.component";
 @Component({
     selector: 'app-navbar',
     template: `
-        <h1>{{ title() }}</h1>
+        <h1 [class]="{ blue: true }" class="small italic">{{ title() }}</h1>
         <app-search [name]="userName()" (onSearch)="listenSearch($event)" />
     `,
-    imports: [SearchComponent]
+    imports: [SearchComponent],
+    styles: `
+        .blue {
+            color: blue;
+        }
+        .small {
+            font-size: 10px;
+        }
+        .italic {
+            font-style: italic;
+        }
+    `
 })
 export class NavbarComponent {
     title = signal('Mon App')
     userName = signal('ben')
 
     listenSearch(name: string) {
-        console.log(name)
+        this.userName.set(name)
     }
 }
