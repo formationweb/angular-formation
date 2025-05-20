@@ -5,8 +5,8 @@
 <app-loader [loading]="loading()">
     @for (u of users() ; track u.id) {
         <app-user-card [user]="u">
-            <h1 class="header">entête</h1>
-            <h1 class="footer">pied de carte</h1>
+            <!-- <h1 class="header">entête</h1>
+            <h1 class="footer">pied de carte</h1> -->
         </app-user-card>
     }
 </app-loader>
