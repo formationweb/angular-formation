@@ -37,4 +37,8 @@ export class UsersComponent implements OnInit {
     listenOpacity(opacity: number) {
       //console.log(opacity)
     }
+
+    deleteUser(id: number) {
+      console.log(id)
+    }
 }

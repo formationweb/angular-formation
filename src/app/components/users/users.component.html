@@ -11,7 +11,7 @@
 
 <app-loader [loading]="loading()">
     @for (u of users() | extFilter:extensionSelected() ; track u.id) {
-        <app-user-card [user]="u">
+        <app-user-card [user]="u" (onDelete)="deleteUser($event)">
             <!-- <h1 class="header">entête</h1>
             <h1 class="footer">pied de carte</h1> -->
         </app-user-card>
