@@ -1,7 +1,25 @@
-<app-root>
-    <app-navbar title="my valeur 1" />
-    <app-navbar title="my valeur 2" />
-    <app-sidebar />
-    <app-content />
-    
-</app-root>
+/api/me -> { email: "...", name: "" }
+
+```ts
+class Me {
+    getName() {
+        return ...
+    }
+}
+```
+
+Navbar
+```ts
+me.getName()
+```
+
+Liste des participants
+```ts
+me.getName()
+```
+
+// Singleton
+// Provider
+// Service
+
+----

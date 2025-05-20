@@ -1,4 +1,4 @@
-import { Component, computed, Input, input, model, output, signal } from "@angular/core";
+import { Component, computed, effect, Input, input, model, OnInit, output, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { NameFilterPipe } from "../../pipes/name.pipe";
 
@@ -31,6 +31,12 @@ export class SearchComponent {
     // firstNamesFiltered = computed(() => {
     //     return this.firstNames().filter(name => name.startsWith(this.name()))
     // })
+
+    constructor() {
+        effect(() => {
+            console.log(this.name())
+        })
+    }
 
     search() {
         this.onSearch.emit(this.name())
