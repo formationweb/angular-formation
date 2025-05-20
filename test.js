@@ -1,5 +1,5 @@
-let nom = signal('ana')
+const name = 'test'
 
-nom.set('ben')
-
-console.log(nom())
+const obj = {
+    name
+}

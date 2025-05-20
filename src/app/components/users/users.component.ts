@@ -2,11 +2,12 @@ import { Component, signal } from "@angular/core";
 import { UserCardComponent } from "./user-card.component";
 import { User } from "../../core/interfaces/user";
 import { LoaderComponent } from "../../atomics/loader/loader.component";
+import { AlphaRangeComponent } from "../../atomics/alpha-range/alpha-range.component";
 
 @Component({
     selector: 'app-users',
     templateUrl: './users.component.html',
-    imports: [UserCardComponent, LoaderComponent]
+    imports: [UserCardComponent, LoaderComponent, AlphaRangeComponent]
 })
 export class UsersComponent {
     users = signal<User[]>([
@@ -243,9 +244,16 @@ export class UsersComponent {
     ])
     loading = signal(true)
     
+
+    opacity = 0.5
+
     constructor() {
       setTimeout(() => {
         this.loading.set(false)
       }, 2000)
+    }
+
+    listenOpacity(opacity: number) {
+      //console.log(opacity)
     }
 }
