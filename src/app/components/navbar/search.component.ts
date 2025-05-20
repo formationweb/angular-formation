@@ -1,5 +1,6 @@
-import { Component, Input, input, model, output, signal } from "@angular/core";
+import { Component, computed, Input, input, model, output, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { NameFilterPipe } from "../../pipes/name.pipe";
 
 @Component({
     selector: 'app-search',
@@ -9,7 +10,7 @@ import { FormsModule } from "@angular/forms";
             <button (click)="search()">Rechercher</button>
         }
         <ul>
-            @for (name of firstNames() ; track $index) {
+            @for (name of firstNames() | nameFilter:name(); track $index) {
                 <li>{{ name }}</li>
             }
             @empty {
@@ -17,7 +18,7 @@ import { FormsModule } from "@angular/forms";
             }
         </ul>
     `,
-    imports: [FormsModule]
+    imports: [FormsModule, NameFilterPipe]
 }) 
 export class SearchComponent {
     // model(), c'est in input(), où on peut le donner un ngModel
@@ -27,6 +28,9 @@ export class SearchComponent {
     //@Input() name = ''
     onSearch = output<string>()
     firstNames = signal(['ana', 'jim', 'ben'])
+    // firstNamesFiltered = computed(() => {
+    //     return this.firstNames().filter(name => name.startsWith(this.name()))
+    // })
 
     search() {
         this.onSearch.emit(this.name())
