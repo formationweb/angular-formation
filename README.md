@@ -1,25 +1,11 @@
-/api/me -> { email: "...", name: "" }
+/login -> Serveur -> Routeur -> 
+/login -> Routeur -> Composant
 
-```ts
-class Me {
-    getName() {
-        return ...
-    }
-}
-```
+//
 
-Navbar
-```ts
-me.getName()
-```
+SPA (Single Page Application)
+    - CSR (Client Side Rendering)
 
-Liste des participants
-```ts
-me.getName()
-```
+SSR (Server Side Rendering)
 
-// Singleton
-// Provider
-// Service
-
-----
+SSG (Server Side Generation)
