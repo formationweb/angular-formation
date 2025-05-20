@@ -39,6 +39,6 @@ export class UsersComponent implements OnInit {
     }
 
     deleteUser(id: number) {
-      console.log(id)
+      this.userService.delete(id).subscribe()
     }
 }

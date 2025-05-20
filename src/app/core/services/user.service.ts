@@ -21,6 +21,11 @@ export class UserService {
     }
 
     delete(id: number): Observable<void> {
-      return this.http.delete<void>(this.url + '/' + id).pipe()
+      return this.http.delete<void>(this.url + '/' + id).pipe(
+        tap(() => {
+          const usersFiltered = this.users().filter(user => user.id != id)
+          this.users.set(usersFiltered)
+        })
+      )
     }
 }
