@@ -1,6 +1,6 @@
-<h1>utilisateurs</h1>
+<h1>{{ 'Utilisateur' | plural:users().length }}<h1>
 
-<app-alpha-range [opacity]="0.6" (onChange)="listenOpacity($event)" />
+<app-alpha-range [opacity]="0.6"  (onChange)="listenOpacity($event)" />
 
 <app-loader [loading]="loading()">
     @for (u of users() ; track u.id) {

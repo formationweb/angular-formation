@@ -3,11 +3,12 @@ import { UserCardComponent } from "./user-card.component";
 import { User } from "../../core/interfaces/user";
 import { LoaderComponent } from "../../atomics/loader/loader.component";
 import { AlphaRangeComponent } from "../../atomics/alpha-range/alpha-range.component";
+import { PluralPipe } from "../../pipes/plural.pipe";
 
 @Component({
     selector: 'app-users',
     templateUrl: './users.component.html',
-    imports: [UserCardComponent, LoaderComponent, AlphaRangeComponent]
+    imports: [UserCardComponent, LoaderComponent, AlphaRangeComponent, PluralPipe]
 })
 export class UsersComponent {
     users = signal<User[]>([
