@@ -2,8 +2,15 @@
 
 <app-alpha-range [opacity]="0.6"  (onChange)="listenOpacity($event)" />
 
+<select [(ngModel)]="extensionSelected">
+    <option value="">Tous</option>
+    @for (ext of extensions ; track ext) {
+        <option>{{ ext }}</option>
+    }
+</select>
+
 <app-loader [loading]="loading()">
-    @for (u of users() ; track u.id) {
+    @for (u of users() | extFilter:extensionSelected() ; track u.id) {
         <app-user-card [user]="u">
             <!-- <h1 class="header">entête</h1>
             <h1 class="footer">pied de carte</h1> -->

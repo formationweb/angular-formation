@@ -4,11 +4,20 @@ import { User } from "../../core/interfaces/user";
 import { LoaderComponent } from "../../atomics/loader/loader.component";
 import { AlphaRangeComponent } from "../../atomics/alpha-range/alpha-range.component";
 import { PluralPipe } from "../../pipes/plural.pipe";
+import { FormsModule } from "@angular/forms";
+import { ExtensionPipe } from "../../pipes/extension.pipe";
 
 @Component({
     selector: 'app-users',
     templateUrl: './users.component.html',
-    imports: [UserCardComponent, LoaderComponent, AlphaRangeComponent, PluralPipe]
+    imports: [
+      UserCardComponent, 
+      LoaderComponent, 
+      AlphaRangeComponent, 
+      PluralPipe,
+      FormsModule,
+      ExtensionPipe
+    ]
 })
 export class UsersComponent {
     users = signal<User[]>([
@@ -244,9 +253,9 @@ export class UsersComponent {
       }
     ])
     loading = signal(true)
-    
-
     opacity = 0.5
+    extensions: string[] = ['tv', 'biz', 'io', 'me']
+    extensionSelected = signal('')
 
     constructor() {
       setTimeout(() => {
