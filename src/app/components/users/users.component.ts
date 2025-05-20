@@ -28,14 +28,10 @@ export class UsersComponent implements OnInit {
     extensions: string[] = ['tv', 'biz', 'io', 'me']
     extensionSelected = signal('')
 
-    constructor() {
-      setTimeout(() => {
-        this.loading.set(false)
-      }, 2000)
-    }
-
     ngOnInit() {
-      this.userService.getAll() // plus tard, une requête
+      this.userService.getAll().subscribe(() => {
+        this.loading.set(false)
+      })
     }
 
     listenOpacity(opacity: number) {
