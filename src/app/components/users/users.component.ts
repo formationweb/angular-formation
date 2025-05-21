@@ -41,4 +41,11 @@ export class UsersComponent implements OnInit {
     deleteUser(id: number) {
       this.userService.delete(id).subscribe()
     }
+
+    createUser() {
+      this.userService.create({
+        name: 'test',
+        email: 'test@test.net'
+      }).subscribe()
+    }
 }

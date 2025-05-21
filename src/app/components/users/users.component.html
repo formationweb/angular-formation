@@ -2,6 +2,8 @@
 
 <app-alpha-range [opacity]="0.6"  (onChange)="listenOpacity($event)" />
 
+<button (click)="createUser()">Créer un utilisateur</button>
+
 <select [(ngModel)]="extensionSelected">
     <option value="">Tous</option>
     @for (ext of extensions ; track ext) {
