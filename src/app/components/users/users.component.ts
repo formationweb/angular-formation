@@ -35,11 +35,11 @@ export class UsersComponent implements OnInit, OnDestroy {
       this.userService.getAll().subscribe(() => {
         this.loading.set(false)
       })
-      this.subscription = interval(1000).subscribe(console.log)
+      //this.subscription = interval(1000).subscribe(console.log)
     }
 
     ngOnDestroy(): void {
-      this.subscription.unsubscribe()
+      //this.subscription.unsubscribe()
     }
 
     listenOpacity(opacity: number) {

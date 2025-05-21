@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, OnInit, signal } from '@angular/core';
+import { Component, effect, inject, input, numberAttribute, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService, UserUpdatePayload } from '../../core/services/user.service';
 import { User } from '../../core/interfaces/user';
@@ -21,7 +21,10 @@ export class UserEditComponent implements OnInit {
   //   console.log(id)
   // }
 
-  id = input.required<number>()
+  id = input.required({
+   // transform: (value: string) => +value
+   transform: numberAttribute
+  })
   userEdit = signal<User>({} as User)
   propEmail = new FormControl()
   myForm = this.builder.group({

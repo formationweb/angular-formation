@@ -15,7 +15,7 @@ import { ConfirmDirective } from "../../directives/confirm.directive";
             <footer>
                 <button [routerLink]="['user', user().id]">Modifier</button>
                 <button 
-                    (click)="onDelete.emit(user().id)" 
+                    (onConfirm)="onDelete.emit(user().id)" 
                     confirm="Etes vous sur .."
                     [confirmUsername]="user().name"
                     >
