@@ -3,15 +3,17 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../core/services/user.service';
 import { User } from '../../core/interfaces/user';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-edit',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './user-edit.component.html',
   styleUrl: './user-edit.component.css'
 })
 export class UserEditComponent implements OnInit {
   private userService = inject(UserService)
+  private builder = inject(FormBuilder)
   // private route = inject(ActivatedRoute)
 
   // ngOnInit(): void {
@@ -21,6 +23,12 @@ export class UserEditComponent implements OnInit {
 
   id = input.required<number>()
   userEdit = signal<User>({} as User)
+  propEmail = new FormControl()
+  myForm = this.builder.group({
+    email: this.propEmail,
+    username: '',
+    name: ''
+  })
 
   // userEdit = rxResource({
   //   request: () => this.id(),
@@ -33,10 +41,14 @@ export class UserEditComponent implements OnInit {
     this.userService.get(this.id()).subscribe({
       next: (user) => {
         this.userEdit.set(user)
+        //this.propEmail.setValue(user.email)
+        this.myForm.patchValue(user)
       },
       error: (error) => {
         
       }
     })
   }
+
+  edit() {}
 }
