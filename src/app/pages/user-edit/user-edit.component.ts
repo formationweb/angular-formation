@@ -1,6 +1,6 @@
 import { Component, effect, inject, input, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../../core/services/user.service';
+import { UserService, UserUpdatePayload } from '../../core/services/user.service';
 import { User } from '../../core/interfaces/user';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -50,5 +50,18 @@ export class UserEditComponent implements OnInit {
     })
   }
 
-  edit() {}
+  edit() {
+    this.userService.update(
+        this.id(), 
+        this.myForm.value as UserUpdatePayload
+    ).subscribe((userModified) => {
+      this.userEdit.set(userModified)
+
+      // Fusion d'objets
+      // this.userEdit.set({
+      //   ...this.userEdit(),
+      //   ...userModified
+      // })
+    })
+  }
 }
