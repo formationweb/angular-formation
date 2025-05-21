@@ -4,7 +4,7 @@ import { User } from "../../core/interfaces/user";
 import { LoaderComponent } from "../../atomics/loader/loader.component";
 import { AlphaRangeComponent } from "../../atomics/alpha-range/alpha-range.component";
 import { PluralPipe } from "../../pipes/plural.pipe";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, NgForm } from "@angular/forms";
 import { ExtensionPipe } from "../../pipes/extension.pipe";
 import { UserService } from "../../core/services/user.service";
 
@@ -24,6 +24,7 @@ export class UsersComponent implements OnInit {
     private userService = inject(UserService)
     users = this.userService.users
     loading = signal(true)
+    loadingCreate = signal(false)
     opacity = 0.5
     extensions: string[] = ['tv', 'biz', 'io', 'me']
     extensionSelected = signal('')
@@ -42,10 +43,12 @@ export class UsersComponent implements OnInit {
       this.userService.delete(id).subscribe()
     }
 
-    createUser() {
-      this.userService.create({
-        name: 'test',
-        email: 'test@test.net'
-      }).subscribe()
+    createUser(myForm: NgForm) {
+      if (myForm.invalid) return
+      this.loadingCreate.set(true)
+      this.userService.create(myForm.value).subscribe(() => {
+        this.loadingCreate.set(false)
+        myForm.resetForm()
+      })
     }
 }

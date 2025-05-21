@@ -2,7 +2,29 @@
 
 <app-alpha-range [opacity]="0.6"  (onChange)="listenOpacity($event)" />
 
-<button (click)="createUser()">Créer un utilisateur</button>
+<form (ngSubmit)="createUser(myForm)" #myForm="ngForm">
+
+    @if (myForm.invalid && myForm.submitted) {
+        <p>Formulaire invalide !</p>
+
+        @if (email.hasError('required')) {
+            <p>Email requis !</p>
+        }
+        @if (name.hasError('required')) {
+            <p>Nom requis !</p>
+        }
+    }
+
+    <label>Email</label>
+    <input type="text" name="email" ngModel #email="ngModel" required>
+
+    <label>Nom</label> 
+    <input type="text" name="name" ngModel #name="ngModel" required>
+
+    <button [ariaBusy]="loadingCreate()" [disabled]="loadingCreate()">
+        {{ loadingCreate() ? '' : 'Créer un utilisateur' }}
+    </button>
+</form>
 
 <select [(ngModel)]="extensionSelected">
     <option value="">Tous</option>
