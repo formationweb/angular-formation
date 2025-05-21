@@ -1,11 +1,12 @@
 import { Component, computed, effect, Input, input, model, OnInit, output, signal } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NameFilterPipe } from "../../pipes/name.pipe";
+import { debounceTime, distinctUntilChanged } from "rxjs";
 
 @Component({
     selector: 'app-search',
     template: `
-        <input type="text" [(ngModel)]="name">
+        <input type="text" [formControl]="propName">
         @if (name() != '') {
             <button (click)="search()">Rechercher</button>
         }
@@ -18,12 +19,14 @@ import { NameFilterPipe } from "../../pipes/name.pipe";
             }
         </ul>
     `,
-    imports: [FormsModule, NameFilterPipe]
+    imports: [ReactiveFormsModule, NameFilterPipe]
 }) 
-export class SearchComponent {
+export class SearchComponent implements OnInit {
     // model(), c'est in input(), où on peut le donner un ngModel
     // input(valDefault), juste récupérer la valeur du composant parent
     // input.required()
+    propName = new FormControl()
+
     name = model<string>('')
     //@Input() name = ''
     onSearch = output<string>()
@@ -32,10 +35,19 @@ export class SearchComponent {
     //     return this.firstNames().filter(name => name.startsWith(this.name()))
     // })
 
-    constructor() {
-        effect(() => {
-            console.log(this.name())
-        })
+    ngOnInit() {
+        // effect(() => {
+        //     console.log(this.name())
+        // })
+        this.propName.setValue(this.name())
+        this.propName.valueChanges
+            .pipe(
+                debounceTime(300),
+                distinctUntilChanged()
+            )
+            .subscribe((val: string) => {
+               this.name.set(val)
+            })
     }
 
     search() {

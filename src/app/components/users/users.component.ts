@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from "@angular/core";
+import { Component, inject, OnDestroy, OnInit, signal } from "@angular/core";
 import { UserCardComponent } from "./user-card.component";
 import { User } from "../../core/interfaces/user";
 import { LoaderComponent } from "../../atomics/loader/loader.component";
@@ -7,6 +7,7 @@ import { PluralPipe } from "../../pipes/plural.pipe";
 import { FormsModule, NgForm } from "@angular/forms";
 import { ExtensionPipe } from "../../pipes/extension.pipe";
 import { UserService } from "../../core/services/user.service";
+import { interval, Subscription } from "rxjs";
 
 @Component({
     selector: 'app-users',
@@ -20,7 +21,7 @@ import { UserService } from "../../core/services/user.service";
       ExtensionPipe
     ]
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
     private userService = inject(UserService)
     users = this.userService.users
     loading = signal(true)
@@ -28,11 +29,17 @@ export class UsersComponent implements OnInit {
     opacity = 0.5
     extensions: string[] = ['tv', 'biz', 'io', 'me']
     extensionSelected = signal('')
+    subscription!: Subscription
 
     ngOnInit() {
       this.userService.getAll().subscribe(() => {
         this.loading.set(false)
       })
+      this.subscription = interval(1000).subscribe(console.log)
+    }
+
+    ngOnDestroy(): void {
+      this.subscription.unsubscribe()
     }
 
     listenOpacity(opacity: number) {
