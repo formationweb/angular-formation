@@ -1,4 +1,4 @@
-import { Component, signal } from "@angular/core";
+import { Component, Input, input, model, output, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 
 @Component({
@@ -8,14 +8,23 @@ import { FormsModule } from "@angular/forms";
         @if (name() != '') {
           <button (click)="search()">rechercher</button>
         }
+        <ul>
+          @for (firstName of firstNames() ; track $index) {
+            <li>{{ firstName }}</li>
+          }
+        </ul>
         <!-- <button (click)="search()" *ngIf="name() != ''">rechercher</button> -->
     `,
     imports: [FormsModule]
 })
 export class Search {
-  name = signal('ana')
+  name = model('')
+  //@Input() name = ''
+  firstNames = signal(['ana', 'ben', 'jim'])
+  changeSearch = output<string>()
+  // @Output() changeSearch: EventEmitter<string> = new EventEmitter()
 
   search() {
-    console.log(this.name())
+    this.changeSearch.emit(this.name())
   }
 }
