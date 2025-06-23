@@ -7,5 +7,8 @@
 </select>
 
 @for (u of users() ; track u.id) {
-    <app-user-card [user]="u" />
+    <app-user-card [user]="u">
+        <h1 class="title">Titre</h1>
+        <h1 class="footer">Test</h1>
+    </app-user-card>
 }

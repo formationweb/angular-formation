@@ -7,9 +7,11 @@ import { LangPipe } from '../../../pipes/lang';
   imports: [LangPipe],
   template: `
     <article>
+        <ng-content select=".title" />
         <header>{{ user().name }}</header>
         <p>{{ user().email }}</p>
         <button>{{ 'REMOVE' | lang:'fr' }}</button>
+        <ng-content select=".footer" />
     </article>
   `
 })
