@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { UserCard } from './user-card/user-card';
 import { User } from '../../core/interfaces/user';
+import { PluralPipe } from '../../pipes/plural';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.html',
-  imports: [UserCard],
+  imports: [UserCard, PluralPipe, FormsModule],
 })
 export class Users {
-  users: User[] = [
+  users = signal<User[]>([
     {
       id: 1,
       name: 'Leanne Graham',
@@ -239,5 +241,6 @@ export class Users {
         bs: 'target end-to-end models',
       },
     },
-  ];
+  ]);
+  nbSelected = signal(0)
 }
