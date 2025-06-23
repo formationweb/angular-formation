@@ -3,11 +3,12 @@ import { UserCard } from './user-card/user-card';
 import { User } from '../../core/interfaces/user';
 import { PluralPipe } from '../../pipes/plural';
 import { FormsModule } from '@angular/forms';
+import { Loader } from '../../atomics/loader';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.html',
-  imports: [UserCard, PluralPipe, FormsModule],
+  imports: [UserCard, PluralPipe, FormsModule, Loader],
 })
 export class Users {
   users = signal<User[]>([
@@ -243,4 +244,11 @@ export class Users {
     },
   ]);
   nbSelected = signal(0)
+  loadingUsers = signal(true)
+
+  constructor() {
+    setTimeout(() => {
+      this.loadingUsers.set(false)
+    }, 2000)
+  }
 }

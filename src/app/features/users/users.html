@@ -1,14 +1,16 @@
-<h1>{{ 'Utilisateur' | plural:nbSelected() }}</h1>
+<app-loader [loading]="loadingUsers()">
+    <h1>{{ 'Utilisateur' | plural:nbSelected() }}</h1>
 
-<select [(ngModel)]="nbSelected">
-    <option>0</option>
-    <option>1</option>
-    <option>2</option>
-</select>
+    <select [(ngModel)]="nbSelected">
+        <option>0</option>
+        <option>1</option>
+        <option>2</option>
+    </select>
 
-@for (u of users() ; track u.id) {
-    <app-user-card [user]="u">
-        <h1 class="title">Titre</h1>
-        <h1 class="footer">Test</h1>
-    </app-user-card>
-}
+    @for (u of users() ; track u.id) {
+        <app-user-card [user]="u">
+            <h1 class="title">Titre</h1>
+            <h1 class="footer">Test</h1>
+        </app-user-card>
+    }
+</app-loader>
