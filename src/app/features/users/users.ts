@@ -11,7 +11,7 @@ import { UserModel } from '../../core/services/user';
 @Component({
   selector: 'app-users',
   templateUrl: './users.html',
-  imports: [UserCard, PluralPipe, FormsModule, Loader, OpacityRange, Draw],
+  imports: [UserCard, PluralPipe, FormsModule, Loader],
   styles: `
     .red {
       color: red;
