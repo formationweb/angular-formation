@@ -8,7 +8,7 @@
     </h1> -->
     <h1 [style.color]="'red'"> {{ 'Utilisateur' | plural:nbSelected() }}</h1> 
 
-    <app-draw />
+    <!-- <app-draw /> -->
     <!-- <app-opacity-range (changeOpacity)="listenOpacity($event)" /> -->
 
     <select [(ngModel)]="extSelected">
@@ -24,10 +24,19 @@
         <option>2</option>
     </select>
 
+    <p>Scroller vers</p>
+    <input type="text" [(ngModel)]="currentIndex">
+    @if (errorMessage()) {
+        <p>{{ errorMessage() }}</p>
+    }
+    <button (click)="scrollToUser()">Scroll to User</button>
+
     @for (u of usersFiltered() ; track u.id) {
-        <app-user-card [user]="u">
-            <h1 class="title">Titre</h1>
-            <h1 class="footer">Test</h1>
-        </app-user-card>
+        <div #refCard>
+            <app-user-card [user]="u">
+                <h1 class="title">Titre</h1>
+                <h1 class="footer">Test</h1>
+            </app-user-card>
+        </div>
     }
 </app-loader>

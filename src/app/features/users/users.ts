@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, ElementRef, signal, viewChildren } from '@angular/core';
 import { UserCard } from './user-card/user-card';
 import { User } from '../../core/interfaces/user';
 import { PluralPipe } from '../../pipes/plural';
@@ -267,6 +267,9 @@ export class Users {
     return this.users()
       .filter(user => user.email.endsWith(this.extSelected()))
   })
+  elCards = viewChildren<ElementRef<HTMLDivElement>>('refCard')
+  currentIndex = signal(0)
+  errorMessage = signal('')
 
   constructor() {
     setTimeout(() => {
@@ -276,5 +279,15 @@ export class Users {
 
   listenOpacity(opacity: number) {
     console.log(opacity)
+  }
+
+  scrollToUser() {
+    const elCard = this.elCards()[this.currentIndex()]
+    if (!elCard) {
+      this.errorMessage.set('index invalide')
+      return
+    }
+    this.errorMessage.set('')
+    elCard.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 }
