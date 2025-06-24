@@ -8,7 +8,8 @@
     </h1> -->
     <h1 [style.color]="'red'"> {{ 'Utilisateur' | plural:nbSelected() }}</h1> 
 
-    <app-opacity-range (changeOpacity)="listenOpacity($event)" />
+    <app-draw />
+    <!-- <app-opacity-range (changeOpacity)="listenOpacity($event)" /> -->
 
     <select [(ngModel)]="extSelected">
         <option value="">Tous</option>

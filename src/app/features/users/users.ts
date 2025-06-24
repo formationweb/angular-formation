@@ -5,11 +5,12 @@ import { PluralPipe } from '../../pipes/plural';
 import { FormsModule } from '@angular/forms';
 import { Loader } from '../../atomics/loader';
 import { OpacityRange } from '../../atomics/opacity';
+import { Draw } from '../draw/draw';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.html',
-  imports: [UserCard, PluralPipe, FormsModule, Loader, OpacityRange],
+  imports: [UserCard, PluralPipe, FormsModule, Loader, OpacityRange, Draw],
   styles: `
     .red {
       color: red;
