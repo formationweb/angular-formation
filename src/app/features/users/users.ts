@@ -63,6 +63,6 @@ export class Users {
   }
 
   deleteUser(id: number) {
-    console.log(id)
+    this.userModel.delete(id).subscribe()
   }
 }
