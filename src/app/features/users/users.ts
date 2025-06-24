@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { UserCard } from './user-card/user-card';
 import { User } from '../../core/interfaces/user';
 import { PluralPipe } from '../../pipes/plural';
@@ -257,6 +257,15 @@ export class Users {
   ]);
   nbSelected = signal(0)
   loadingUsers = signal(true)
+  extensions = signal(['tv', 'biz', 'io', 'me'])
+  extSelected = signal('')
+  usersFiltered = computed(() => {
+    if (!this.extSelected()) {
+      return this.users()
+    }
+    return this.users()
+      .filter(user => user.email.endsWith(this.extSelected()))
+  })
 
   constructor() {
     setTimeout(() => {
