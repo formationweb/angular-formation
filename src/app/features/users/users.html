@@ -8,6 +8,8 @@
     </h1> -->
     <h1 [style.color]="'red'"> {{ 'Utilisateur' | plural:nbSelected() }}</h1> 
 
+    <app-opacity-range (changeOpacity)="listenOpacity($event)" />
+
     <select [(ngModel)]="nbSelected">
         <option>0</option>
         <option>1</option>

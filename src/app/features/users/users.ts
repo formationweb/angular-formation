@@ -4,11 +4,12 @@ import { User } from '../../core/interfaces/user';
 import { PluralPipe } from '../../pipes/plural';
 import { FormsModule } from '@angular/forms';
 import { Loader } from '../../atomics/loader';
+import { OpacityRange } from '../../atomics/opacity';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.html',
-  imports: [UserCard, PluralPipe, FormsModule, Loader],
+  imports: [UserCard, PluralPipe, FormsModule, Loader, OpacityRange],
   styles: `
     .red {
       color: red;
@@ -260,6 +261,10 @@ export class Users {
   constructor() {
     setTimeout(() => {
       this.loadingUsers.set(false)
-    }, 2000)
+    }, 0)
+  }
+
+  listenOpacity(opacity: number) {
+    console.log(opacity)
   }
 }
