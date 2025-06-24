@@ -9,6 +9,17 @@ import { Loader } from '../../atomics/loader';
   selector: 'app-users',
   templateUrl: './users.html',
   imports: [UserCard, PluralPipe, FormsModule, Loader],
+  styles: `
+    .red {
+      color: red;
+    }
+    .green {
+      color: green;
+    }
+    .bold {
+      font-weight: 'bold'
+    }
+  `
 })
 export class Users {
   users = signal<User[]>([

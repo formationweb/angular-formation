@@ -1,5 +1,12 @@
 <app-loader [loading]="loadingUsers()">
-    <h1>{{ 'Utilisateur' | plural:nbSelected() }}</h1>
+    <!-- <h1 [class]="{ red: nbSelected() == 0, green: nbSelected() > 0 }">{{ 'Utilisateur' | plural:nbSelected() }}</h1> -->
+    <!-- <h1 
+        class="bold"
+        [class.red]="nbSelected() == 0" 
+        [class.green]="nbSelected() > 0">
+        {{ 'Utilisateur' | plural:nbSelected() }}
+    </h1> -->
+    <h1 [style.color]="'red'"> {{ 'Utilisateur' | plural:nbSelected() }}</h1> 
 
     <select [(ngModel)]="nbSelected">
         <option>0</option>
