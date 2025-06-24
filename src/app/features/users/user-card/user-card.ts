@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { User } from '../../../core/interfaces/user';
 import { LangPipe } from '../../../pipes/lang';
 
@@ -10,11 +10,12 @@ import { LangPipe } from '../../../pipes/lang';
         <ng-content select=".title" />
         <header>{{ user().name }}</header>
         <p>{{ user().email }}</p>
-        <button>{{ 'REMOVE' | lang:'fr' }}</button>
+        <button (click)="handleDelete.emit(user().id)">{{ 'REMOVE' | lang:'fr' }}</button>
         <ng-content select=".footer" />
     </article>
   `
 })
 export class UserCard {
   user = input.required<User>()
+  handleDelete = output<number>()
 }

@@ -33,7 +33,7 @@
 
     @for (u of usersFiltered() ; track u.id) {
         <div #refCard>
-            <app-user-card [user]="u">
+            <app-user-card [user]="u" (handleDelete)="deleteUser($event)">
                 <h1 class="title">Titre</h1>
                 <h1 class="footer">Test</h1>
             </app-user-card>

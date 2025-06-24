@@ -61,4 +61,8 @@ export class Users {
     this.errorMessage.set('')
     elCard.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
+
+  deleteUser(id: number) {
+    console.log(id)
+  }
 }
