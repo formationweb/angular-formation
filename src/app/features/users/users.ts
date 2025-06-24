@@ -28,7 +28,7 @@ export class Users {
   private userModel = inject(UserModel)
   users = this.userModel.users
   nbSelected = signal(0)
-  loadingUsers = signal(false)
+  loadingUsers = signal(true)
   extensions = signal(['tv', 'biz', 'io', 'me'])
   extSelected = signal('')
   usersFiltered = computed(() => {
@@ -43,7 +43,9 @@ export class Users {
   errorMessage = signal('')
 
   constructor() {
-    this.userModel.fetchAll()
+    this.userModel.fetchAll().subscribe(() => {
+      this.loadingUsers.set(false)
+    })
   }
 
   listenOpacity(opacity: number) {
