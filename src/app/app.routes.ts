@@ -1,11 +1,11 @@
 import { Routes } from "@angular/router";
-import { Users } from "./features/users/users";
 import { Login } from "./pages/login/login";
+import { Main } from "./layouts/main/main";
 
 export const routes: Routes = [
     {
         path: '',
-        component: Users
+        component: Main
     },
     {
         path: 'login',
