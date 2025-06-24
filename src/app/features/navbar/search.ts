@@ -1,4 +1,4 @@
-import { Component, Input, input, model, output, signal } from "@angular/core";
+import { Component, computed, Input, input, model, output, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 
 @Component({
@@ -9,7 +9,7 @@ import { FormsModule } from "@angular/forms";
           <button (click)="search()">rechercher</button>
         }
         <ul>
-          @for (firstName of firstNames() ; track $index) {
+          @for (firstName of firstNamesFiltered() ; track $index) {
             <li>{{ firstName }}</li>
           }
         </ul>
@@ -21,6 +21,9 @@ export class Search {
   name = model('')
   //@Input() name = ''
   firstNames = signal(['ana', 'ben', 'jim'])
+  firstNamesFiltered = computed(() => {
+    return this.firstNames().filter(firstName => firstName.startsWith(this.name()))
+  })
   changeSearch = output<string>()
   // @Output() changeSearch: EventEmitter<string> = new EventEmitter()
 

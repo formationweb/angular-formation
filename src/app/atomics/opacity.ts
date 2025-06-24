@@ -1,4 +1,4 @@
-import { Component, input, model, output } from "@angular/core";
+import { Component, computed, input, model, output, effect } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 
 @Component({
@@ -7,10 +7,10 @@ import { FormsModule } from "@angular/forms";
     template: `
         <input type="range" 
             [(ngModel)]="opacity" 
-            (input)="changeOpacity.emit(opacity())" 
             min="0" 
             max="1" 
             step="0.01">
+        {{ percentOpacity() }}
         <div [style.opacity]="opacity()" [style.backgroundColor]="color()"></div>
     `,
     styles: `
@@ -24,4 +24,11 @@ export class OpacityRange {
     opacity = model(1)
     color = input('black')
     changeOpacity = output<number>()
+    percentOpacity = computed(() => (this.opacity() * 100) + '%')
+
+    constructor() {
+        effect(() => {
+            this.changeOpacity.emit(this.opacity())
+        })
+    }
 }
