@@ -2,7 +2,7 @@ import { Component, computed, ElementRef, inject, signal, viewChildren } from '@
 import { UserCard } from './user-card/user-card';
 import { User } from '../../core/interfaces/user';
 import { PluralPipe } from '../../pipes/plural';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Loader } from '../../atomics/loader';
 import { OpacityRange } from '../../atomics/opacity';
 import { Draw } from '../draw/draw';
@@ -41,6 +41,7 @@ export class Users {
   elCards = viewChildren<ElementRef<HTMLDivElement>>('refCard')
   currentIndex = signal(0)
   errorMessage = signal('')
+  loadingCreate = signal(false)
 
   constructor() {
     this.userModel.fetchAll().subscribe(() => {
@@ -60,6 +61,14 @@ export class Users {
     }
     this.errorMessage.set('')
     elCard.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  createUser(form: NgForm) {
+    this.loadingCreate.set(true)
+    this.userModel.create(form.value).subscribe(() => {
+      this.loadingCreate.set(false)
+      form.resetForm()
+    })
   }
 
   deleteUser(id: number) {

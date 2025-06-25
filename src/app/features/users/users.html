@@ -31,6 +31,27 @@
     }
     <button (click)="scrollToUser()">Scroll to User</button>
 
+    <form (submit)="createUser(refForm)" #refForm="ngForm">
+
+        @if (refForm.invalid && refForm.submitted) {
+            @if (email.hasError('required')) {
+                <p>Email obligatoire</p>
+            }
+            @if (name.hasError('required')) {
+                <p>Nom obligatoire</p>
+            }
+        }
+
+        <label>Email</label>
+        <input type="text" name="email" ngModel #email="ngModel" required>
+
+        <label>Nom</label>
+        <input type="text" name="name" ngModel #name="ngModel" required>
+
+        <button [ariaBusy]="loadingCreate()" 
+        [disabled]="loadingCreate()">{{ loadingCreate() ? '' : 'Créer' }}</button>
+    </form>
+
     @for (u of usersFiltered() ; track u.id) {
         <div #refCard>
             <app-user-card [user]="u" (handleDelete)="deleteUser($event)">
