@@ -1,17 +1,33 @@
-import { Component, ElementRef, viewChild } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { Component, signal } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { domainValidator } from '../../core/validators/domain';
+
+interface LoginForms {
+  email: FormControl<string | null>
+  password: FormControl<string | null>
+}
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
-  templateUrl: './login.html',
-  styleUrl: './login.css'
+  imports: [ReactiveFormsModule],
+  templateUrl: './login.html'
 })
 export class Login {
- // form = viewChild<ElementRef<HTMLFormElement>>('refForm')
+  propEmail = new FormControl('', [
+    Validators.required,
+    Validators.minLength(3),
+    domainValidator('hotmail.com')
+  ])
+  propPass = new FormControl('')
+  form = new FormGroup<LoginForms>({
+    email: this.propEmail,
+    password: this.propPass
+  })
+  submitted = signal(false)
 
-  login(form: NgForm) {
-    if (form.invalid) return
-    console.log(form.value)
+  login() {
+    this.submitted.set(true)
+    if (this.form.invalid) return
+    console.log(this.form.value.email)
   }
 }
