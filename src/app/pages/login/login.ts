@@ -25,6 +25,10 @@ export class Login {
   })
   submitted = signal(false)
 
+  constructor() {
+    this.propEmail.setValue('...')
+  }
+
   login() {
     this.submitted.set(true)
     if (this.form.invalid) return

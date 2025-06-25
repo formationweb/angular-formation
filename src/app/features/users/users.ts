@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, inject, signal, viewChildren } from '@angular/core';
+import { Component, computed, ElementRef, inject, OnDestroy, signal, viewChildren } from '@angular/core';
 import { UserCard } from './user-card/user-card';
 import { User } from '../../core/interfaces/user';
 import { PluralPipe } from '../../pipes/plural';
@@ -7,6 +7,7 @@ import { Loader } from '../../atomics/loader';
 import { OpacityRange } from '../../atomics/opacity';
 import { Draw } from '../draw/draw';
 import { UserModel } from '../../core/services/user';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -24,7 +25,7 @@ import { UserModel } from '../../core/services/user';
     }
   `
 })
-export class Users {
+export class Users implements OnDestroy {
   private userModel = inject(UserModel)
   users = this.userModel.users
   nbSelected = signal(0)
@@ -42,11 +43,17 @@ export class Users {
   currentIndex = signal(0)
   errorMessage = signal('')
   loadingCreate = signal(false)
+ // subscription!: Subscription
 
   constructor() {
     this.userModel.fetchAll().subscribe(() => {
       this.loadingUsers.set(false)
     })
+    // const ob$ = interval(1000)
+
+    // this.subscription = ob$.subscribe((nb) => {
+    //   console.log(nb)
+    // })
   }
 
   listenOpacity(opacity: number) {
@@ -73,5 +80,9 @@ export class Users {
 
   deleteUser(id: number) {
     this.userModel.delete(id).subscribe()
+  }
+
+  ngOnDestroy(): void {
+   // this.subscription.unsubscribe()
   }
 }

@@ -1,5 +1,8 @@
-import { Component, effect, inject, input, numberAttribute, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, effect, inject, input, numberAttribute, OnInit, resource, signal } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserModel } from '../../core/services/user';
+import { User } from '../../core/interfaces/user';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-user-edit',
@@ -8,15 +11,25 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './user-edit.css'
 })
 export class UserEdit /*implements OnInit*/ {
+  //private router = inject(Router)
+  private userModel = inject(UserModel)
   id = input.required({
    // transform: (value: string) => +value
    transform: numberAttribute
   })
+  // user = rxResource({
+  //   params: () => this.id(),
+  //   loader: ({ params }) => this.userModel.get(params)
+  // })
+  user = signal<User>({} as User)
 
   constructor() {
     effect(() => {
-      console.log(this.id())
+       this.userModel.get(this.id()).subscribe((resUser) => {
+        this.user.set(resUser)
+       })
     })
+    //this.router.navigateByUrl('/')
   }
 
   // private route = inject(ActivatedRoute)
