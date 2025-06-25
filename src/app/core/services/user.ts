@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable, tap } from "rxjs";
 
 export type UserPayload = { name: string, email: string }
+export type UserUpdatePayload = UserPayload & { username: string }
 
 @Injectable({
     providedIn: 'root'
@@ -31,6 +32,10 @@ export class UserModel {
            this.users.set([ ...this.users(), userCreated ])
         })
       )
+    }
+
+    update(id: number, payload: UserUpdatePayload): Observable<User> {
+      return this.http.put<User>(this.url + '/' + id, payload)
     }
 
     delete(id: number): Observable<void> {

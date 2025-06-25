@@ -1,6 +1,6 @@
 import { Component, effect, inject, input, numberAttribute, OnInit, resource, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserModel } from '../../core/services/user';
+import { UserModel, UserUpdatePayload } from '../../core/services/user';
 import { User } from '../../core/interfaces/user';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -49,7 +49,15 @@ export class UserEdit /*implements OnInit*/ {
     //this.router.navigateByUrl('/')
   }
 
-  edit() {}
+  edit() {
+    this.userModel.update(this.user().id, this.form.value as UserUpdatePayload)
+      .subscribe((userModified) => {
+         this.user.set({
+           ...this.user(),
+           ...userModified
+         })
+      })
+  }
 
   // private route = inject(ActivatedRoute)
 
