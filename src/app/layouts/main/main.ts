@@ -1,13 +1,13 @@
+import { RouterOutlet } from '@angular/router';
 import { Component } from '@angular/core';
-import { Users } from '../../features/users/users';
 import { Navbar } from '../../features/navbar/navbar';
 
 @Component({
   selector: 'app-main',
-  imports: [Users, Navbar],
+  imports: [Navbar, RouterOutlet],
   template: `
     <app-navbar />
-    <app-users />
+    <router-outlet />
   `
 })
 export class Main {
