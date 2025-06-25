@@ -13,7 +13,7 @@ import { ConfirmDirective } from '../../../directives/confirm';
         <header>{{ user().name }}</header>
         <p>{{ user().email }}</p>
         <button 
-          (click)="handleDelete.emit(user().id)" 
+          (handleConfirm)="handleDelete.emit(user().id)" 
           confirm="Etes vous sur ..."
           [confirmUserName]="user().name"
         >{{ 'REMOVE' | lang:'fr' }}</button>
