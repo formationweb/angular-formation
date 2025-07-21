@@ -1,11 +1,14 @@
 import { Component, signal } from '@angular/core';
+import { UserCard } from './user-card';
+import { User } from '../core/interfaces/user';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.html',
+  imports: [UserCard]
 })
 export class Users {
-  users = signal([
+  users = signal<User[]>([
     {
       id: 1,
       name: 'Leanne Graham',
