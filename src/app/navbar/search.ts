@@ -11,14 +11,29 @@ import { FormsModule } from "@angular/forms";
         }
         <ul>
             @for (name of firstNames() ; track $index) {
-                <li>{{ name }}</li>
+                <!-- <li [class]="{ red: $even, 'my-green': $odd }" class="bold">{{ name }}</li> -->
+                <!-- <li [style]="{ backgroundColor: 'red' }">{{ name }}</li> -->
+                 <li>{{ name }}</li>
             } 
             @empty {
                 <p>Aucun nom</p>
             }
         </ul>
     `,
-    imports: [FormsModule]
+    imports: [FormsModule],
+    styles: `
+        .red {
+            color: red;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .my-green {
+            color: green;
+        }
+    `
 })
 export class Search {
    // userName = input.required<string>()
