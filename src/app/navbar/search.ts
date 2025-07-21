@@ -33,6 +33,11 @@ import { FormsModule } from "@angular/forms";
         .my-green {
             color: green;
         }
+
+        div {
+            width: 100px;
+            height: 100px;
+        }
     `
 })
 export class Search {

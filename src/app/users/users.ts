@@ -1,11 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { UserCard } from './user-card';
 import { User } from '../core/interfaces/user';
+import { Opacity } from '../atomics/opacity';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.html',
-  imports: [UserCard]
+  imports: [UserCard, Opacity]
 })
 export class Users {
   users = signal<User[]>([
