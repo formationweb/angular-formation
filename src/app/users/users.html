@@ -1,6 +1,6 @@
 <h1>Utilisateurs</h1>
 
-<app-alpha-range />
+<app-alpha-range (handleChange)="listenOpacity($event)" />
 
 @for (u of users() ; track u.id) {
     <app-user-card [user]="u" />

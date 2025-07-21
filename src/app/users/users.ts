@@ -241,4 +241,8 @@ export class Users {
       },
     },
   ]);
+
+  listenOpacity(opacity: number) {
+    console.log(opacity)
+  }
 }
