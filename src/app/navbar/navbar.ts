@@ -5,10 +5,15 @@ import { Search } from "./search";
     selector: 'app-navbar',
     template: `
         <h1>{{ title() }}</h1>
-        <app-search />
+        <app-search [userName]="name()" (handleSearch)="listenSearch($event)" />
     `,
     imports: [Search]
 })
 export class Navbar {
+    name = signal('ben')
     title = signal('Mon App')
+
+    listenSearch(userName: string) {
+        console.log(userName)
+    }
 }
