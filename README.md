@@ -1,26 +1,7 @@
-/api/me --> { "email": "...", name: "... "}
+/login -> Serveur -> Routeur -> controller 
+/login -> Routeur -> Component
 
-```ts
-class Me {
-    getName() {
-        return ...
-    }
-}
-```
-
-Navbar
-
-```ts
-me.getName()
-```
-
-Liste des participants
-
-```ts
-me.getName()
-```
-
-
-```ts
-storage.put('...')
-```
+SPA (Single Page Application)
+-> CSR (Client Side Rendering)
+-> SSR (Server Side Rendering) / Hydratation
+-> SSG (Server Side Generation)
