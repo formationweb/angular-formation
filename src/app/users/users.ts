@@ -34,4 +34,8 @@ export class Users {
   listenOpacity(opacity: number) {
     console.log(opacity)
   }
+
+  deleteUser(id: number) {
+    this.usersModel.delete(id).subscribe()
+  }
 }
