@@ -10,4 +10,6 @@ import { Users } from './users/users';
     `,
     imports: [Navbar, Users]
 })
-export class App {}
+export class App {
+    
+}

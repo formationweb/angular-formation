@@ -1,10 +1,10 @@
-import { Component, computed, input, model, output } from "@angular/core";
+import { Component, computed, effect, input, model, OnInit, output } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 
 @Component({
     selector: 'app-alpha-range',
     template: `
-        <input type="range" min="0" max="1" step="0.01" [(ngModel)]="opacity" (input)="changeOpacity()">
+        <input type="range" min="0" max="1" step="0.01" [(ngModel)]="opacity">
         <p>{{ opacityStr() }}</p>
         <div class="preview" [style]="{ backgroundColor: color(), opacity: opacity() } "></div>
     `,
@@ -22,8 +22,14 @@ export class Opacity {
     color = input('black')
     handleChange = output<number>()
 
-    changeOpacity() {
-        console.log(this.opacityStr())
-        this.handleChange.emit(this.opacity())
+    constructor() {  
+        effect(() => {
+            console.log(this.opacityStr())
+            this.handleChange.emit(this.opacity())
+        })
+        setTimeout(() => {
+            this.opacity.set(0.3)
+        }, 1000)
     }
+ 
 }
