@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
-import { Component, computed, input, model, output, signal } from "@angular/core";
+import { Component, computed, inject, input, model, output, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { UsersModel } from "../users/users.service";
 
 @Component({
     selector: 'app-search',
@@ -41,6 +42,8 @@ import { FormsModule } from "@angular/forms";
     `
 })
 export class Search {
+    private usersModel = inject(UsersModel)
+
    // userName = input.required<string>()
     userName = model('')
     handleSearch = output<string>()
@@ -50,6 +53,7 @@ export class Search {
     })
 
     search() {
+        this.usersModel.setSearchName(this.userName())
         this.handleSearch.emit(this.userName())
     }
 }
