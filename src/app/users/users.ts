@@ -20,6 +20,10 @@ export class Users {
   extensions = signal(['tv', 'biz', 'io', 'me'])
   extSelected = signal('')
 
+  constructor() {
+    this.usersModel.getAll().subscribe()
+  }
+
   usersFiltered = computed(() => {
     if (!this.extSelected()) {
       return this.usersSearch()
