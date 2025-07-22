@@ -1,6 +1,7 @@
 <h1>{{ 'Utilisateur' | plural:usersFiltered().length }}</h1>
 
 <!-- <app-alpha-range [opacity]="0.5" (handleChange)="listenOpacity($event)" /> -->
+ <app-draw />
 
 <select [(ngModel)]="extSelected">
     <option value="">Tous</option>
@@ -10,5 +11,8 @@
 </select>
 
 @for (u of usersFiltered() ; track u.id) {
-    <app-user-card [user]="u" />
+    <app-user-card [user]="u">
+        <h1 class="title">test</h1>
+        <h2>footer</h2>
+    </app-user-card>
 }

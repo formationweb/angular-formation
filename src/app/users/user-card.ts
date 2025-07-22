@@ -6,9 +6,11 @@ import { LangPipe } from "../core/pipes/lang";
     selector: 'app-user-card',
     template: `
         <article>
+            <ng-content select=".title" />
             <header>{{ user().name }}</header>
             <p>{{ user().email }}</p>
             <footer>
+                <ng-content select="h2" />
                 <button>{{ 'REMOVE' | lang:'fr' }}</button>
             </footer>
         </article>
