@@ -1,6 +1,7 @@
-import { Component, signal } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
 import { Search } from "./search";
 import { DatePipe, LowerCasePipe, UpperCasePipe } from "@angular/common";
+import { AppModel } from "../app.service";
 
 @Component({
     selector: 'app-navbar',
@@ -11,9 +12,11 @@ import { DatePipe, LowerCasePipe, UpperCasePipe } from "@angular/common";
     imports: [Search, UpperCasePipe, DatePipe, LowerCasePipe]
 })
 export class Navbar {
+    private appModel = inject(AppModel)
+
     name = signal('ben')
-    title = signal('Mon App')
     now = Date.now()
+    title = this.appModel.title
 
     listenSearch(userName: string) {
         console.log(userName)
