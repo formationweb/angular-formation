@@ -2,6 +2,13 @@
 
 <!-- <app-alpha-range [opacity]="0.5" (handleChange)="listenOpacity($event)" /> -->
 
-@for (u of users() ; track u.id) {
+<select [(ngModel)]="extSelected">
+    <option value="">Tous</option>
+    @for (ext of extensions() ; track ext) {
+        <option>{{ ext }}</option>
+    }
+</select>
+
+@for (u of usersFiltered() ; track u.id) {
     <app-user-card [user]="u" />
 }
