@@ -3,11 +3,12 @@ import { UserCard } from './user-card';
 import { User } from '../core/interfaces/user';
 import { Opacity } from '../atomics/opacity';
 import { FormsModule } from '@angular/forms';
+import { PluralPipe } from '../core/pipes/plural';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.html',
-  imports: [UserCard, Opacity, FormsModule]
+  imports: [UserCard, Opacity, FormsModule, PluralPipe]
 })
 export class Users {
   users = signal<User[]>([
