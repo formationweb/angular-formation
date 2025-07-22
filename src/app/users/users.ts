@@ -5,7 +5,7 @@ import { Opacity } from '../atomics/opacity';
 import { FormsModule } from '@angular/forms';
 import { PluralPipe } from '../core/pipes/plural';
 import { Draw } from '../draw/draw';
-import { Loader } from '../loader/loader';
+import { Loader } from '../atomics/loader/loader';
 import { UsersModel } from './users.service';
 
 @Component({
