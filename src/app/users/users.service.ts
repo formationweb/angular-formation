@@ -8,6 +8,12 @@ export type UserCreatePayload = {
   name: string
 }
 
+export type UserEditPayload = {
+  email: string
+  name: string
+  username: string
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -46,6 +52,10 @@ export class UsersModel {
            ])
         })
       )
+    }
+
+    update(id: number, payload: UserEditPayload): Observable<User> {
+      return this.http.put<User>(this.url + '/' + id, payload)
     }
 
     delete(id: number): Observable<void> {

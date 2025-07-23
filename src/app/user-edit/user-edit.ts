@@ -1,6 +1,6 @@
 import { Component, effect, inject, input, numberAttribute, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UsersModel } from '../users/users.service';
+import { UserEditPayload, UsersModel } from '../users/users.service';
 import { User } from '../core/interfaces/user';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -37,6 +37,18 @@ export class UserEdit  {
           console.log(err)
         }
        })
+    })
+  }
+
+  edit() {
+    this.usersModel.update(
+      this.user().id, 
+      this.form.value as UserEditPayload
+    ).subscribe((userModified) => {
+      this.user.set({
+        ...this.user(),
+        ...userModified
+      })
     })
   }
 
