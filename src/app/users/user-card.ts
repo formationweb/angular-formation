@@ -14,7 +14,7 @@ import { ConfirmDirective } from "../core/directives/confirm";
             <footer>
                 <ng-content select="h2" />
                 <button 
-                    (click)="onDelete.emit(user().id)" 
+                    (handleConfirm)="onDelete.emit(user().id)" 
                     confirm="Etes vous sûr ..."
                     [confirmUsername]="user().name"
                     >

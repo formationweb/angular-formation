@@ -1,4 +1,4 @@
-import { Directive, HostListener, input } from "@angular/core";
+import { Directive, HostListener, input, output } from "@angular/core";
 
 @Directive({
     selector: '[confirm]'
@@ -8,10 +8,11 @@ export class ConfirmDirective {
         alias: 'confirm'
     })
     confirmUsername = input('')
+    handleConfirm = output<void>()
 
     @HostListener('click')
     openDialog() {
         const bool = window.confirm(this.message() + ' ' + this.confirmUsername())
-        console.log(bool)
+        if (bool) this.handleConfirm.emit()
     }
 }
