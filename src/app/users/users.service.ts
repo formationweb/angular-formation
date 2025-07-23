@@ -28,6 +28,17 @@ export class UsersModel {
       )
     }
 
+    create(data: any): Observable<User> {
+      return this.http.post<User>(this.url, data).pipe(
+        tap((userCreated) => {
+           this.users.set([
+             ...this.users(),
+             userCreated
+           ])
+        })
+      )
+    }
+
     delete(id: number): Observable<void> {
       return this.http.delete<void>(this.url + '/' + id).pipe(
         tap(() => {
