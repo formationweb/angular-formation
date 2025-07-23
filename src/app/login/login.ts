@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { domainValidator } from '../core/validators/domain';
 
 type LoginForm = {
   email: FormControl<string | null>
@@ -15,7 +16,8 @@ type LoginForm = {
 export class Login {
   propEmail = new FormControl('', [
     Validators.required,
-    Validators.minLength(3)
+    Validators.minLength(3),
+    domainValidator('hotmail.com')
   ])
   propPass = new FormControl()
   myForm = new FormGroup<LoginForm>({

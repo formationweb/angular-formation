@@ -8,6 +8,9 @@
         @if (propEmail.hasError('minlength')) {
             <div>Caractères min.</div>
         }
+        @if (propEmail.hasError('domain')) {
+            <div>{{ propEmail.getError('domain') }} est interdit !</div>
+        }
     }
 
     <label>Email</label>
