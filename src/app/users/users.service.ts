@@ -33,6 +33,10 @@ export class UsersModel {
       )
     }
 
+    get(id: number): Observable<User> {
+      return this.http.get<User>(this.url + '/' + id)
+    }
+
     create(data: UserCreatePayload): Observable<User> {
       return this.http.post<User>(this.url, data).pipe(
         tap((userCreated) => {

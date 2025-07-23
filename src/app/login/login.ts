@@ -31,4 +31,10 @@ export class Login {
     if (this.myForm.invalid) return
     console.log(this.myForm.value)
   }
+
+  constructor() {
+    setTimeout(() => {
+      this.propEmail.setValue('test')
+    }, 1000)
+  }
 }

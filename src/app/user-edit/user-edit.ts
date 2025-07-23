@@ -1,5 +1,7 @@
-import { Component, effect, inject, input, numberAttribute, OnInit } from '@angular/core';
+import { Component, effect, inject, input, numberAttribute, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { UsersModel } from '../users/users.service';
+import { User } from '../core/interfaces/user';
 
 @Component({
   selector: 'app-user-edit',
@@ -8,13 +10,23 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './user-edit.css'
 })
 export class UserEdit  {
+  private usersModel = inject(UsersModel)
+  user = signal<User>({} as User)
+
   id = input.required({
     transform: numberAttribute
   })
 
   constructor() {
     effect(() => {
-       console.log(this.id())
+       this.usersModel.get(this.id()).subscribe({
+        next: (user) => {
+          this.user.set(user)
+        },
+        error: (err) => {
+          console.log(err)
+        }
+       })
     })
   }
 

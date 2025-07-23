@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, OnDestroy, signal } from '@angular/core';
 import { UserCard } from './user-card';
 import { User } from '../core/interfaces/user';
 import { Opacity } from '../atomics/opacity';
@@ -7,13 +7,14 @@ import { PluralPipe } from '../core/pipes/plural';
 import { Draw } from '../draw/draw';
 import { Loader } from '../atomics/loader/loader';
 import { UsersModel } from './users.service';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.html',
   imports: [UserCard, Opacity, FormsModule, PluralPipe, Draw, Loader]
 })
-export class Users {
+export class Users implements OnDestroy {
   private usersModel = inject(UsersModel)
   users = this.usersModel.users
   usersSearch = this.usersModel.usersSearch
@@ -21,11 +22,16 @@ export class Users {
   extSelected = signal('')
   loading = signal(true)
   loadingCreate = signal(false)
+  subscription!: Subscription
 
   constructor() {
     this.usersModel.getAll().subscribe(() => {
       this.loading.set(false)
     })
+
+    this.subscription = interval(1000).subscribe((nb) => {
+      //console.log(nb)
+     })
   }
 
   usersFiltered = computed(() => {
@@ -50,5 +56,9 @@ export class Users {
 
   deleteUser(id: number) {
     this.usersModel.delete(id).subscribe()
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
   }
 }
