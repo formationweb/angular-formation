@@ -1,4 +1,4 @@
-import { Component, input, output } from "@angular/core";
+import { AfterContentInit, Component, contentChild, effect, ElementRef, input, output } from "@angular/core";
 import { User } from "../core/interfaces/user";
 import { LangPipe } from "../core/pipes/lang";
 
@@ -17,7 +17,14 @@ import { LangPipe } from "../core/pipes/lang";
     `,
     imports: [LangPipe]
 })
-export class UserCard {
+export class UserCard  {
+    cardEl = contentChild<ElementRef<HTMLElement>>('cardTitleRef')
     user = input.required<User>()
     onDelete = output<number>()
+
+    constructor() {
+        effect(() => {
+            //console.log(this.cardEl()?.nativeElement)
+        })
+    }
 }
