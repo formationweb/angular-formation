@@ -10,7 +10,30 @@
     }
 </select>
 
-<app-loader [loading]="false">
+<form (ngSubmit)="createUser(formRef)" #formRef="ngForm">
+
+    @if (formRef.invalid && formRef.submitted) {
+        <div>
+            Formulaire invalide
+        </div>
+        @if (email.hasError('required')) {
+            <div>Email obligatoire</div>
+        }
+        @if (name.hasError('required')) {
+            <div>Nom obligatoire</div>
+        }
+    }
+
+    <label>Email</label>
+    <input type="text" name="email" #email="ngModel" ngModel required>
+
+    <label>Nom</label>
+    <input type="text" name="name" #name="ngModel" ngModel required>
+
+    <button [ariaBusy]="loadingCreate()" [disabled]="loadingCreate()">Créer utilisateur</button>
+</form>
+
+<app-loader [loading]="loading()">
     @for (u of usersFiltered() ; track u.id) {
         <app-user-card [user]="u" (onDelete)="deleteUser($event)">
             <h1 class="title" #cardTitleRef>test</h1>
