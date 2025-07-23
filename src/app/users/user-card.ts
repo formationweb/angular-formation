@@ -1,6 +1,7 @@
 import { AfterContentInit, Component, contentChild, effect, ElementRef, input, output } from "@angular/core";
 import { User } from "../core/interfaces/user";
 import { LangPipe } from "../core/pipes/lang";
+import { RouterLink } from "@angular/router";
 
 @Component({
     selector: 'app-user-card',
@@ -12,10 +13,11 @@ import { LangPipe } from "../core/pipes/lang";
             <footer>
                 <ng-content select="h2" />
                 <button (click)="onDelete.emit(user().id)">{{ 'REMOVE' | lang:'fr' }}</button>
+                <button [routerLink]="['user', user().id]">Modifier</button>
             </footer>
         </article>
     `,
-    imports: [LangPipe]
+    imports: [LangPipe, RouterLink]
 })
 export class UserCard  {
     cardEl = contentChild<ElementRef<HTMLElement>>('cardTitleRef')
