@@ -1,9 +1,11 @@
 <h1>Users</h1>
 
-@for (u of users() ; track u.id) {
-    <app-user-card [user]="u">
-        <h1 header>test1</h1>
-        <h2>test2</h2>
-        <h3 footer>test3</h3>
-    </app-user-card>
-}
+<app-loader [loading]="false">
+    @for (u of users() ; track u.id) {
+        <app-user-card [user]="u">
+            <h1 header>test1</h1>
+            <h2>test2</h2>
+            <h3 footer>test3</h3>
+        </app-user-card>
+    }
+</app-loader>
