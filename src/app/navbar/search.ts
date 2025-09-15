@@ -10,12 +10,22 @@ import { FormsModule } from "@angular/forms";
         }
         <ul>
             @for (name of firstNames() ; track name) {
-                <li>{{ $last }} - {{ name }}</li>
+                <!-- <li [class]="{ red: $last }" class="bold">{{ $last }} - {{ name }}</li> -->
+                <li [style]="{ color: 'red' }">{{ $last }} - {{ name }}</li>
             }
             @empty {
                 <p>Liste vide</p>
             }
         </ul>
+    `,
+    styles: `
+        .red {
+            color: red;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
     `,
     imports: [FormsModule]
 })

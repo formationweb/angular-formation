@@ -5,6 +5,7 @@ import { UserModel } from "../models/user";
     selector: 'app-user-card',
     template: `
         <article>
+            <ng-content select="h1,h2" />
             <header>{{ user().name }}</header>
             <p>{{ user().email }}</p>
         </article>
