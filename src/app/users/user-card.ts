@@ -1,5 +1,6 @@
 import { Component, input } from "@angular/core";
 import { UserModel } from "../models/user";
+import { LangPipe } from "../core/pipes/lang";
 
 @Component({
     selector: 'app-user-card',
@@ -8,8 +9,10 @@ import { UserModel } from "../models/user";
             <ng-content select="h1,h2" />
             <header>{{ user().name }}</header>
             <p>{{ user().email }}</p>
+            <button>{{ 'REMOVE' | lang:'fr' }}</button>
         </article>
-    `
+    `,
+    imports: [LangPipe]
 })
 export class UserCard {
     user = input.required<UserModel>()
