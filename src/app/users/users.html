@@ -1,7 +1,7 @@
 <h1>Users</h1>
 
 <!-- <app-opacity (onChange)="listenChange($event)" color="black" />  -->
- <app-draw />
+ <!-- <app-draw /> -->
 
 <select [(ngModel)]="extSelected">
     <option value="">Tous</option>
@@ -10,12 +10,20 @@
     }
 </select>
 
+<input type="text" [(ngModel)]="userIndex">
+<button (click)="scrollToUser()">Scroll To User</button>
+@if (error()) {
+    <p>{{ error() }}</p>
+}
+
 <app-loader [loading]="false">
     @for (u of usersFiltered() ; track u.id) {
-        <app-user-card [user]="u">
-            <h1 header>test1</h1>
-            <h2>test2</h2>
-            <h3 footer>test3</h3>
-        </app-user-card>
+        <div #userRef>
+            <app-user-card [user]="u">
+                <h1 header>test1</h1>
+                <h2>test2</h2>
+                <h3 footer>test3</h3>
+            </app-user-card>
+        </div>
     }
 </app-loader>
