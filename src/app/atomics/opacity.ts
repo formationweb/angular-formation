@@ -1,4 +1,4 @@
-import { Component, computed, effect, input, model, output } from "@angular/core";
+import { Component, computed, effect, input, model, OnInit, output } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 
 @Component({
@@ -19,7 +19,7 @@ import { FormsModule } from "@angular/forms";
     imports: [FormsModule]
 })
 export class Opacity {
-    color = input('black')
+    color = input.required()
     opacity = model(1)
     onChange = output<number>()
     percentOpacity = computed(() => Math.round(this.opacity() * 100) + '%')
@@ -31,6 +31,9 @@ export class Opacity {
         effect(() => {
             this.onChange.emit(this.opacity())
             console.log(this.percentOpacity())
+        })
+        effect(() => {
+            console.log(this.color())
         })
     }
 }
