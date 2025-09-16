@@ -2,6 +2,7 @@ import { Component, inject, signal } from "@angular/core";
 import { Search } from "./search";
 import { DatePipe, UpperCasePipe } from "@angular/common";
 import { NavbarService } from "./navbar.service";
+import { UsersService } from "../users/users.service";
 
 @Component({
     selector: 'app-navbar',
@@ -17,12 +18,13 @@ import { NavbarService } from "./navbar.service";
 })
 export class Navbar {
     private navbarService = inject(NavbarService)
+    private usersService = inject(UsersService)
 
     title = this.navbarService.title
     name = signal('ben')
     now = Date.now()
 
     listenSearch(userName: string) {
-        console.log(userName)
+       this.usersService.setSearch(userName)
     }
 }

@@ -5,9 +5,9 @@ import { FormsModule } from "@angular/forms";
     selector: 'app-search',
     template: `
         <input type="text" [(ngModel)]="userName">
-        @if (userName() != '') {
+        <!-- @if (userName() != '') {
             <button (click)="search()">Rechercher</button>
-        }
+        } -->
         <ul>
             @for (name of firstNamesFiltered() ; track $index) {
                 <!-- <li [class]="{ red: $last }" class="bold">{{ $last }} - {{ name }}</li> -->
