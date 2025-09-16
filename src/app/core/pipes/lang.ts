@@ -6,6 +6,8 @@ type DictWords = {
     }
 }
 
+//type DictWords = Record<string, Record<string, string>>
+
 const WORDS: DictWords = {
     REMOVE: {
         fr: 'Supprimer',

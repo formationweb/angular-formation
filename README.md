@@ -1,4 +1,10 @@
-<app-root>
-    <app-navbar title="Mon App" />
-     <app-navbar title="Footer" />
-</app-root>
+/api/me
+
+class Me {
+    getName() {
+        return ....
+    }
+}
+
+
+me.getName()
