@@ -243,6 +243,6 @@ export class Users {
         }
       ])
     listenChange(opacity: number) {
-      console.log(opacity)
+      //console.log(opacity)
     }
 }

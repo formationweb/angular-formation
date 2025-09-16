@@ -1,6 +1,5 @@
+let age = signal(15)
 let nom = signal('ana')
+let isMinor = computed(() => age() < 18)
 
-nom.set('ben')
-
-console.log(nom())
-
+age.set(20)

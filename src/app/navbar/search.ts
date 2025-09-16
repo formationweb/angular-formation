@@ -1,4 +1,4 @@
-import { Component, input, model, output, signal } from "@angular/core";
+import { Component, computed, input, model, output, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 
 @Component({
@@ -9,9 +9,9 @@ import { FormsModule } from "@angular/forms";
             <button (click)="search()">Rechercher</button>
         }
         <ul>
-            @for (name of firstNames() ; track name) {
+            @for (name of firstNamesFiltered() ; track $index) {
                 <!-- <li [class]="{ red: $last }" class="bold">{{ $last }} - {{ name }}</li> -->
-                <li [style]="{ color: 'red' }">{{ $last }} - {{ name }}</li>
+                <li>{{ name }}</li>
             }
             @empty {
                 <p>Liste vide</p>
@@ -40,7 +40,10 @@ export class Search {
     userName = model('') // une valeur en entrée
     onSearch = output<string>()
     firstNames = signal(['ben', 'ana', 'jim'])
-
+    firstNamesFiltered = computed(() => {
+        return this.firstNames().filter(name => name.startsWith(this.userName()))
+    })
+            
     search() {
         this.onSearch.emit(this.userName())
     }
