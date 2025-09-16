@@ -3,6 +3,7 @@ import { Search } from "./search";
 import { DatePipe, UpperCasePipe } from "@angular/common";
 import { NavbarService } from "./navbar.service";
 import { UsersService } from "../users/users.service";
+import { RouterLink } from "@angular/router";
 
 @Component({
     selector: 'app-navbar',
@@ -13,8 +14,9 @@ import { UsersService } from "../users/users.service";
             [userName]="name()" 
             (onSearch)="listenSearch($event)" 
         />
+        <button routerLink="/login">Connexion</button>
     `,
-    imports: [Search, UpperCasePipe, DatePipe]
+    imports: [Search, UpperCasePipe, DatePipe, RouterLink]
 })
 export class Navbar {
     private navbarService = inject(NavbarService)
