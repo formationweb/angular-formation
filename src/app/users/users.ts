@@ -30,6 +30,10 @@ export class Users {
     currentEl = computed(() => this.usersEl()[this.userIndex()])
     error = computed(() => this.currentEl() ? '': 'Index invalide')
 
+    constructor() {
+      this.usersService.getAll().subscribe()
+    }
+
     listenChange(opacity: number) {
       //console.log(opacity)
     }

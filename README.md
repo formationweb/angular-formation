@@ -1,10 +1,10 @@
-/api/me
+A,   B,   C,                                         D
 
-class Me {
-    getName() {
-        return ....
-    }
-}
+bufferTime(500)
+
+[A,B,C]                     []                      [D]
 
 
-me.getName()
+map(array => array.length)
+
+3                           0                         1
