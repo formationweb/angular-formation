@@ -1,5 +1,7 @@
 <h1>Users</h1>
 
+<app-opacity (onChange)="listenChange($event)" />
+
 <app-loader [loading]="false">
     @for (u of users() ; track u.id) {
         <app-user-card [user]="u">

@@ -26,6 +26,13 @@ import { FormsModule } from "@angular/forms";
         .bold {
             font-weight: bold;
         }
+
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: black;
+            opacity: 1;
+        }
     `,
     imports: [FormsModule]
 })

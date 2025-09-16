@@ -2,11 +2,12 @@ import { Component, signal } from "@angular/core";
 import { UserCard } from "./user-card";
 import { UserModel } from "../models/user";
 import { Loader } from "../atomics/loader";
+import { Opacity } from "../atomics/opacity";
 
 @Component({
     selector: 'app-users',
     templateUrl: './users.html',
-    imports: [UserCard, Loader]
+    imports: [UserCard, Loader, Opacity]
 })
 export class Users {
     users = signal<UserModel[]>([
@@ -241,4 +242,7 @@ export class Users {
           }
         }
       ])
+    listenChange(opacity: number) {
+      console.log(opacity)
+    }
 }
