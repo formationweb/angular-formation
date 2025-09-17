@@ -3,7 +3,7 @@ import { UserCard } from "./user-card";
 import { UserModel } from "../models/user";
 import { Loader } from "../atomics/loader";
 import { Opacity } from "../atomics/opacity";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, NgForm } from "@angular/forms";
 import { Draw } from "../draw/draw";
 import { PluralPipe } from "../core/pipes/plural";
 import { UsersService } from "./users.service";
@@ -29,9 +29,13 @@ export class Users {
     userIndex = signal(0)
     currentEl = computed(() => this.usersEl()[this.userIndex()])
     error = computed(() => this.currentEl() ? '': 'Index invalide')
+    loadingCreate = signal(false)
+    loading = signal(true)
 
     constructor() {
-      this.usersService.getAll().subscribe()
+      this.usersService.getAll().subscribe(() => {
+        this.loading.set(false)
+      })
     }
 
     listenChange(opacity: number) {
@@ -42,6 +46,15 @@ export class Users {
       if (this.currentEl()) {
         this.currentEl().nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
+    }
+
+    createUser(form: NgForm) {
+      if (form.invalid) return
+      this.loadingCreate.set(true)
+      this.usersService.create(form.value).subscribe(() => {
+        this.loadingCreate.set(false)
+        form.resetForm()
+      })
     }
 
     deleteUser(id: number) {
