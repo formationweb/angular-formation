@@ -45,5 +45,14 @@ export class UserEdit {
     })
   }
 
-  editUser() {}
+  editUser() {
+    this.usersService
+      .update(this.user().id, this.form.value as Partial<UserModel>)
+      .subscribe((userModified) => {
+         this.user.set({
+          ...this.user(),
+          ...userModified
+         })
+      })
+  }
 }
