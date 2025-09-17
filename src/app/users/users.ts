@@ -43,4 +43,8 @@ export class Users {
         this.currentEl().nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }
+
+    deleteUser(id: number) {
+      console.log(id)
+    }
 }

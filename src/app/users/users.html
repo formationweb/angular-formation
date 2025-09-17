@@ -19,7 +19,7 @@
 <app-loader [loading]="false">
     @for (u of usersFiltered() ; track u.id) {
         <div #userRef>
-            <app-user-card [user]="u">
+            <app-user-card [user]="u" (onDelete)="deleteUser($event)">
                 <h1 header>test1</h1>
                 <h2>test2</h2>
                 <h3 footer>test3</h3>
