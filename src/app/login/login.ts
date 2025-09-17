@@ -21,6 +21,10 @@ export class Login {
   })
   submitted = signal(false)
 
+  constructor() {
+    this.propEmail.setValue('test')
+  }
+
   login() {
     console.log(this.form.value)
     this.submitted.set(true)

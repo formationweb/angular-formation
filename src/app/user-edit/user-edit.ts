@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, OnInit } from '@angular/core';
+import { Component, effect, inject, input, numberAttribute, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -14,7 +14,9 @@ export class UserEdit {
   //   this.route.snapshot.params['id']
   // }
 
-  id = input()
+  id = input.required({
+    transform: numberAttribute
+  })
 
   constructor() {
     effect(() => {
