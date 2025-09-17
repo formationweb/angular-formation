@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, inject, signal, viewChildren } from "@angular/core";
+import { Component, computed, ElementRef, inject, OnDestroy, signal, viewChildren } from "@angular/core";
 import { UserCard } from "./user-card";
 import { UserModel } from "../models/user";
 import { Loader } from "../atomics/loader";
@@ -7,13 +7,14 @@ import { FormsModule, NgForm } from "@angular/forms";
 import { Draw } from "../draw/draw";
 import { PluralPipe } from "../core/pipes/plural";
 import { UsersService } from "./users.service";
+import { interval, Subscription } from "rxjs";
 
 @Component({
     selector: 'app-users',
     templateUrl: './users.html',
     imports: [UserCard, Loader, Opacity, FormsModule, Draw, PluralPipe]
 })
-export class Users {
+export class Users implements OnDestroy {
     private usersService = inject(UsersService)
  
     users = this.usersService.usersSearch
@@ -31,11 +32,15 @@ export class Users {
     error = computed(() => this.currentEl() ? '': 'Index invalide')
     loadingCreate = signal(false)
     loading = signal(true)
+    private subscription: Subscription
 
     constructor() {
       this.usersService.getAll().subscribe(() => {
         this.loading.set(false)
       })
+      const ob$ = interval(1000)
+      
+      this.subscription = ob$.subscribe(console.log)
     }
 
     listenChange(opacity: number) {
@@ -59,5 +64,9 @@ export class Users {
 
     deleteUser(id: number) {
       this.usersService.delete(id).subscribe()
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe()
     }
 }

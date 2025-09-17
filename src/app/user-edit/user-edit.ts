@@ -1,5 +1,7 @@
-import { Component, effect, inject, input, numberAttribute, OnInit } from '@angular/core';
+import { Component, effect, inject, input, numberAttribute, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { UsersService } from '../users/users.service';
+import { UserModel } from '../models/user';
 
 @Component({
   selector: 'app-user-edit',
@@ -8,6 +10,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './user-edit.css'
 })
 export class UserEdit {
+  private usersService = inject(UsersService)
+  user = signal<UserModel>({} as UserModel)
   // private route = inject(ActivatedRoute)
 
   // ngOnInit(): void {
@@ -20,7 +24,14 @@ export class UserEdit {
 
   constructor() {
     effect(() => {
-      console.log(this.id())
+      this.usersService.get(this.id()).subscribe({
+        next: (user) => {
+          this.user.set(user)
+        },
+        error: (err) => {
+          console.log(err)
+        }
+      })
     })
   }
 }
