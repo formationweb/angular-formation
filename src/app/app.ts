@@ -1,9 +1,13 @@
 import { Component } from '@angular/core'
 import { Navbar } from './navbar/navbar';
+import { Users } from './users/users';
 
 @Component({
     selector: 'app-root',
-    template: '<h1>Mon App</h1> <app-navbar />',
-    imports: [Navbar]
+    template: `
+        <app-navbar />
+        <app-users />
+    `,
+    imports: [Navbar, Users]
 })
 export class App { }
