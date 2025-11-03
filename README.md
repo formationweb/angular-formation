@@ -1,5 +1,6 @@
 <app-root>
-    <app-navbar />
+    <app-navbar title="header" />
     <app-menu />
     <app-content />
+    <app-navbar title="footer" />
 </app-root>
