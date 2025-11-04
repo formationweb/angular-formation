@@ -10,12 +10,14 @@ import { FormsModule } from "@angular/forms";
         }
         <ul>
             @for (name of firstNames() ; track name) {
-                <li [class]="{ red: $even, green: $odd }">{{ name }}</li>
+                <li [class]="{ red: $even, green: $odd }" class="bold">{{ name }}</li>
             }
             @empty {
                 <p>Aucun prénom</p>
             }
         </ul>
+
+        <p [style]="{ color: 'red', fontWeight: 'bold' }">Texte rouge</p>
     `,
     imports: [FormsModule],
     styles: `
@@ -24,6 +26,9 @@ import { FormsModule } from "@angular/forms";
         }
         .green {
             color: green;
+        }
+        .bold {
+            font-weight: bold;
         }
     `
 })
