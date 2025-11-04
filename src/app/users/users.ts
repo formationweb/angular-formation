@@ -1,15 +1,19 @@
-import { Component, signal } from "@angular/core";
+import { Component, computed, signal } from "@angular/core";
 import { UserCard } from "./user-card";
 import { User } from "../core/interfaces/user";
 import { Loader } from "../atomics/loader";
 import { Opacity } from "../atomics/opacity/opacity";
+import { FormsModule } from "@angular/forms";
 
 @Component({
     selector: 'app-users',
     templateUrl: './users.html',
-    imports: [UserCard, Loader, Opacity]
+    imports: [UserCard, Loader, Opacity, FormsModule],
 })
 export class Users {
+    extensions = signal(['tv', 'biz', 'io', 'me'])
+    extSelected = signal('')
+  
     users = signal<User[]>([
         {
           "id": 1,
@@ -242,6 +246,13 @@ export class Users {
           }
         }
       ])
+    usersFiltered = computed(() => {
+      if (!this.extSelected()) {
+        return this.users()
+      }
+      return this.users()
+        .filter(user => user.email.endsWith(this.extSelected()))
+    })
 
     listenOpacity(opacity: number) {
       console.log(opacity)
