@@ -5,11 +5,12 @@ import { Loader } from "../atomics/loader";
 import { Opacity } from "../atomics/opacity/opacity";
 import { FormsModule } from "@angular/forms";
 import { PluralPipe } from "../core/pipes/plural";
+import { Draw } from "../draw/draw";
 
 @Component({
     selector: 'app-users',
     templateUrl: './users.html',
-    imports: [UserCard, Loader, Opacity, FormsModule, PluralPipe],
+    imports: [UserCard, Loader, Opacity, FormsModule, PluralPipe, Draw],
 })
 export class Users {
     extensions = signal(['tv', 'biz', 'io', 'me'])

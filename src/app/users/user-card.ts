@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, effect, input, OnChanges, OnInit, SimpleChanges } from "@angular/core";
 import { User } from "../core/interfaces/user";
 import { LangPipe } from "../core/pipes/lang";
 

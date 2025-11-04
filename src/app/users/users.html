@@ -2,6 +2,8 @@
 
 <!-- <app-opacity (onChange)="listenOpacity($event)"></app-opacity> -->
 
+<app-draw />
+
 <select [(ngModel)]="extSelected">
     <option value="">Tous</option>
     @for (ext of extensions() ; track ext) {
