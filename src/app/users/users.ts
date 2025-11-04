@@ -45,4 +45,8 @@ export class Users {
     scrollToUser() {
        this.cardDiv()?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
+
+    removeUser(id: number) {
+       this.usersService.deleteUser(id).subscribe()
+    }
 }
