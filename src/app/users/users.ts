@@ -21,6 +21,10 @@ export class Users {
   
     users = this.usersService.users
 
+    constructor() {
+      this.usersService.loadUsers().subscribe()
+    }
+
     usersFiltered = computed(() => {
       if (!this.extSelected()) {
         return this.users()

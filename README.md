@@ -1,11 +1,10 @@
-/login -> Serveur -> Routeur -> Controller -> 
-/login -> Routeur -> Component
+A   B   C                                                D (flux de clicks)
 
---> SPA (Single Page Application)
+bufferTime(500)
 
-CSR (Client Side Rendering)
+[A,B,C]                    []                            [D] (flux de tableau de clicks)
 
-// ---
 
-SSR (Server Side Rendering) -> Hydratation
-SSG (Server Side Generation)
+map(ev => ev.length)
+
+3                         0                               1 (flux de nombres)

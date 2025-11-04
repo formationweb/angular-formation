@@ -1,6 +1,7 @@
 import { Component, signal } from "@angular/core";
 import { Search } from "./search";
 import { DatePipe, UpperCasePipe } from "@angular/common";
+import { RouterLink } from "@angular/router";
 
 @Component({
     selector: 'app-navbar',
@@ -11,8 +12,9 @@ import { DatePipe, UpperCasePipe } from "@angular/common";
             [userName]="name()" 
             (onSearch)="listenSearch($event)" 
         />
+        <button routerLink="/login">Se connecter</button>
     `,
-    imports: [Search, UpperCasePipe, DatePipe]
+    imports: [Search, UpperCasePipe, DatePipe, RouterLink]
 })
 export class Navbar {
     title = signal('Mon App')
