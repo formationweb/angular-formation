@@ -1,6 +1,14 @@
+let age = signal(20)
+let isMinor = computed(() => age() < 18)
+let nom = signal('ana')
 
-let age = signal(18)
+effect(() => {
+    console.log(age())
+})
 
-age.set(20)
+effect(() => {
+    console.log(nom())
+})
 
-console.log(age())
+age.set(25)
+nom.set('ben')
