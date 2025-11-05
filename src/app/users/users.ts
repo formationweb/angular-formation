@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, inject, signal, viewChildren } from "@angular/core";
+import { Component, computed, ElementRef, inject, OnDestroy, signal, viewChildren } from "@angular/core";
 import { UserCard } from "./user-card";
 import { User } from "../core/interfaces/user";
 import { Loader } from "../atomics/loader";
@@ -7,13 +7,15 @@ import { FormsModule, NgForm } from "@angular/forms";
 import { PluralPipe } from "../core/pipes/plural";
 import { Draw } from "../draw/draw";
 import { UsersService } from "./users.service";
+import { interval, Subscription } from "rxjs";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
     selector: 'app-users',
     templateUrl: './users.html',
     imports: [UserCard, Loader, Opacity, FormsModule, PluralPipe, Draw],
 })
-export class Users {
+export class Users /*implements OnDestroy */{
     private usersService = inject(UsersService)
     
     extensions = signal(['tv', 'biz', 'io', 'me'])
@@ -28,10 +30,21 @@ export class Users {
 
     loading = signal(true)
     loadingCreate = signal(false)
+    subscription!: Subscription
 
     constructor() {
       this.usersService.loadUsers().subscribe(() => {
         this.loading.set(false)
+      })
+      // this.subscription = interval(1000).subscribe((nb) => {
+      //   console.log(nb)
+      // })
+      interval(1000)
+      .pipe(
+        takeUntilDestroyed()
+      )
+      .subscribe((nb) => {
+        console.log(nb)
       })
     }
 
@@ -65,4 +78,8 @@ export class Users {
           form.resetForm()
         })
     }
+
+    // ngOnDestroy(): void {
+    //   this.subscription.unsubscribe()
+    // }
 }
