@@ -21,10 +21,14 @@ export class Login {
   })
   submitted = signal(false)
 
+  constructor() {
+    setTimeout(() => {
+      this.propEmail.setValue('test@atest.com')
+    }, 1000)
+  }
+
   login() {
     this.submitted.set(true)
     console.log(this.form.value)
   }
-
-
 }
