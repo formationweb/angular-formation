@@ -3,7 +3,7 @@ import { UserCard } from "./user-card";
 import { User } from "../core/interfaces/user";
 import { Loader } from "../atomics/loader";
 import { Opacity } from "../atomics/opacity/opacity";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, NgForm } from "@angular/forms";
 import { PluralPipe } from "../core/pipes/plural";
 import { Draw } from "../draw/draw";
 import { UsersService } from "./users.service";
@@ -21,8 +21,18 @@ export class Users {
   
     users = this.usersService.users
 
+    cardEl = viewChildren<ElementRef<HTMLDivElement>>('userRef')
+    cardDiv = computed<ElementRef<HTMLDivElement> | undefined>(() => this.cardEl()[this.userIndex()])
+    userIndex = signal(0)
+    errorMessage = computed(() => this.cardDiv() ? '' : 'Index invalide')
+
+    loading = signal(true)
+    loadingCreate = signal(false)
+
     constructor() {
-      this.usersService.loadUsers().subscribe()
+      this.usersService.loadUsers().subscribe(() => {
+        this.loading.set(false)
+      })
     }
 
     usersFiltered = computed(() => {
@@ -32,11 +42,6 @@ export class Users {
       return this.users()
         .filter(user => user.email.endsWith(this.extSelected()))
     })
-
-    cardEl = viewChildren<ElementRef<HTMLDivElement>>('userRef')
-    cardDiv = computed<ElementRef<HTMLDivElement> | undefined>(() => this.cardEl()[this.userIndex()])
-    userIndex = signal(0)
-    errorMessage = computed(() => this.cardDiv() ? '' : 'Index invalide')
 
     listenOpacity(opacity: number) {
       console.log(opacity)
@@ -48,5 +53,16 @@ export class Users {
 
     removeUser(id: number) {
        this.usersService.deleteUser(id).subscribe()
+    }
+
+    createUser(form: NgForm) {
+        if (form.invalid) {
+          return
+        }
+        this.loadingCreate.set(true)
+        this.usersService.createUser(form.value).subscribe(() => {
+          this.loadingCreate.set(false)
+          form.resetForm()
+        })
     }
 }
