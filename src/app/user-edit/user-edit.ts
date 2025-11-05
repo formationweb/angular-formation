@@ -1,6 +1,6 @@
 import { Component, effect, inject, input, numberAttribute, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UsersService } from '../users/users.service';
+import { UsersService, UserUpdatePayload } from '../users/users.service';
 import { User } from '../core/interfaces/user';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -15,7 +15,7 @@ export class UserEdit {
   private builder = inject(FormBuilder)
   user = signal<User>({} as User)
 
-  propEmail = new FormControl()
+  propEmail = new FormControl('')
   form = this.builder.group({
     email: this.propEmail,
     username: '',
@@ -41,5 +41,16 @@ export class UserEdit {
          this.form.patchValue(user)
        })
     })
+  }
+
+  edit() {
+    this.usersService
+      .updateUser(this.user().id, this.form.value as UserUpdatePayload)
+      .subscribe((userModified) => {
+        this.user.set({
+          ...this.user(),
+          ...userModified
+        })
+      })
   }
 }
