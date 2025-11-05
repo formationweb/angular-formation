@@ -39,13 +39,13 @@ export class Users /*implements OnDestroy */{
       // this.subscription = interval(1000).subscribe((nb) => {
       //   console.log(nb)
       // })
-      interval(1000)
-      .pipe(
-        takeUntilDestroyed()
-      )
-      .subscribe((nb) => {
-        console.log(nb)
-      })
+      // interval(1000)
+      // .pipe(
+      //   takeUntilDestroyed()
+      // )
+      // .subscribe((nb) => {
+      //   console.log(nb)
+      // })
     }
 
     usersFiltered = computed(() => {
