@@ -5,8 +5,12 @@ import { User } from "../core/interfaces/user";
     selector: "app-user-card",
     template: `
         <article>
-            <header>{{ user().name }}</header>
+            <header>
+                <ng-content select="h1[entete]" />
+                {{ user().name }}
+            </header>
             <p>{{ user().email }}</p>
+            <ng-content select="h2" />
         </article>
     `
 })
