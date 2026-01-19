@@ -1,5 +1,2 @@
-let age = signal(18)
-
-age.set(20) // setter
-
-age() // getter
+const age = signal(15)
+const isMinor = signal(true)
