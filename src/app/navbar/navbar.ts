@@ -1,6 +1,7 @@
 import { Component, computed, inject, input, model, output, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { AppService } from "../app.service";
+import { UsersService } from "../users/users.service";
 
 @Component({
     selector: 'app-navbar',
@@ -11,9 +12,9 @@ import { AppService } from "../app.service";
             <button (click)="search()">Rechercher</button>
         }
         <ul>
-            @for (name of firstNamesFiltered() ; track name) {
+            @for (user of users() ; track user.id) {
                 <!-- <li [class.red]="$even" [class.green]="$odd" class="bold">{{ name }}</li>  -->
-                 <li [style]="{ color: 'red', fontWeight: 'bold' } ">{{ name }}</li>
+                 <li [style]="{ color: 'red', fontWeight: 'bold' } ">{{ user.name }}</li>
             }
         </ul>
     `,
@@ -34,15 +35,19 @@ import { AppService } from "../app.service";
 })
 export class Navbar {
     private appService = inject(AppService)
+    private usersService = inject(UsersService)
+
     title = this.appService.title
+    users = this.usersService.usersSearched
     userName = model('') // comme input(), mais modifiable
-    firstNames = signal(['ana', 'ben', 'jim'])
+    //firstNames = signal(['ana', 'ben', 'jim'])
     onSearch = output<string>()
-    firstNamesFiltered = computed(() => {
-        return this.firstNames().filter(str => str.startsWith(this.userName()))
-    })
+    // firstNamesFiltered = computed(() => {
+    //     return this.firstNames().filter(str => str.startsWith(this.userName()))
+    // })
 
     search() {
         this.onSearch.emit(this.userName())
+        this.usersService.searchStr.set(this.userName())
     }
 }
