@@ -1,5 +1,6 @@
-import { Component, computed, input, model, output, signal } from "@angular/core";
+import { Component, computed, inject, input, model, output, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { AppService } from "../app.service";
 
 @Component({
     selector: 'app-navbar',
@@ -32,7 +33,8 @@ import { FormsModule } from "@angular/forms";
     `
 })
 export class Navbar {
-    title = signal('Mon App')
+    private appService = inject(AppService)
+    title = this.appService.title
     userName = model('') // comme input(), mais modifiable
     firstNames = signal(['ana', 'ben', 'jim'])
     onSearch = output<string>()

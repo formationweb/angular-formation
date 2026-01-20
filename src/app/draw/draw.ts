@@ -1,4 +1,4 @@
-import { Component, effect, ElementRef, OnInit, viewChild, viewChildren } from '@angular/core';
+import { Component, effect, ElementRef, OnInit, viewChild, ViewChildren, viewChildren } from '@angular/core';
 
 @Component({
   selector: 'app-draw',
@@ -11,6 +11,7 @@ import { Component, effect, ElementRef, OnInit, viewChild, viewChildren } from '
 export class Draw /* implements OnInit */ {
   //canvasEl = viewChild<ElementRef<HTMLCanvasElement>>('canvasRef')
   canvasEl = viewChildren<ElementRef<HTMLCanvasElement>>('canvasRef')
+  //@ViewChildren('canvasRef') canvasEl: ElementRef<HTMLCanvasElement>
 
   constructor() {
     effect(() => {
