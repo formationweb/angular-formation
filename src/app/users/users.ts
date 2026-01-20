@@ -24,11 +24,14 @@ export class Users {
     return this.users().filter(user => user.email.endsWith(this.extSelected()))
   })
 
-
   indexUser = signal(0)
   cardEls = viewChildren<ElementRef<HTMLDivElement>>('cardRef')
   cardEl = computed<ElementRef<HTMLDivElement> | undefined>(() => this.cardEls()[this.indexUser()])
   error =  computed(() => this.cardEl() ? '': 'Index invalide')
+
+  constructor() {
+    this.usersService.getAll().subscribe()
+  }
 
   listenOpacity(opacity: number) {
     console.log(opacity)

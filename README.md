@@ -1,7 +1,11 @@
-/login -> Serveur -> Routeur -> Controller 
-/login -> Routeur -> Component
+A  B  C                                     D // des clicks
 
--> SPA (Single Page Application)
--> CSR (Client Side rendering)
--> SSR (Server Side Rendering)
--> SSG  (Server Side Generation)
+bufferTime(500)
+
+[A,B,C]                  []                [D] // tableaux de clicks
+
+
+map(el => el.length) 
+
+
+3                       0                   1 // des nombres
