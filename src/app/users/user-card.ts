@@ -1,8 +1,10 @@
 import { Component, input, output } from "@angular/core";
 import { User } from "../core/interfaces/user";
+import { LangPipe } from "../core/pipes/lang";
 
 @Component({
     selector: "app-user-card",
+    imports: [LangPipe], 
     template: `
         <article>
             <header>
@@ -11,7 +13,9 @@ import { User } from "../core/interfaces/user";
             </header>
             <p>{{ user().email }}</p>
             <ng-content select="h2" />
-            <button (click)="onDelete.emit(user().id)">Supprimer</button>
+            <button (click)="onDelete.emit(user().id)">
+                {{ 'REMOVE' | lang:'fr' }}
+            </button>
         </article>
     `
 })
