@@ -237,8 +237,12 @@ export class UsersService {
       },
     },
   ]);
-  searchStr = signal('')
+  private _searchStr = signal('')
+  searchStr = this._searchStr.asReadonly()
   usersSearched = computed(() => {
     return  this.users().filter(user => user.name.includes(this.searchStr()))
   })
+  setSearch(str: string) {
+    this._searchStr.set(str)
+  }
 }

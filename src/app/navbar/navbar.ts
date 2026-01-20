@@ -2,6 +2,7 @@ import { Component, computed, inject, input, model, output, signal } from "@angu
 import { FormsModule } from "@angular/forms";
 import { AppService } from "../app.service";
 import { UsersService } from "../users/users.service";
+import { RouterLink } from "@angular/router";
 
 @Component({
     selector: 'app-navbar',
@@ -17,8 +18,9 @@ import { UsersService } from "../users/users.service";
                  <li [style]="{ color: 'red', fontWeight: 'bold' } ">{{ user.name }}</li>
             }
         </ul>
+        <button routerLink="/login">Se connecter</button>
     `,
-    imports: [FormsModule],
+    imports: [FormsModule, RouterLink],
     styles: `
         .red {
             color: red;
@@ -48,6 +50,6 @@ export class Navbar {
 
     search() {
         this.onSearch.emit(this.userName())
-        this.usersService.searchStr.set(this.userName())
+        this.usersService.setSearch(this.userName())
     }
 }
