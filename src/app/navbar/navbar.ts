@@ -3,11 +3,13 @@ import { FormsModule } from "@angular/forms";
 import { AppService } from "../app.service";
 import { UsersService } from "../users/users.service";
 import { RouterLink } from "@angular/router";
+import { DatePipe, UpperCasePipe } from "@angular/common";
 
 @Component({
     selector: 'app-navbar',
     template: `
-        <h1>{{ title() }}</h1>
+        <h1>{{ title() | uppercase }}</h1>
+        <p>{{ now | date:'short':'GMT-8' }}</p>
         <input type="text" [(ngModel)]="userName">
         @if (userName() != '') {
             <button (click)="search()">Rechercher</button>
@@ -20,7 +22,7 @@ import { RouterLink } from "@angular/router";
         </ul>
         <button routerLink="/login">Se connecter</button>
     `,
-    imports: [FormsModule, RouterLink],
+    imports: [FormsModule, RouterLink, UpperCasePipe, DatePipe],
     styles: `
         .red {
             color: red;
@@ -38,6 +40,7 @@ import { RouterLink } from "@angular/router";
 export class Navbar {
     private appService = inject(AppService)
     private usersService = inject(UsersService)
+    now = Date.now()
 
     title = this.appService.title
     users = this.usersService.usersSearched

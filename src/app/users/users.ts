@@ -6,11 +6,12 @@ import { Opacity } from "../atomics/opacity/opacity";
 import { FormsModule } from '@angular/forms';
 import { Draw } from "../draw/draw";
 import { UsersService } from './users.service';
+import { PluralPipe } from '../core/pipes/plural';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.html',
-  imports: [UserCard, Loader, Opacity, FormsModule, Draw]
+  imports: [UserCard, Loader, Opacity, FormsModule, Draw, PluralPipe]
 })
 export class Users {
   private usersService = inject(UsersService)
