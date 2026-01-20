@@ -30,8 +30,12 @@ export class Users {
   cardEl = computed<ElementRef<HTMLDivElement> | undefined>(() => this.cardEls()[this.indexUser()])
   error =  computed(() => this.cardEl() ? '': 'Index invalide')
 
+  loading = signal(true)
+
   constructor() {
-    this.usersService.getAll().subscribe()
+    this.usersService.getAll().subscribe(() => {
+      this.loading.set(false)
+    })
   }
 
   listenOpacity(opacity: number) {

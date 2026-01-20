@@ -19,7 +19,7 @@
     }
 </select>
 
-<app-loader [loading]="false">
+<app-loader [loading]="loading()">
     @for (u of usersFiltered() ; track u.id) {
         <div #cardRef>
             <app-user-card [user]="u" (onDelete)="deleteUser($event)">
