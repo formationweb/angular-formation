@@ -4,11 +4,12 @@ import { User } from '../core/interfaces/user';
 import { Loader } from '../atomics/loader';
 import { Opacity } from "../atomics/opacity/opacity";
 import { FormsModule } from '@angular/forms';
+import { Draw } from "../draw/draw";
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.html',
-  imports: [UserCard, Loader, Opacity, FormsModule]
+  imports: [UserCard, Loader, Opacity, FormsModule, Draw]
 })
 export class Users {
   users = signal<User[]>([
