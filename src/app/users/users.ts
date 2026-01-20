@@ -253,20 +253,16 @@ export class Users {
     return this.users().filter(user => user.email.endsWith(this.extSelected()))
   })
 
-  cardEls = viewChildren<ElementRef<HTMLDivElement>>('cardRef')
   indexUser = signal(0)
-  error = signal('')
+  cardEls = viewChildren<ElementRef<HTMLDivElement>>('cardRef')
+  cardEl = computed<ElementRef<HTMLDivElement> | undefined>(() => this.cardEls()[this.indexUser()])
+  error =  computed(() => this.cardEl() ? '': 'Index invalide')
 
   listenOpacity(opacity: number) {
     console.log(opacity)
   }
 
   scrollToUser() {
-     const el = this.cardEls()[this.indexUser()]
-     if (!el) {
-        this.error.set('Index invalide')
-        return
-     }
-     el.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+     this.cardEl()?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 }
