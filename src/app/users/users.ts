@@ -7,6 +7,8 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Draw } from "../draw/draw";
 import { UsersService } from './users.service';
 import { PluralPipe } from '../core/pipes/plural';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -33,11 +35,20 @@ export class Users {
   loading = signal(true)
   loadingCreate = signal(false)
 
-  constructor() {
-    this.usersService.getAll().subscribe(() => {
-      this.loading.set(false)
-    })
-  }
+  private _users = toSignal(
+    this.usersService.getAll()
+      .pipe(
+        tap(() => {
+          this.loading.set(false)
+        })
+      )
+  )
+
+  // constructor() {
+  //   this.usersService.getAll().subscribe(() => {
+  //     this.loading.set(false)
+  //   })
+  // }
 
   listenOpacity(opacity: number) {
     console.log(opacity)
