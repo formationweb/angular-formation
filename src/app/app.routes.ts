@@ -1,5 +1,5 @@
 import { Routes } from "@angular/router";
-import { Login } from "./login/login";
+import { Login } from "./login-signal/login";
 import { Main } from "./layouts/main/main";
 import { Users } from "./users/users";
 import { UserEdit } from "./user-edit/user-edit";

@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, inject, signal, viewChildren } from '@angular/core';
+import { Component, computed, ElementRef, inject, OnDestroy, signal, viewChildren } from '@angular/core';
 import { UserCard } from './user-card';
 import { User } from '../core/interfaces/user';
 import { Loader } from '../atomics/loader';
@@ -7,15 +7,15 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Draw } from "../draw/draw";
 import { UsersService } from './users.service';
 import { PluralPipe } from '../core/pipes/plural';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { tap } from 'rxjs';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { interval, Subscription, tap } from 'rxjs';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.html',
   imports: [UserCard, Loader, Opacity, FormsModule, Draw, PluralPipe]
 })
-export class Users {
+export class Users /* implements OnDestroy */ {
   private usersService = inject(UsersService)
   users = this.usersService.usersSearched
   extensions = signal(['tv', 'biz', 'io', 'me'])
@@ -34,6 +34,7 @@ export class Users {
 
   loading = signal(true)
   loadingCreate = signal(false)
+  //subscription: Subscription
 
   private _users = toSignal(
     this.usersService.getAll()
@@ -43,6 +44,26 @@ export class Users {
         })
       )
   )
+
+  count = toSignal(interval(1000).pipe(
+    tap((nb) => {
+      console.log(nb)
+    })
+  ))
+
+  constructor() {
+    // this.subscription = interval(1000).subscribe((nb) => {
+    //   console.log(nb)
+    // })
+
+    // interval(1000)
+    //   .pipe(
+    //     takeUntilDestroyed()
+    //   )
+    //   .subscribe((nb) => {
+    //     console.log(nb)
+    //   })
+  }
 
   // constructor() {
   //   this.usersService.getAll().subscribe(() => {
@@ -70,4 +91,8 @@ export class Users {
       form.resetForm()
     })
   }
+
+  // ngOnDestroy(): void {
+  //   this.subscription.unsubscribe()
+  // }
 }
