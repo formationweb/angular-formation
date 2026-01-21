@@ -16,7 +16,7 @@ import { ConfirmDirective } from "../core/directives/confirm";
             <p>{{ user().email }}</p>
             <ng-content select="h2" />
             <button 
-                (click)="onDelete.emit(user().id)" 
+                (onConfirm)="onDelete.emit(user().id)" 
                 confirm="Etes vous de supprimer" 
                 [confirmUsername]="user().name">
                 {{ 'REMOVE' | lang:'fr' }}

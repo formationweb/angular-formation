@@ -1,4 +1,4 @@
-import { Directive, input } from "@angular/core";
+import { Directive, input, output } from "@angular/core";
 
 @Directive({
     selector: '[confirm]',
@@ -11,9 +11,10 @@ export class ConfirmDirective {
         alias: 'confirm'
     })
     confirmUsername = input()
+    onConfirm = output()
 
     openDialog() {
         const bool = window.confirm(this.message() + ' ' + this.confirmUsername())
-        console.log(bool)
+        if (bool) this.onConfirm.emit()
     }
 }
