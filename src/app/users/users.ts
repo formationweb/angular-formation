@@ -3,7 +3,7 @@ import { UserCard } from './user-card';
 import { User } from '../core/interfaces/user';
 import { Loader } from '../atomics/loader';
 import { Opacity } from "../atomics/opacity/opacity";
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Draw } from "../draw/draw";
 import { UsersService } from './users.service';
 import { PluralPipe } from '../core/pipes/plural';
@@ -31,6 +31,7 @@ export class Users {
   error =  computed(() => this.cardEl() ? '': 'Index invalide')
 
   loading = signal(true)
+  loadingCreate = signal(false)
 
   constructor() {
     this.usersService.getAll().subscribe(() => {
@@ -48,5 +49,14 @@ export class Users {
 
   deleteUser(id: number) {
      this.usersService.delete(id).subscribe()
+  }
+
+  createUser(form: NgForm) {
+    if (form.invalid) return
+    this.loadingCreate.set(true)
+    this.usersService.create(form.value).subscribe(() => {
+      this.loadingCreate.set(false)
+      form.resetForm()
+    })
   }
 }

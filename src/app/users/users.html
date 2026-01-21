@@ -12,12 +12,34 @@
     <p>{{ error() }}</p>
 }
 
+<form (ngSubmit)="createUser(formRef)" #formRef="ngForm">
+
+    @if (formRef.invalid && formRef.submitted) {
+       @if (email.hasError('required')) {
+         <p>Email requis</p>
+       }
+       @if (name.hasError('required')) {
+         <p>Nom requis</p>
+       }
+    }
+
+    <label>Email</label>
+    <input type="text" name="email" 
+        ngModel #email="ngModel" required minlength="4">
+
+     <label>Nom</label>
+    <input type="text" #name="ngModel" name="name" ngModel>
+
+    <button [aria-busy]="loadingCreate()" [disabled]="loadingCreate()">Créer utilisateur</button>
+</form>
+
 <select [(ngModel)]="extSelected">
     <option value="">Tous</option>
     @for (ext of extensions() ; track ext) {
         <option>{{ ext }}</option>
     }
 </select>
+
 
 <app-loader [loading]="loading()">
     @for (u of usersFiltered() ; track u.id) {

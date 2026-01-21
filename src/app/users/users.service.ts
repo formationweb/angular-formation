@@ -30,6 +30,17 @@ export class UsersService {
     )
   }
 
+  create(payload: { name: string, email: string }): Observable<User> {
+    return this.http.post<User>(this.url, payload).pipe(
+      tap((userCreated) => {
+        this._users.set([
+          ...this.users(), // spread operator
+          userCreated
+        ])
+      })
+    )
+  }
+
   delete(id: number): Observable<void> {
     return this.http.delete<void>(this.url + '/' + id).pipe(
       tap(() => {
