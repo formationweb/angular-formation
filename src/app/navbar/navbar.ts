@@ -11,7 +11,19 @@ import { FormsModule } from "@angular/forms";
         }
         <ul>
             @for (name of names() ; track $index) {
-                <li [class]="$odd ? 'red' : ''">{{ $odd }} - {{ name }}</li>
+                <!-- <li [class]="{ 
+                    red: $odd, 
+                    green: $even,
+                    bold: $index == 3
+                }">{{ $odd }} - {{ name }}</li> -->
+                <!-- <li 
+                    [class.red]="$odd" 
+                    [class.green]="$even" 
+                    [class.bold]="$index == 3"
+                >{{ $odd }} - {{ name }}</li> -->
+                <!-- <li [class.red]="$odd" class="bold">{{ $odd }} - {{ name }}</li> -->
+
+                <li [style]="{ color: 'red', fontWeight: 'bold' }">{{ name }}</li>
             }
             @empty {
                 <p>Vide</p>
@@ -22,6 +34,12 @@ import { FormsModule } from "@angular/forms";
     styles: `
         .red {
             color: red;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .green {
+            color: green;
         }
     `
 })
