@@ -3,6 +3,7 @@ import { Component, computed, inject, Input, input, model, output, signal } from
 import { FormsModule } from "@angular/forms";
 import { RouterLink } from "@angular/router";
 import { AppService } from "../app.service";
+import { UsersService } from "../users/users.service";
 
 @Component({
     selector: 'app-navbar',
@@ -50,6 +51,7 @@ import { AppService } from "../app.service";
 })
 export class Navbar {
     private appService = inject(AppService)
+    private usersService = inject(UsersService)
     title = this.appService.title
 
     userName = model('') // avoir un attribut html personnalisé en lecture/écriture
@@ -62,5 +64,6 @@ export class Navbar {
 
     search() {
        this.onSearch.emit(this.userName())
+       this.usersService.userNameSearched.set(this.userName())
     }
 }
