@@ -1,10 +1,12 @@
+import { DatePipe, UpperCasePipe } from "@angular/common";
 import { Component, computed, Input, input, model, output, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 
 @Component({
     selector: 'app-navbar',
     template: `
-        <h1>{{ title() }}</h1>
+        <h1>{{ title() | uppercase}}</h1>
+        <p>{{ now() | date:'short':'GMT-8'}}</p>
         <input type="text" [(ngModel)]="userName">
         @if (userName() != '') {
             <button (click)="search()">Rechercher</button>
@@ -30,7 +32,7 @@ import { FormsModule } from "@angular/forms";
             }
         </ul>
     `,
-    imports: [FormsModule],
+    imports: [FormsModule, UpperCasePipe, DatePipe],
     styles: `
         .red {
             color: red;
@@ -44,9 +46,10 @@ import { FormsModule } from "@angular/forms";
     `
 })
 export class Navbar {
-    title = input.required() // avoir un attribut html personnalisé en lecture seule
+    title = input.required<string>() // avoir un attribut html personnalisé en lecture seule
     userName = model('') // avoir un attribut html personnalisé en lecture/écriture
     onSearch = output<string>() // avoir un attribut html personnalisé pour notre propre événement
+    now = signal(Date.now())
 
     names = signal(['ana', 'ben', 'jim'])
 
