@@ -254,9 +254,10 @@ export class Users {
       .filter(user => user.email.endsWith(this.extSelected()))
   })
 
-  userCardEl = viewChildren<ElementRef<HTMLDivElement>>('userCardRef')
+  userCardView = viewChildren<ElementRef<HTMLDivElement>>('userCardRef')
+  userCardEl = computed<ElementRef<HTMLDivElement> | undefined>(() => this.userCardView()[this.indexSelected()])
   indexSelected = signal(0)
-  error = signal('')
+  error = computed(() => !this.userCardEl() ? 'Index Invalide' : '')
 
   constructor() {
     setTimeout(() => {
@@ -269,11 +270,6 @@ export class Users {
   }
 
   scrollToUser() {
-    const el = this.userCardEl()[this.indexSelected()]
-    if (!el) {
-      this.error.set('Index invalide')
-      return
-    }
-    el.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    this.userCardEl()?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 }
