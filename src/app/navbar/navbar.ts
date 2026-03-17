@@ -1,4 +1,4 @@
-import { Component, Input, input, model, output, signal } from "@angular/core";
+import { Component, computed, Input, input, model, output, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 
 @Component({
@@ -10,7 +10,7 @@ import { FormsModule } from "@angular/forms";
             <button (click)="search()">Rechercher</button>
         }
         <ul>
-            @for (name of names() ; track $index) {
+            @for (name of namesFiltered() ; track $index) {
                 <!-- <li [class]="{ 
                     red: $odd, 
                     green: $even,
@@ -48,7 +48,9 @@ export class Navbar {
     userName = model('') // avoir un attribut html personnalisé en lecture/écriture
     onSearch = output<string>() // avoir un attribut html personnalisé pour notre propre événement
 
-    names = signal(['ana', 'ben', 'jim', 'ana'])
+    names = signal(['ana', 'ben', 'jim'])
+
+    namesFiltered = computed(() => this.names().filter(str => str.startsWith(this.userName())))
 
     search() {
        this.onSearch.emit(this.userName())

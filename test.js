@@ -1,5 +1,12 @@
-let age = 18
+let age = signal(15)
+let isMinor = computed(() => age() < 18) // true
 
-age = 19
+effect(() => {
+    console.log(isMinor()) // true, false
+})
 
-console.log(age)
+console.log(isMinor()) // true
+
+age.set(19)
+
+console.log(isMinor()) // false
