@@ -1,7 +1,8 @@
 import { DatePipe, UpperCasePipe } from "@angular/common";
-import { Component, computed, Input, input, model, output, signal } from "@angular/core";
+import { Component, computed, inject, Input, input, model, output, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { RouterLink } from "@angular/router";
+import { AppService } from "../app.service";
 
 @Component({
     selector: 'app-navbar',
@@ -48,7 +49,9 @@ import { RouterLink } from "@angular/router";
     `
 })
 export class Navbar {
-    title = input.required<string>() // avoir un attribut html personnalisé en lecture seule
+    private appService = inject(AppService)
+    title = this.appService.title
+
     userName = model('') // avoir un attribut html personnalisé en lecture/écriture
     onSearch = output<string>() // avoir un attribut html personnalisé pour notre propre événement
     now = signal(Date.now())
