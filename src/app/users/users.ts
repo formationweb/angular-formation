@@ -1,13 +1,14 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { UserCard } from './user-card';
 import { User } from './user.interface';
 import { Loader } from '../atomics/loader/loader';
 import { Opacity } from "../atomics/opacity";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.html',
-  imports: [UserCard, Loader, Opacity]
+  imports: [UserCard, Loader, Opacity, FormsModule]
 })
 export class Users {
   users = signal<User[]>([
@@ -243,6 +244,15 @@ export class Users {
     },
   ]);
   loading = signal(true)
+  extensions  = signal(['tv', 'biz', 'io', 'me'])
+  extSelected = signal('')
+  usersFiltered = computed(() => {
+    if (!this.extSelected()) {
+      return this.users()
+    }
+    return this.users()
+      .filter(user => user.email.endsWith(this.extSelected()))
+  })
 
   constructor() {
     setTimeout(() => {
