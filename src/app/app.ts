@@ -1,20 +1,14 @@
 import { Component, signal } from '@angular/core'
-import { Navbar } from './navbar/navbar';
-import { Users } from './users/users';
 import { Draw } from './draw/draw';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-root',
     template: `
-        <app-navbar 
-            [title]="myTitle()" 
-            userName="ana" 
-            (onSearch)="listenSearch($event)" 
-        />
-        <app-users />
+        <router-outlet />
         <!-- <app-draw /> -->
     `,
-    imports: [Navbar, Users, Draw]
+    imports: [Draw, RouterOutlet]
 })
 export class App {
     myTitle = signal('test')

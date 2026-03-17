@@ -1,6 +1,7 @@
 import { DatePipe, UpperCasePipe } from "@angular/common";
 import { Component, computed, Input, input, model, output, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { RouterLink } from "@angular/router";
 
 @Component({
     selector: 'app-navbar',
@@ -31,8 +32,9 @@ import { FormsModule } from "@angular/forms";
                 <p>Vide</p>
             }
         </ul>
+        <button routerLink="/login">Se connecter</button>
     `,
-    imports: [FormsModule, UpperCasePipe, DatePipe],
+    imports: [FormsModule, UpperCasePipe, DatePipe, RouterLink],
     styles: `
         .red {
             color: red;
