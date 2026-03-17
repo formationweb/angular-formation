@@ -6,13 +6,13 @@ import { Draw } from './draw/draw';
 @Component({
     selector: 'app-root',
     template: `
-        <!-- <app-navbar 
+        <app-navbar 
             [title]="myTitle()" 
             userName="ana" 
             (onSearch)="listenSearch($event)" 
         />
-        <app-users /> -->
-        <app-draw />
+        <app-users />
+        <!-- <app-draw /> -->
     `,
     imports: [Navbar, Users, Draw]
 })

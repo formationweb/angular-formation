@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, ElementRef, signal, viewChildren } from '@angular/core';
 import { UserCard } from './user-card';
 import { User } from './user.interface';
 import { Loader } from '../atomics/loader/loader';
@@ -254,6 +254,10 @@ export class Users {
       .filter(user => user.email.endsWith(this.extSelected()))
   })
 
+  userCardEl = viewChildren<ElementRef<HTMLDivElement>>('userCardRef')
+  indexSelected = signal(0)
+  error = signal('')
+
   constructor() {
     setTimeout(() => {
       this.loading.set(false)
@@ -262,5 +266,14 @@ export class Users {
 
   listenOpacity(opacity: number) {
     console.log(opacity)
+  }
+
+  scrollToUser() {
+    const el = this.userCardEl()[this.indexSelected()]
+    if (!el) {
+      this.error.set('Index invalide')
+      return
+    }
+    el.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 }
