@@ -4,6 +4,9 @@ import { RouterOutlet } from "@angular/router";
 
 @Component({
     selector: 'app-main-layout',
+    host: {
+        'class': 'dark'
+    },
     template: `
         <app-navbar title="Mon App" />
         <router-outlet />
