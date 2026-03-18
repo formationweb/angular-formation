@@ -4,21 +4,32 @@ import { UsersService } from '../users/users.service';
 import { User } from '../users/user.interface';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-edit',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './user-edit.html',
   styleUrl: './user-edit.css',
 })
 export class UserEdit {
   private usersService = inject(UsersService)
+  private builder = inject(FormBuilder)
   // private route = inject(ActivatedRoute)
   // id = signal('')
   id = input.required({
     transform: numberAttribute
   })
   user = signal({} as User)
+
+  nameField = new FormControl('', {
+    nonNullable: true
+  })
+  form = this.builder.group({
+    name: this.nameField,
+    username: '',
+    email: ''
+  })
 
   // constructor() {
   //   const userId = this.route.snapshot.paramMap.get('id')
@@ -37,9 +48,10 @@ export class UserEdit {
       effect(() => {
         this.usersService.get(this.id()).subscribe((user) => {
           this.user.set(user)
+          this.form.patchValue(user)
         })
       })
   }
 
- 
+  editUser() {}
 }
