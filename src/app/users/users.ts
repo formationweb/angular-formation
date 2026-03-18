@@ -46,6 +46,6 @@ export class Users {
   }
 
   deleteUser(id: number) {
-    
+     this.usersService.delete(id).subscribe()
   }
 }

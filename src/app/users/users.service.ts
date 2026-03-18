@@ -31,6 +31,12 @@ export class UsersService {
   }
 
   delete(id: number) {
-    return this.http.delete<void>(this.url + '/' + id)
+    return this.http.delete<void>(this.url + '/' + id).pipe(
+      tap(() => {
+         this.users.set(
+           this.users().filter(user => user.id != id)
+         )
+      })
+    )
   }
 }
