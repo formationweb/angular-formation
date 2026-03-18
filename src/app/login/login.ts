@@ -1,9 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { domainValidator } from '../core/validators/domain';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login {}
+export class Login {
+  emailField = new FormControl('', {
+    validators: [
+      Validators.required,
+      Validators.minLength(3),
+      domainValidator('hotmail.com')
+    ],
+    nonNullable: true
+  })
+  passField = new FormControl('')
+  form = new FormGroup({
+    email: this.emailField,
+    password: this.passField
+  })
+  submitted = signal(false)
+
+  login() {
+    this.submitted.set(true)
+    if (this.form.invalid) return
+    console.log(this.form.value)
+  }
+}

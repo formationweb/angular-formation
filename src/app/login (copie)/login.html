@@ -1,0 +1,24 @@
+<form (ngSubmit)="login(formRef)" #formRef="ngForm">
+
+    @if (formRef.invalid && formRef.submitted) {
+        <p>Formulaire invalide !</p>
+        @if (emailRef.hasError('required')) {
+            <p>Email obligatoire</p>
+        }
+        @if (emailRef.hasError('minlength')) {
+            @let emailError = emailRef.getError('minlength');
+            <p>Vous avez mis 
+                {{ emailError.actualLength }} 
+                caractères, 
+                {{ emailError.requiredLength }} caractères requis !</p>
+        }
+    } 
+
+    <label>Email</label>
+    <input type="text" name="email" #emailRef="ngModel" ngModel required minlength="3">
+
+    <label>Mot de passe</label>
+    <input type="password" name="password" ngModel>
+
+    <button>Se connecter</button>
+</form>
