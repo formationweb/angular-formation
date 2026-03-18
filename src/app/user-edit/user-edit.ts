@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, input, numberAttribute, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -8,11 +8,20 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './user-edit.css',
 })
 export class UserEdit {
-  private route = inject(ActivatedRoute)
-  id = signal('')
+  // private route = inject(ActivatedRoute)
+  // id = signal('')
+  id = input.required({
+    transform: numberAttribute
+  })
+
+  // constructor() {
+  //   const userId = this.route.snapshot.paramMap.get('id')
+  //   if (userId) this.id.set(userId)
+  // }
 
   constructor() {
-    const userId = this.route.snapshot.paramMap.get('id')
-    if (userId) this.id.set(userId)
+    effect(() => {
+      console.log(this.id())
+    })
   }
 }
