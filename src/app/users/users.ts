@@ -34,11 +34,11 @@ export class Users /* implements OnDestroy */ {
   error = computed(() => !this.userCardEl() ? 'Index Invalide' : '')
  // subscription: Subscription
 
-   count = toSignal(interval(1000).pipe(
-    tap((nb) => {
-      console.log(nb)
-    })
-   ))
+  //  count = toSignal(interval(1000).pipe(
+  //   tap((nb) => {
+  //     console.log(nb)
+  //   })
+  //  ))
 
   constructor() {
     this.usersService.getAll().subscribe(() => {

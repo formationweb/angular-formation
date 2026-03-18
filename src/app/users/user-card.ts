@@ -11,7 +11,7 @@ import { ConfirmDirective } from "../directives/confirm";
             <header>{{ user().name }}</header>
             <p>{{ user().email }}</p>
             <button 
-                (click)="onDelete.emit(user().id)"
+                (onConfirm)="onDelete.emit(user().id)"
                 confirm="Etes vous ..."
                 [confirmUsername]="user().name"
                 >
