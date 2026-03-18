@@ -1,6 +1,6 @@
 import { Component, effect, inject, input, numberAttribute, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UsersService } from '../users/users.service';
+import { UserPayload, UsersService } from '../users/users.service';
 import { User } from '../users/user.interface';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs';
@@ -53,5 +53,14 @@ export class UserEdit {
       })
   }
 
-  editUser() {}
+  editUser() {
+    this.usersService
+      .update(this.id(), this.form.value as UserPayload)
+      .subscribe((userModified) => {
+        this.user.set({
+          ...this.user(),
+          ...userModified
+        })
+      })
+  }
 }
