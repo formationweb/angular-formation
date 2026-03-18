@@ -64,6 +64,6 @@ export class Navbar {
 
     search() {
        this.onSearch.emit(this.userName())
-       this.usersService.userNameSearched.set(this.userName())
+       this.usersService.setNameSearch(this.userName())
     }
 }

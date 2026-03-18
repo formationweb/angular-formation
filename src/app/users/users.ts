@@ -32,9 +32,9 @@ export class Users {
   error = computed(() => !this.userCardEl() ? 'Index Invalide' : '')
 
   constructor() {
-    setTimeout(() => {
+    this.usersService.getAll().subscribe(() => {
       this.loading.set(false)
-    }, 1000)
+    })
   }
 
   listenOpacity(opacity: number) {
