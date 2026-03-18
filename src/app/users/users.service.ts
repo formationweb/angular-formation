@@ -30,6 +30,10 @@ export class UsersService {
      )
   }
 
+  get(id: number) {
+    return this.http.get<User>(this.url + '/' + id)
+  }
+
   delete(id: number) {
     return this.http.delete<void>(this.url + '/' + id).pipe(
       tap(() => {

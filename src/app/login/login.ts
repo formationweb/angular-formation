@@ -29,4 +29,10 @@ export class Login {
     if (this.form.invalid) return
     console.log(this.form.value)
   }
+
+  constructor() {
+    setTimeout(() => {
+      this.emailField.setValue('sdzdz')
+    }, 1000)
+  }
 }
