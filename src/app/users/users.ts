@@ -44,4 +44,8 @@ export class Users {
   scrollToUser() {
     this.userCardEl()?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
+
+  deleteUser(id: number) {
+    
+  }
 }
