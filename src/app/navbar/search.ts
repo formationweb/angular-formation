@@ -11,10 +11,15 @@ import { FormsModule } from "@angular/forms";
         }
         <ul>
             @for (name of names() ; track name) {
-                <li>{{ $index }} - {{ name }}</li>
+                <li [class]="$even ? 'red': ''">{{ $even }} - {{ name }}</li>
             }
         </ul>
 
+    `,
+    styles: `
+        .red {
+            color: red;
+        }
     `
 })
 export class Search {
