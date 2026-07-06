@@ -1,11 +1,20 @@
 import { Component, signal } from '@angular/core';
+import { UserCard } from './user-card';
+import { User } from './user.interface';
 
 @Component({
   selector: 'app-users',
-  template: ` <h1>Users</h1> `,
+  template: `
+    <h1>Users</h1>
+
+    @for (u of users(); track u.id) {
+      <app-user-card [user]="u" />
+    }
+  `,
+  imports: [UserCard],
 })
 export class Users {
-  users = signal([
+  users = signal<User[]>([
     {
       id: 1,
       name: 'Leanne Graham',
