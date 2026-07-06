@@ -1,6 +1,12 @@
+const age = signal(15)
+const isMinor = computed(() => age() < 18)
 
-let name = signal('ana')
+console.log(isMinor()) // true
 
-name.set('ben') //modificateur
+age.set(70)
 
-name() // accesseur
+console.log(isMinor()) // false
+
+effect(() => {
+    console.log(age())
+})
