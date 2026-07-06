@@ -1,5 +1,6 @@
-function add(a, b) {
-    return a + b
-}
 
-add()
+let name = signal('ana')
+
+name.set('ben') //modificateur
+
+name() // accesseur
