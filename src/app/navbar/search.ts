@@ -11,14 +11,19 @@ import { FormsModule } from "@angular/forms";
         }
         <ul>
             @for (name of names() ; track name) {
-                <li [class]="$even ? 'red': ''">{{ $even }} - {{ name }}</li>
+                <li [class]="{ red: $even }">{{ $even }} - {{ name }}</li>
             }
         </ul>
+        <p [style]="{ color: 'red', fontWeight: 'bold' }">dzfr</p>
 
     `,
     styles: `
         .red {
             color: red;
+        }
+
+        .bold {
+            font-weight: bold;
         }
     `
 })

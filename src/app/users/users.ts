@@ -4,13 +4,7 @@ import { User } from './user.interface';
 
 @Component({
   selector: 'app-users',
-  template: `
-    <h1>Users</h1>
-
-    @for (u of users(); track u.id) {
-      <app-user-card [user]="u" />
-    }
-  `,
+  templateUrl: './users.html',
   imports: [UserCard],
 })
 export class Users {
