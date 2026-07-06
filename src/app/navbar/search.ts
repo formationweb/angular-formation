@@ -1,4 +1,4 @@
-import { Component, signal } from "@angular/core";
+import { Component, input, model, output, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 
 @Component({
@@ -18,10 +18,12 @@ import { FormsModule } from "@angular/forms";
     `
 })
 export class Search {
-     protected readonly userName = signal('ana')
+     //readonly userName = input('') // valeur en entrée en lecture seule
+     readonly userName = model('') // valeur en entrée modifiable
+     readonly onSearch = output<string>()
      protected readonly names = signal(['ana', 'ben', 'jim'])
 
      search() {
-        console.log(this.userName())
+        this.onSearch.emit(this.userName())
      }
 }

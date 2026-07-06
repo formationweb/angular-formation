@@ -1,3 +1,2 @@
-<div id="navbar"></div>
-<div id="menu"></div>
-<div id="content"></div>
+<app-navbar title="Mon App" />
+<app-navbar title="Footer" />
