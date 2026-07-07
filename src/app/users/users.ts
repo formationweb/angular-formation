@@ -254,19 +254,14 @@ export class Users {
   })
   protected readonly userCardEls = viewChildren<ElementRef<HTMLDivElement>>('userCardRef')
   protected readonly indexInput = signal(0)
-  protected readonly indexError = signal('')
+  protected readonly indexCardEl = computed<ElementRef<HTMLDivElement> | undefined>(() => this.userCardEls()[this.indexInput()])
+  protected readonly indexError = computed(() => this.indexCardEl() ? '' : 'Index invalide')
 
   listenOpacity(opacity: number) {
     console.log(opacity)
   }
 
   scrollToUser() {
-    const el: ElementRef<HTMLDivElement> | undefined = this.userCardEls()[this.indexInput()]
-    if (!el) {
-      this.indexError.set('Index invalide')
-      return
-    }
-    this.indexError.set('')
-    el.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    this.indexCardEl()?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 }
