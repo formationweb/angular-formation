@@ -3,11 +3,12 @@ import { UserCard } from './user-card';
 import { User } from './user.interface';
 import { Loader } from '../atomics/loader/loader';
 import { Opacity } from "../atomics/opacity";
+import { Draw } from "../draw";
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.html',
-  imports: [UserCard, Loader, Opacity],
+  imports: [UserCard, Loader, Opacity, Draw],
 })
 export class Users {
   users = signal<User[]>([
