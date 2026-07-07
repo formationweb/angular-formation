@@ -15,8 +15,8 @@
     <p>{{ indexError() }}</p>
 }
 
-<app-loader [loading]="false">
-    @for (u of usersFiltered(); track u.id) {
+<app-loader [loading]="usersResource.isLoading()">
+    @for (u of usersResource.value(); track u.id) {
         <div #userCardRef>
             <app-user-card [user]="u">
                 <div class="header">header</div>

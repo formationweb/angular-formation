@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, inject, signal, viewChildren } from '@angular/core';
+import { Component, computed, ElementRef, inject, resource, signal, viewChildren } from '@angular/core';
 import { UserCard } from './user-card';
 import { User } from './user.interface';
 import { Loader } from '../atomics/loader/loader';
@@ -6,6 +6,8 @@ import { Opacity } from "../atomics/opacity";
 import { Draw } from "../draw";
 import { FormsModule } from "@angular/forms";
 import { UserService } from './user.service';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { httpResource } from '@angular/common/http';
 
 @Component({
   selector: 'app-users',
@@ -31,6 +33,21 @@ export class Users {
   constructor() {
     this.userService.getAll().subscribe()
   }
+
+  // usersResource = rxResource({
+  //   stream: () => {
+  //     return this.userService.getAll()
+  //   }
+  // })
+
+  //  usersResource = resource({
+  //   loader: () => {
+  //     return fetch('https://jsonplaceholder.typicode.com/users')
+  //       .then(res => res.json())
+  //   }
+  // })
+
+  // usersResource = httpResource<User[]>(() => 'https://jsonplaceholder.typicode.com/users')
 
   listenOpacity(opacity: number) {
     console.log(opacity)
