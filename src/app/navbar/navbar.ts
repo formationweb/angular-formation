@@ -1,6 +1,7 @@
 import { Component, inject, signal } from "@angular/core";
 import { Search } from "./search";
 import { NavbarService } from "./navbar.service";
+import { UserService } from "../users/user.service";
 
 @Component({
     selector: 'app-navbar',
@@ -12,10 +13,11 @@ import { NavbarService } from "./navbar.service";
 })
 export class Navbar {
     private readonly navbarService = inject(NavbarService)
+    private userService = inject(UserService)
     protected readonly title = this.navbarService.title
     protected readonly name = signal('ana')
 
     listenSearch(userName: string) {
-        console.log(userName)
+        this.userService.setSearch(userName)
     }
 }
