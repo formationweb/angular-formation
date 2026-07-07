@@ -9,11 +9,19 @@
     }
 </select>
 
+<input type="text" [(ngModel)]="indexInput" />
+<button (click)="scrollToUser()">Scroll To user</button>
+@if (indexError()) {
+    <p>{{ indexError() }}</p>
+}
+
 <app-loader [loading]="false">
     @for (u of usersFiltered(); track u.id) {
-        <app-user-card [user]="u">
-            <div class="header">header</div>
-            <div footer>Footer</div>
-        </app-user-card>
+        <div #userCardRef>
+            <app-user-card [user]="u">
+                <div class="header">header</div>
+                <div footer>Footer</div>
+            </app-user-card>
+        </div>
     }
 </app-loader>

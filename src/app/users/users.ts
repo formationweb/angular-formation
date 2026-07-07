@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, ElementRef, signal, viewChildren } from '@angular/core';
 import { UserCard } from './user-card';
 import { User } from './user.interface';
 import { Loader } from '../atomics/loader/loader';
@@ -252,8 +252,21 @@ export class Users {
     } 
     return this.users().filter(user => user.email.endsWith(this.extSelected()))
   })
+  protected readonly userCardEls = viewChildren<ElementRef<HTMLDivElement>>('userCardRef')
+  protected readonly indexInput = signal(0)
+  protected readonly indexError = signal('')
 
   listenOpacity(opacity: number) {
     console.log(opacity)
+  }
+
+  scrollToUser() {
+    const el: ElementRef<HTMLDivElement> | undefined = this.userCardEls()[this.indexInput()]
+    if (!el) {
+      this.indexError.set('Index invalide')
+      return
+    }
+    this.indexError.set('')
+    el.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 }
