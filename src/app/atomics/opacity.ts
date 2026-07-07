@@ -1,10 +1,10 @@
-import { Component, input, model, output, signal } from "@angular/core";
+import { Component, effect, input, model, output, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 
 @Component({
     selector: 'app-opacity',
     template: `
-        <input type="range" min="0" max="1" step="0.01" [(ngModel)]="opacity" (input)="onChange.emit(opacity())" />
+        <input type="range" min="0" max="1" step="0.01" [(ngModel)]="opacity" />
         <div [style]="{ opacity: opacity(), backgroundColor: color() }"></div>
     `,
     imports: [FormsModule],
@@ -19,4 +19,10 @@ export class Opacity {
     readonly opacity = model(1)
     readonly color = input('black')
     readonly onChange = output<number>()
+
+    constructor() {
+        effect(() => {
+            this.onChange.emit(this.opacity())
+        })
+    }
 }
