@@ -28,6 +28,10 @@ export class Users {
   protected readonly indexCardEl = computed<ElementRef<HTMLDivElement> | undefined>(() => this.userCardEls()[this.indexInput()])
   protected readonly indexError = computed(() => this.indexCardEl() ? '' : 'Index invalide')
 
+  constructor() {
+    this.userService.getAll().subscribe()
+  }
+
   listenOpacity(opacity: number) {
     console.log(opacity)
   }

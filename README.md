@@ -1,5 +1,15 @@
-/login -> Serveur -> Routeur -> controller 
-/login -> Routeur -> Component
+A,   B,   C,                                           D
 
-SPA
- -> CSR (Client Side Rendering)
+bufferTime(500)
+
+[A,B,C]                       []                        [D]
+
+map(el => el.length)
+
+
+3                             0                          1
+
+tap(....)
+
+
+3                           0                             1
