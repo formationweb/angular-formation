@@ -22,6 +22,10 @@ export class UserService {
     this.userSearch.set(str)
   }
 
+  get(id: number): Observable<User> {
+    return this.http.get<User>(this.url + '/' + id)
+  }
+
   getAll(): Observable<User[]> {
     return this.http.get<User[]>(this.url).pipe(
       tap((users) => {

@@ -25,4 +25,8 @@ export class Login {
     this.submitted.set(true)
     console.log(this.form.value)
   }
+
+  test() {
+    this.emailField.setValue('...')
+  }
 }

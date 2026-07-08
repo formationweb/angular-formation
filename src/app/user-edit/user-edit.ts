@@ -1,5 +1,8 @@
 import { Component, effect, inject, input, numberAttribute, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../users/user.service';
+import { User } from '../users/user.interface';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-user-edit',
@@ -8,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './user-edit.css',
 })
 export class UserEdit {
+  private userService = inject(UserService)
   // private route = inject(ActivatedRoute)
   // private paramId = this.route.snapshot.paramMap.get('id')
   // id = signal(this.paramId ? +this.paramId : null)
@@ -16,9 +20,22 @@ export class UserEdit {
     transform: numberAttribute
   })
 
-  constructor() {
-    effect(() => {
-      console.log(this.id())
-    })
-  }
+  user = rxResource({
+    params: () => {
+      return {
+        userId: this.id()
+      }
+    },
+    stream: ({ params }) => {
+      return this.userService.get(params.userId)
+    }
+  })
+
+  // constructor() {
+  //   effect(() => {
+  //     this.userService.get(this.id()).subscribe((user) => {
+  //       this.user.set(user)
+  //     })
+  //   })
+  // }
 }
