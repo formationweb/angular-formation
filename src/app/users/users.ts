@@ -35,7 +35,7 @@ export class Users {
   }
 
   removeUser(id: number) {
-    
+    this.userService.delete(id).subscribe()
   }
 
   // usersResource = rxResource({
