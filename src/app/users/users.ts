@@ -34,6 +34,10 @@ export class Users {
     this.userService.getAll().subscribe()
   }
 
+  removeUser(id: number) {
+    
+  }
+
   // usersResource = rxResource({
   //   stream: () => {
   //     return this.userService.getAll()
