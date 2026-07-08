@@ -3,6 +3,8 @@ import { User } from "./user.interface";
 import { HttpClient } from "@angular/common/http";
 import { Observable, tap } from "rxjs";
 
+export type UserPayload = { name: string, email: string }
+
 @Injectable({
     providedIn: 'root'
 })
@@ -28,7 +30,7 @@ export class UserService {
     )
   }
 
-  create(payload: { name: string, email: string }): Observable<User> {
+  create(payload: UserPayload): Observable<User> {
     return this.http.post<User>(this.url, payload).pipe(
       tap((user) => {
         this.users.set([

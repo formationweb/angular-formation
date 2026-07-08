@@ -4,8 +4,8 @@ import { User } from './user.interface';
 import { Loader } from '../atomics/loader/loader';
 import { Opacity } from "../atomics/opacity";
 import { Draw } from "../draw";
-import { FormsModule } from "@angular/forms";
-import { UserService } from './user.service';
+import { FormsModule, NgForm } from "@angular/forms";
+import { UserPayload, UserService } from './user.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { httpResource } from '@angular/common/http';
 
@@ -30,12 +30,23 @@ export class Users {
   protected readonly indexCardEl = computed<ElementRef<HTMLDivElement> | undefined>(() => this.userCardEls()[this.indexInput()])
   protected readonly indexError = computed(() => this.indexCardEl() ? '' : 'Index invalide')
 
+  protected readonly loadingCreate = signal(false)
+
   constructor() {
     this.userService.getAll().subscribe()
   }
 
   removeUser(id: number) {
     this.userService.delete(id).subscribe()
+  }
+
+  createUser(form: NgForm) {
+    const payload: UserPayload = form.value
+    this.loadingCreate.set(true)
+    this.userService.create(payload).subscribe(() => {
+      this.loadingCreate.set(false)
+      form.resetForm()
+    })
   }
 
   // usersResource = rxResource({
