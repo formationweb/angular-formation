@@ -1,22 +1,22 @@
-<form (submit)="login(myForm)" #myForm="ngForm">
+<form (submit)="login()" [formGroup]="form">
 
-    @if (myForm.invalid && myForm.submitted) {
-        <p>Formulaire invalide</p>
-        @if (email.hasError('required')) {
+    @if (form.invalid && submitted()) {
+        @if (emailField.hasError('required')) {
             <p>Email obligatoire</p>
         }
-        @if (email.hasError('minlength')) {
-            @let errorEmail = email.getError('minlength');
-            <p>L'email doit avoir {{ errorEmail.requiredLength }}
-                 caractères, vous avez {{ errorEmail.actualLength }} caractères</p>
+        @if (emailField.hasError('minlength')) {
+            <p>....</p>
+        }
+        @if (emailField.hasError('domain')) {
+            <p>{{ emailField.getError('domain') }} est interdit !</p>
         }
     }
 
     <label>Email</label>
-    <input type="text" name="email" ngModel #email="ngModel" required minlength="3">
+    <input type="text" [formControl]="emailField">
 
     <label>Mot de passe</label>
-    <input type="password" name="password"  ngModel />
+    <input type="password" [formControl]="passField">
 
     <button>Connexion</button>
 </form>
