@@ -14,7 +14,7 @@ import { PluralPipe } from '../core/pipes/plural.pipe';
 @Component({
   selector: 'app-users',
   templateUrl: './users.html',
-  imports: [UserCard, Loader, Opacity, Draw, FormsModule, PluralPipe],
+  imports: [UserCard, Loader, Opacity, Draw, FormsModule, PluralPipe]
 })
 export class Users {
   private userService = inject(UserService)

@@ -1,6 +1,7 @@
 import { Component, Input, input, OnInit, output } from "@angular/core";
 import { User } from "./user.interface";
 import { RouterLink } from "@angular/router";
+import { ConfirmDirective } from "../core/directives/confirm.directive";
 
 @Component({
     selector: 'app-user-card',
@@ -11,11 +12,17 @@ import { RouterLink } from "@angular/router";
             <p>{{ user().email }}</p>
             <ng-content />
              <ng-content select="[footer]" />
-             <button (click)="onDelete.emit(user().id)">Supprimer</button>
+             <button 
+                (onConfirm)="onDelete.emit(user().id)" 
+                confirm="Etes vous de"
+                [confirmUsername]="user().name"
+                >
+                Supprimer
+            </button>
              <button [routerLink]="['user', user().id]">Modifier</button>
         </article>
     `,
-    imports: [RouterLink]
+    imports: [RouterLink, ConfirmDirective]
 })
 export class UserCard {
     readonly user = input.required<User>()
