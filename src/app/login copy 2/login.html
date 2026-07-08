@@ -1,0 +1,22 @@
+<form (submit)="login()" [formGroup]="form">
+
+    @if (form.invalid && submitted()) {
+        @if (emailField.hasError('required')) {
+            <p>Email obligatoire</p>
+        }
+        @if (emailField.hasError('minlength')) {
+            <p>....</p>
+        }
+        @if (emailField.hasError('domain')) {
+            <p>{{ emailField.getError('domain') }} est interdit !</p>
+        }
+    }
+
+    <label>Email</label>
+    <input type="text" [formControl]="emailField">
+
+    <label>Mot de passe</label>
+    <input type="password" [formControl]="passField">
+
+    <button>Connexion</button>
+</form>

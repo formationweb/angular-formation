@@ -1,28 +1,23 @@
-import { Component, signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { domainValidator } from '../core/validators/domain.validator';
-
+import { Component, computed, effect, signal } from '@angular/core';
+import { form, FormField } from '@angular/forms/signals';
 @Component({
   selector: 'app-login',
   templateUrl: './login.html',
   styleUrl: './login.css',
-  imports: [ReactiveFormsModule]
+  imports: [FormField]
 })
 export class Login {
-  emailField = new FormControl('', [
-    Validators.required,
-    Validators.minLength(3),
-    domainValidator('hotmail.com')
-  ])
-  passField = new FormControl('')
-  form = new FormGroup({
-    email: this.emailField,
-    password: this.passField
+  protected readonly loginModel = signal({
+    email: '',
+    password: ''
   })
-  submitted = signal(false)
 
-  login() {
-    this.submitted.set(true)
-    console.log(this.form.value)
+  emailUppercase = computed(() => this.loginModel().email.toUpperCase())
+  formInvalid = computed(() => this.loginForm().invalid())
+
+  loginForm = form(this.loginModel)
+
+  loginSubmit(event: Event) {
+    event.preventDefault()
   }
 }
