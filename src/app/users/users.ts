@@ -9,11 +9,12 @@ import { UserPayload, UserService } from './user.service';
 import { rxResource, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { httpResource } from '@angular/common/http';
 import { interval, Subscription } from 'rxjs';
+import { PluralPipe } from '../core/pipes/plural.pipe';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.html',
-  imports: [UserCard, Loader, Opacity, Draw, FormsModule],
+  imports: [UserCard, Loader, Opacity, Draw, FormsModule, PluralPipe],
 })
 export class Users {
   private userService = inject(UserService)
