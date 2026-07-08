@@ -2,11 +2,22 @@ import { Routes } from "@angular/router";
 import { Users } from "./users/users";
 import { Login } from "./login/login";
 import { Main } from "./layouts/main/main";
+import { UserEdit } from "./user-edit/user-edit";
 
 export const routes: Routes = [
     {
         path: '',
-        component: Main
+        component: Main,
+        children: [
+            {
+                path: '',
+                component: Users
+            },
+            {
+                path: 'user/:id',
+                component: UserEdit
+            }
+        ]
     },
     {
         path: 'login',
