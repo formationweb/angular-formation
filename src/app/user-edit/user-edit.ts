@@ -1,6 +1,6 @@
-import { Component, effect, inject, input, numberAttribute, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, numberAttribute, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../users/user.service';
+import { UserEditPayload, UserService } from '../users/user.service';
 import { User } from '../users/user.interface';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -19,7 +19,9 @@ export class UserEdit {
   // private paramId = this.route.snapshot.paramMap.get('id')
   // id = signal(this.paramId ? +this.paramId : null)
 
-  emailField = new FormControl('')
+  emailField = new FormControl('', {
+    nonNullable: true
+  })
   form = this.builder.group({
     email: this.emailField,
     name: '',
@@ -30,7 +32,7 @@ export class UserEdit {
     transform: numberAttribute
   })
 
-  user = rxResource({
+  protected readonly user = rxResource({
     params: () => {
       return {
         userId: this.id()
@@ -41,11 +43,24 @@ export class UserEdit {
     }
   })
 
+  protected readonly userValue = computed<User>(() => this.user.value() ?? {} as User)
+
   constructor() {
     effect(() => {
       //this.emailField.setValue(this.user.value()?.email ?? '')
-      this.form.patchValue(this.user.value() ?? {})
+      this.form.patchValue(this.userValue())
     })
+  }
+
+  editUser() {
+    this.userService
+      .update(this.id(), this.form.value as UserEditPayload)
+      .subscribe((user) => {
+         this.user.set({
+          ...this.userValue(),
+          ...user
+         })
+      })
   }
 
   // constructor() {
