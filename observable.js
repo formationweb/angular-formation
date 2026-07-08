@@ -1,28 +1,40 @@
 import { bufferTime, interval, map, Observable, of } from "rxjs";
 
-const ob$ = new Observable((subscriber) => {
+// const ob$ = new Observable((subscriber) => {
 
-  console.log("go");
-  setTimeout(() => {
-    subscriber.next("A");
-  }, 100);
-  setTimeout(() => {
-    subscriber.next("B");
-  }, 200);
-  setTimeout(() => {
-    subscriber.next("C");
-  }, 300);
-  setTimeout(() => {
-    subscriber.next("D");
-    subscriber.complete();
-  }, 3000);
-});
+//   console.log("go");
+//   setTimeout(() => {
+//     subscriber.next("A");
+//   }, 100);
+//   setTimeout(() => {
+//     subscriber.next("B");
+//   }, 200);
+//   setTimeout(() => {
+//     subscriber.next("C");
+//   }, 300);
+//   setTimeout(() => {
+//     subscriber.next("D");
+//     subscriber.complete();
+//   }, 3000);
+// });
 
-ob$
-    .pipe(
-       bufferTime(500),
-       map(el => el.length)
-    )
-    .subscribe((letter) => {
-        console.log(letter)
-    })
+// const subscription = ob$
+//     .pipe(
+//        bufferTime(500),
+//        map(el => el.length)
+//     )
+//     .subscribe((letter) => {
+//         console.log(letter)
+//     })
+
+// subscription.unsubscribe()
+
+
+interval(1000).subscribe({
+    next: (nb) => {
+        console.log(nb)
+    },
+    error: (err) => {
+        console.log(err)
+    }
+})

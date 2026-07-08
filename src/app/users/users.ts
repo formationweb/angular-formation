@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, inject, resource, signal, viewChildren } from '@angular/core';
+import { Component, computed, ElementRef, inject, OnDestroy, resource, signal, viewChildren } from '@angular/core';
 import { UserCard } from './user-card';
 import { User } from './user.interface';
 import { Loader } from '../atomics/loader/loader';
@@ -6,8 +6,9 @@ import { Opacity } from "../atomics/opacity";
 import { Draw } from "../draw";
 import { FormsModule, NgForm } from "@angular/forms";
 import { UserPayload, UserService } from './user.service';
-import { rxResource } from '@angular/core/rxjs-interop';
+import { rxResource, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { httpResource } from '@angular/common/http';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -31,9 +32,20 @@ export class Users {
   protected readonly indexError = computed(() => this.indexCardEl() ? '' : 'Index invalide')
 
   protected readonly loadingCreate = signal(false)
+  //private subscription: Subscription
 
   constructor() {
-    this.userService.getAll().subscribe()
+    this.userService.getAll()
+    .pipe(
+        takeUntilDestroyed()
+     )
+    .subscribe()
+    //this.subscription = interval(1000).subscribe(console.log)
+     interval(1000)
+     .pipe(
+        takeUntilDestroyed()
+     )
+     .subscribe(console.log)
   }
 
   removeUser(id: number) {
@@ -52,7 +64,9 @@ export class Users {
   // usersResource = rxResource({
   //   stream: () => {
   //     return this.userService.getAll()
-  //   }
+  //   }ngOnDestroy(): void {
+  //   this.subscription.unsubscribe()
+  // }
   // })
 
   //  usersResource = resource({
@@ -71,4 +85,8 @@ export class Users {
   scrollToUser() {
     this.indexCardEl()?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
+
+  // ngOnDestroy(): void {
+  //   this.subscription.unsubscribe()
+  // }
 }
