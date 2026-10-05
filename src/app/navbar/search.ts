@@ -17,6 +17,9 @@ import { FormsModule } from "@angular/forms";
                 <p>Aucun nom</p>
             }
         </ul>
+        <div [style]="{ opacity: nb(), backgroundColor: 'black' }">
+            
+        </div>
     `,
     styles: `
         .red {
@@ -29,6 +32,7 @@ export class Search {
     readonly userName = model('') // valeur en entrée en lecture et écriture
     readonly onSearch = output<string>()
     protected readonly names = signal<string[]>(['ana', 'ben', 'jim'])
+    nb = signal(1)
 
     search() {
        this.onSearch.emit(this.userName())
