@@ -15,7 +15,7 @@
     <p>{{ error() }}</p>
 }
 
-<app-loader [loading]="false">
+<app-loader [loading]="loadingUser()">
     @for (u of usersFiltered() ; track u.id) {
        <div #userCardRef>
             <app-user-card [user]="u">

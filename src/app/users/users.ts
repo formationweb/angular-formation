@@ -33,6 +33,13 @@ export class Users {
   protected readonly elScroll = computed<ElementRef<HTMLDivElement> | undefined>(
     () => this.userCardEl()[this.index()])
   protected readonly error = computed(() => !this.elScroll() ? 'Index invalide' : '')
+  protected readonly loadingUser = signal(true)
+
+  constructor() {
+     this.userService.getAll().subscribe(() => {
+      this.loadingUser.set(false)
+     })
+  }
   
   listenOpacity(opacity: number) {
     console.log(opacity)
