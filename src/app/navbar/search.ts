@@ -1,4 +1,4 @@
-import { Component, input, model, output, signal } from "@angular/core";
+import { Component, computed, input, model, output, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 
 @Component({
@@ -10,7 +10,7 @@ import { FormsModule } from "@angular/forms";
             <button (click)="search()">Rechercher</button>
         }
         <ul>
-            @for (name of names() ; track name) {
+            @for (name of namesFiltered() ; track name) {
                 <li [class]="$odd ? 'red' : ''">{{ $odd }} - {{ name }}</li>
             }
             @empty { 
@@ -32,6 +32,10 @@ export class Search {
     readonly userName = model('') // valeur en entrée en lecture et écriture
     readonly onSearch = output<string>()
     protected readonly names = signal<string[]>(['ana', 'ben', 'jim'])
+    readonly namesFiltered = computed(() => {
+        return this.names().filter(name => name.startsWith(this.userName()))
+    })
+
     nb = signal(1)
 
     search() {

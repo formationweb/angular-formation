@@ -1,3 +1,8 @@
-let nom = 'ana'
+let age = signal(25)
+let isMinor = computed(() => age() < 18)
 
-nom = 'ben'
+console.log(isMinor()) // false
+
+age.set(5)
+
+console.log(isMinor()) // true
