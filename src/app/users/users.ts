@@ -48,4 +48,8 @@ export class Users {
   scrollToUser() {
     this.elScroll()?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
+
+  deleteUser(id: number) {
+
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { User } from '../user.interface';
 
 @Component({
@@ -12,10 +12,11 @@ import { User } from '../user.interface';
         </header>
         <p>{{ user().email }}</p>
          <ng-content select="h2" />
-         <button>Supprimer</button>
+         <button (click)="removeUser.emit(user().id)">Supprimer</button>
     </article>
   `,
 })
 export class UserCard {
   readonly user = input.required<User>()
+  readonly removeUser = output<number>()
 }
