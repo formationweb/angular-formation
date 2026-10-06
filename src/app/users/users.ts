@@ -5,6 +5,7 @@ import { Loader } from '../atomics/loader';
 import { Opacity } from '../atomics/opacity';
 import { FormsModule } from '@angular/forms';
 import { UserService } from './user.service';
+import { Navbar } from '../navbar/navbar';
 
 @Component({
   selector: 'app-users',

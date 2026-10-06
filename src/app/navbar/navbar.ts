@@ -2,6 +2,7 @@ import { Component, inject, signal } from "@angular/core";
 import { Search } from "./search";
 import { NavbarService } from "./navbar.service";
 import { UserService } from "../users/user.service";
+import { RouterLink } from "@angular/router";
 
 @Component({
     selector: 'app-navbar',
@@ -9,8 +10,9 @@ import { UserService } from "../users/user.service";
         <h1>{{ title() }}</h1>
         <app-search [userName]="name()" 
             (onSearch)="listenSearch($event)" />
+        <button routerLink="/login">Se connecter</button>
     `,
-    imports: [Search]
+    imports: [Search, RouterLink]
 })
 export class Navbar {
     private navbarService = inject(NavbarService)
