@@ -1,5 +1,6 @@
-import { Component, signal } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
 import { Search } from "./search";
+import { NavbarService } from "./navbar.service";
 
 @Component({
     selector: 'app-navbar',
@@ -11,7 +12,8 @@ import { Search } from "./search";
     imports: [Search]
 })
 export class Navbar {
-    protected readonly title = signal('Mon App')
+    private navbarService = inject(NavbarService)
+    protected readonly title = this.navbarService.title
     protected readonly name = signal('ben')
 
     listenSearch(userName: string) {
