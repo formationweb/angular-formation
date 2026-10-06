@@ -7,9 +7,9 @@ import { Draw } from "./draw/draw";
     selector: 'app-root',
     imports: [Navbar, Users, Draw],
     template: `
-        <!-- <app-navbar />
-        <app-users /> -->
-        <app-draw />
+        <app-navbar />
+        <app-users />
+        <!-- <app-draw /> -->
     `
 })
 export class App {}

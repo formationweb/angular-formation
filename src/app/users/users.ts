@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, ElementRef, signal, viewChildren } from '@angular/core';
 import { UserCard } from './user-card/user-card';
 import { User } from './user.interface';
 import { Loader } from '../atomics/loader';
@@ -11,6 +11,9 @@ import { FormsModule } from '@angular/forms';
   imports: [UserCard, Loader, Opacity, FormsModule],
 })
 export class Users {
+  protected readonly userCardEl 
+    = viewChildren<ElementRef<HTMLDivElement>>('userCardRef')
+
   users = signal<User[]>([
     {
       id: 1,
@@ -251,8 +254,21 @@ export class Users {
     }
     return this.users().filter(user => user.email.endsWith(this.extSelected()))
   })
+
+  protected readonly index = signal(0)
+  protected readonly error = signal('')
   
   listenOpacity(opacity: number) {
     console.log(opacity)
+  }
+
+  scrollToUser() {
+    const el: ElementRef<HTMLDivElement> | undefined = this.userCardEl()[this.index()]
+    if (!el) {
+      this.error.set('Index invalide')
+      return
+    }
+    this.error.set('')
+    el.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
 }
