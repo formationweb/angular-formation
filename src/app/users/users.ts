@@ -256,19 +256,16 @@ export class Users {
   })
 
   protected readonly index = signal(0)
-  protected readonly error = signal('')
+
+  protected readonly elScroll = computed<ElementRef<HTMLDivElement> | undefined>(
+    () => this.userCardEl()[this.index()])
+  protected readonly error = computed(() => !this.elScroll() ? 'Index invalide' : '')
   
   listenOpacity(opacity: number) {
     console.log(opacity)
   }
 
   scrollToUser() {
-    const el: ElementRef<HTMLDivElement> | undefined = this.userCardEl()[this.index()]
-    if (!el) {
-      this.error.set('Index invalide')
-      return
-    }
-    this.error.set('')
-    el.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    this.elScroll()?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
 }
