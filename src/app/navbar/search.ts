@@ -31,7 +31,7 @@ export class Search {
    // readonly userName = input('') // valeur en entrée en lecture seule
     readonly userName = model('') // valeur en entrée en lecture et écriture
     readonly onSearch = output<string>()
-    protected readonly names = signal<string[]>(['ana', 'ben', 'jim'])
+    protected readonly names = signal<string[]>(['ana', 'ben', 'jim']) // réactivité en lecture/écriture
     readonly namesFiltered = computed(() => {
         return this.names().filter(name => name.startsWith(this.userName()))
     })

@@ -1,4 +1,4 @@
-import { Component, input, model, output } from "@angular/core";
+import { Component, effect, input, model, output } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 
 @Component({
@@ -11,7 +11,6 @@ import { FormsModule } from "@angular/forms";
             max="1"
             step="0.01"
            [(ngModel)]="opacity"
-           (input)="onChange.emit(opacity())"
         />
         <div [style]="{ opacity: opacity(), backgroundColor: color() }"></div>
     `,
@@ -28,4 +27,10 @@ export class Opacity {
     opacity = model(1)
     color = input('black')
     onChange = output<number>()
+
+    constructor() {
+        effect(() => {
+            this.onChange.emit(this.opacity())
+        })
+    }
 }
