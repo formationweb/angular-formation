@@ -12,6 +12,7 @@ import { User } from '../user.interface';
         </header>
         <p>{{ user().email }}</p>
          <ng-content select="h2" />
+         <button>Supprimer</button>
     </article>
   `,
 })
