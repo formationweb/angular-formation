@@ -8,11 +8,12 @@ import { UserService } from './user.service';
 import { Navbar } from '../navbar/navbar';
 import { interval, Subscription } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { PluralPipe } from '../core/pipes/plural';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.html',
-  imports: [UserCard, Loader, Opacity, FormsModule],
+  imports: [UserCard, Loader, Opacity, FormsModule, PluralPipe],
 })
 export class Users {
   private userService = inject(UserService)
