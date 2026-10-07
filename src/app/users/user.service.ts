@@ -30,6 +30,7 @@ export class UserService {
            this.users.set(
              this.users().filter(user => user.id != id)
            )
+          // this.users.update(users => users.filter(user => user.id != id))
         })
       )
     }
