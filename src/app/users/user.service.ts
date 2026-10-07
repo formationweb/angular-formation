@@ -25,7 +25,11 @@ export class UserService {
     }
 
     create(payload: { email: string, name: string }): Observable<User> {
-      return this.http.post<User>(this.url, payload)
+      return this.http.post<User>(this.url, payload).pipe(
+        tap((user: User) => {
+          this.users.set([...this.users(), user])
+        })
+      )
     }
 
     delete(id: number): Observable<void> {

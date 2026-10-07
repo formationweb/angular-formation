@@ -3,7 +3,7 @@ import { UserCard } from './user-card/user-card';
 import { User } from './user.interface';
 import { Loader } from '../atomics/loader';
 import { Opacity } from '../atomics/opacity';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { UserService } from './user.service';
 import { Navbar } from '../navbar/navbar';
 
@@ -34,6 +34,7 @@ export class Users {
     () => this.userCardEl()[this.index()])
   protected readonly error = computed(() => !this.elScroll() ? 'Index invalide' : '')
   protected readonly loadingUser = signal(true)
+  protected readonly loadingCreate = signal(false)
 
   constructor() {
      this.userService.getAll().subscribe(() => {
@@ -51,5 +52,14 @@ export class Users {
 
   deleteUser(id: number) {
     this.userService.delete(id).subscribe()
+  }
+
+  createUser(form: NgForm) {
+    if (form.invalid) return
+    this.loadingCreate.set(true)
+    this.userService.create(form.value).subscribe(() => {
+        this.loadingCreate.set(false)
+        form.resetForm()
+    })
   }
 }
