@@ -25,4 +25,10 @@ export class Login {
     this.submitted.set(true)
      console.log(this.form.value)
   }
+
+  constructor() {
+    setTimeout(() => {
+      this.emailField.setValue('test')
+    }, 1000)
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, inject, signal, viewChildren } from '@angular/core';
+import { Component, computed, ElementRef, inject, OnDestroy, signal, viewChildren } from '@angular/core';
 import { UserCard } from './user-card/user-card';
 import { User } from './user.interface';
 import { Loader } from '../atomics/loader';
@@ -6,6 +6,8 @@ import { Opacity } from '../atomics/opacity';
 import { FormsModule, NgForm } from '@angular/forms';
 import { UserService } from './user.service';
 import { Navbar } from '../navbar/navbar';
+import { interval, Subscription } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-users',
@@ -35,11 +37,27 @@ export class Users {
   protected readonly error = computed(() => !this.elScroll() ? 'Index invalide' : '')
   protected readonly loadingUser = signal(true)
   protected readonly loadingCreate = signal(false)
+ // private subscription: Subscription
 
   constructor() {
-     this.userService.getAll().subscribe(() => {
-      this.loadingUser.set(false)
+     this.userService.getAll()
+     .pipe(
+       takeUntilDestroyed()
+     )
+     .subscribe({
+      next: () => {
+        this.loadingUser.set(false)
+      },
+      error: (err) => {
+        console.log(err)
+      }
      })
+    // this.subscription = interval(1000).subscribe(console.log)
+    // interval(1000)
+    // .pipe(
+    //   takeUntilDestroyed()
+    // )
+    // .subscribe(console.log)
   }
   
   listenOpacity(opacity: number) {
@@ -62,4 +80,8 @@ export class Users {
         form.resetForm()
     })
   }
+
+  // ngOnDestroy(): void {
+  //   this.subscription.unsubscribe()
+  // }
 }
