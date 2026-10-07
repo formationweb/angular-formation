@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, effect, input, numberAttribute } from '@angular/core';
 
 @Component({
   imports: [],
@@ -6,4 +6,14 @@ import { Component } from '@angular/core';
   styleUrl: './user-edit.css',
   templateUrl: './user-edit.html',
 })
-export class UserEdit {}
+export class UserEdit {
+  readonly id = input.required({
+    transform: numberAttribute
+  })
+
+  constructor() {
+    effect(() => {
+      console.log(this.id())
+    })
+  }
+}

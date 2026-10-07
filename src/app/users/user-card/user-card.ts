@@ -1,8 +1,9 @@
 import { Component, input, output } from '@angular/core';
 import { User } from '../user.interface';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [],
+  imports: [RouterLink],
   selector: 'app-user-card',
   template: `
     <article>
@@ -13,6 +14,7 @@ import { User } from '../user.interface';
         <p>{{ user().email }}</p>
          <ng-content select="h2" />
          <button (click)="removeUser.emit(user().id)">Supprimer</button>
+         <button [routerLink]="['user', user().id]">Modifier</button>
     </article>
   `,
 })
