@@ -1,22 +1,17 @@
-<form (submit)="login()" [formGroup]="form">
+<form (submit)="login($event)">
 
-    @if (form.invalid && submitted()) {
-        @if (emailField.hasError('required')) {
-            <p>Champ requis</p>
-        }
-        @if (emailField.hasError('minlength')) {
-            <p>Caractères min.</p>
-        }
-        @if (emailField.hasError('domain')) {
-            <p>{{ emailField.getError('domain') }} est interdit !</p>
+    @if (isInvalid() && loginForm().submitting()) {
+        <p>Formulaire invalide</p>
+        @if (emailError()) {
+            <p>{{ emailError() }}</p>
         }
     }
 
     <label>Email</label>
-    <input type="text" [formControl]="emailField">
+    <input type="text" [formField]="loginForm.email">
 
     <label>Mot de passe</label>
-    <input type="password" [formControl]="passField">
+    <input type="password" [formField]="loginForm.password">
 
     <button>Connexion</button>
 </form>
