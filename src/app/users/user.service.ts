@@ -3,6 +3,12 @@ import { User } from "./user.interface";
 import { HttpClient } from "@angular/common/http";
 import { Observable, tap } from "rxjs";
 
+export type UserEditPayload = {
+  email: string
+  username: string
+  name: string
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -26,6 +32,10 @@ export class UserService {
 
     get(id: number): Observable<User> {
       return this.http.get<User>(this.url + '/' + id)
+    }
+
+    update(id: number, payload: UserEditPayload): Observable<User> {
+      return this.http.put<User>(this.url + '/' + id, payload)
     }
 
     create(payload: { email: string, name: string }): Observable<User> {
